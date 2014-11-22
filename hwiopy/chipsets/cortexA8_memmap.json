@@ -1,0 +1,394 @@
+{
+    "dmtimer2": {
+        "size": 4095,
+        "start": "0x48040000",
+        "description": "dmtimer2 registers",
+        "end": "0x48040FFF",
+        "name": "dmtimer2"
+    },
+    "gpio3": {
+        "size": 4095,
+        "start": "0x481AE000",
+        "description": "gpio3 registers",
+        "end": "0x481AEFFF",
+        "name": "gpio3"
+    },
+    "spinlock": {
+        "size": 4095,
+        "start": "0x480CA000",
+        "description": "spinlock registers",
+        "end": "0x480CAFFF",
+        "name": "spinlock"
+    },
+    "mcasp0_data": {
+        "size": 4194303,
+        "start": "0x46000000",
+        "description": "mcasp0 data registers",
+        "end": "0x463FFFFF",
+        "name": "mcasp0_data"
+    },
+    "mcasp1_data": {
+        "size": 4194303,
+        "start": "0x46400000",
+        "description": "mcasp1 data registers",
+        "end": "0x467FFFFF",
+        "name": "mcasp1_data"
+    },
+    "mailbox_0": {
+        "size": 4095,
+        "start": "0x480C8000",
+        "description": "mailbox registers",
+        "end": "0x480C8FFF",
+        "name": "mailbox_0"
+    },
+    "i2c0": {
+        "size": 4095,
+        "start": "0x44E0B000",
+        "description": "i2c registers",
+        "end": "0x44E0BFFF",
+        "name": "i2c0"
+    },
+    "pwm_subsystem_0": {
+        "size": 255,
+        "start": "0x48300000",
+        "description": "pwmss0 configuration registers",
+        "end": "0x483000FF",
+        "name": "pwm_subsystem_0"
+    },
+    "dcan1": {
+        "size": 8191,
+        "start": "0x481D0000",
+        "description": "dcan1 registers",
+        "end": "0x481D1FFF",
+        "name": "dcan1"
+    },
+    "adc_tsc_dma": {
+        "size": 4194303,
+        "start": "0x54C00000",
+        "description": "adc_tsc dma port",
+        "end": "0x54FFFFFF",
+        "name": "adc_tsc_dma"
+    },
+    "gpio2": {
+        "size": 4095,
+        "start": "0x481AC000",
+        "description": "gpio2 registers",
+        "end": "0x481ACFFF",
+        "name": "gpio2"
+    },
+    "eqep0": {
+        "size": 127,
+        "start": "0x48300180",
+        "description": "pwmss eqep0 registers",
+        "end": "0x483001FF",
+        "name": "eqep0"
+    },
+    "uart5": {
+        "size": 4095,
+        "start": "0x481AA000",
+        "description": "uart5 registers",
+        "end": "0x481AAFFF",
+        "name": "uart5"
+    },
+    "pwm_subsystem_1": {
+        "size": 255,
+        "start": "0x48302000",
+        "description": "pwmss1 configuration registers",
+        "end": "0x483020FF",
+        "name": "pwm_subsystem_1"
+    },
+    "elm": {
+        "size": 65535,
+        "start": "0x48080000",
+        "description": "elm registers",
+        "end": "0x4808FFFF",
+        "name": "elm"
+    },
+    "dmtimer0": {
+        "size": 4095,
+        "start": "0x44E05000",
+        "description": "dmtimer0 registers",
+        "end": "0x44E05FFF",
+        "name": "dmtimer0"
+    },
+    "dmtimer7": {
+        "size": 4095,
+        "start": "0x4804A000",
+        "description": "dmtimer7 registers",
+        "end": "0x4804AFFF",
+        "name": "dmtimer7"
+    },
+    "eqep2": {
+        "size": 127,
+        "start": "0x48304180",
+        "description": "pwmss eqep2 registers",
+        "end": "0x483041FF",
+        "name": "eqep2"
+    },
+    "epwm2": {
+        "size": 95,
+        "start": "0x48304200",
+        "description": "pwmss epwm2 registers",
+        "end": "0x4830425F",
+        "name": "epwm2"
+    },
+    "epwm1": {
+        "size": 95,
+        "start": "0x48302200",
+        "description": "pwmss epwm1 registers",
+        "end": "0x4830225F",
+        "name": "epwm1"
+    },
+    "gpmc": {
+        "size": 16777215,
+        "start": "0x50000000",
+        "description": "gpmc configuration registers",
+        "end": "0x50FFFFFF",
+        "name": "gpmc"
+    },
+    "uart3": {
+        "size": 4095,
+        "start": "0x481A6000",
+        "description": "uart3 registers",
+        "end": "0x481A6FFF",
+        "name": "uart3"
+    },
+    "uart0": {
+        "size": 4095,
+        "start": "0x44E09000",
+        "description": "uart registers",
+        "end": "0x44E09FFF",
+        "name": "uart0"
+    },
+    "control_module": {
+        "size": 8191,
+        "start": "0x44E10000",
+        "description": "control module registers",
+        "end": "0x44E11FFF",
+        "name": "control_module"
+    },
+    "gpio0": {
+        "size": 4095,
+        "start": "0x44E07000",
+        "description": "gpio registers",
+        "end": "0x44E07FFF",
+        "name": "gpio0"
+    },
+    "wdt1": {
+        "size": 4095,
+        "start": "0x44E35000",
+        "description": "watchdog timer registers",
+        "end": "0x44E35FFF",
+        "name": "wdt1"
+    },
+    "ecap1": {
+        "size": 127,
+        "start": "0x48302100",
+        "description": "pwmss ecap1 registers",
+        "end": "0x4830217F",
+        "name": "ecap1"
+    },
+    "dmtimer1_1ms": {
+        "size": 4095,
+        "start": "0x44E31000",
+        "description": "dmtimer1 1ms registers",
+        "end": "0x44E31FFF",
+        "name": "dmtimer1_1ms"
+    },
+    "gpio1": {
+        "size": 4095,
+        "start": "0x4804C000",
+        "description": "gpio1 registers",
+        "end": "0x4804CFFF",
+        "name": "gpio1"
+    },
+    "mcspi0": {
+        "size": 4095,
+        "start": "0x48030000",
+        "description": "mcspi0 registers",
+        "end": "0x48030FFF",
+        "name": "mcspi0"
+    },
+    "mcasp1_cfg": {
+        "size": 8191,
+        "start": "0x4803C000",
+        "description": "mcasp1 cfg registers",
+        "end": "0x4803DFFF",
+        "name": "mcasp1_cfg"
+    },
+    "dmtimer4": {
+        "size": 4095,
+        "start": "0x48044000",
+        "description": "dmtimer4 registers",
+        "end": "0x48044FFF",
+        "name": "dmtimer4"
+    },
+    "pru_icss": {
+        "size": 524287,
+        "start": "0x4A300000",
+        "description": "pru-icss instruction/data/control space",
+        "end": "0x4A37FFFF",
+        "name": "pru_icss"
+    },
+    "dmtimer5": {
+        "size": 4095,
+        "start": "0x48046000",
+        "description": "dmtimer5 registers",
+        "end": "0x48046FFF",
+        "name": "dmtimer5"
+    },
+    "ecap0": {
+        "size": 127,
+        "start": "0x48300100",
+        "description": "pwmss ecap0 registers",
+        "end": "0x4830017F",
+        "name": "ecap0"
+    },
+    "uart1": {
+        "size": 4095,
+        "start": "0x48022000",
+        "description": "uart1 registers",
+        "end": "0x48022FFF",
+        "name": "uart1"
+    },
+    "lcd_controller": {
+        "size": 4095,
+        "start": "0x4830E000",
+        "description": "lcd registers",
+        "end": "0x4830EFFF",
+        "name": "lcd_controller"
+    },
+    "mmchs0": {
+        "size": 4095,
+        "start": "0x48060000",
+        "description": "mmchs0 registers",
+        "end": "0x48060FFF",
+        "name": "mmchs0"
+    },
+    "dmtimer6": {
+        "size": 4095,
+        "start": "0x48048000",
+        "description": "dmtimer6 registers",
+        "end": "0x48048FFF",
+        "name": "dmtimer6"
+    },
+    "dcan0": {
+        "size": 8191,
+        "start": "0x481CC000",
+        "description": "dcan0 registers",
+        "end": "0x481CDFFF",
+        "name": "dcan0"
+    },
+    "i2c1": {
+        "size": 4095,
+        "start": "0x4802A000",
+        "description": "i2c1 registers",
+        "end": "0x4802AFFF",
+        "name": "i2c1"
+    },
+    "mcasp0_cfg": {
+        "size": 8191,
+        "start": "0x48038000",
+        "description": "mcasp0 cfg registers",
+        "end": "0x48039FFF",
+        "name": "mcasp0_cfg"
+    },
+    "adc_tsc": {
+        "size": 8191,
+        "start": "0x44E0D000",
+        "description": "adc_tsc registers",
+        "end": "0x44E0EFFF",
+        "name": "adc_tsc"
+    },
+    "uart2": {
+        "size": 4095,
+        "start": "0x48024000",
+        "description": "uart2 registers",
+        "end": "0x48024FFF",
+        "name": "uart2"
+    },
+    "pwm_subsystem_2": {
+        "size": 255,
+        "start": "0x48304000",
+        "description": "pwmss2 configuration registers",
+        "end": "0x483040FF",
+        "name": "pwm_subsystem_2"
+    },
+    "mmc1": {
+        "size": 4095,
+        "start": "0x481D8000",
+        "description": "mmc1 registers",
+        "end": "0x481D8FFF",
+        "name": "mmc1"
+    },
+    "eqep1": {
+        "size": 127,
+        "start": "0x48302180",
+        "description": "pwmss eqep1 registers",
+        "end": "0x483021FF",
+        "name": "eqep1"
+    },
+    "ecap2": {
+        "size": 127,
+        "start": "0x48304100",
+        "description": "pwmss ecap2 registers",
+        "end": "0x4830417F",
+        "name": "ecap2"
+    },
+    "uart4": {
+        "size": 4095,
+        "start": "0x481A8000",
+        "description": "uart4 registers",
+        "end": "0x481A8FFF",
+        "name": "uart4"
+    },
+    "intcps": {
+        "size": 4095,
+        "start": "0x48200000",
+        "description": "interrupt controller registers",
+        "end": "0x48200FFF",
+        "name": "intcps"
+    },
+    "mcspi1": {
+        "size": 4095,
+        "start": "0x481A0000",
+        "description": "mcspi1 registers",
+        "end": "0x481A0FFF",
+        "name": "mcspi1"
+    },
+    "ocp_watchpoint": {
+        "size": 4095,
+        "start": "0x4818C000",
+        "description": "ocp watchpoint registers",
+        "end": "0x4818CFFF",
+        "name": "ocp_watchpoint"
+    },
+    "dmtimer3": {
+        "size": 4095,
+        "start": "0x48042000",
+        "description": "dmtimer3 registers",
+        "end": "0x48042FFF",
+        "name": "dmtimer3"
+    },
+    "rtcss": {
+        "size": 4095,
+        "start": "0x44E3E000",
+        "description": "rtc registers",
+        "end": "0x44E3EFFF",
+        "name": "rtcss"
+    },
+    "i2c2": {
+        "size": 4095,
+        "start": "0x4819C000",
+        "description": "i2c2 registers",
+        "end": "0x4819CFFF",
+        "name": "i2c2"
+    },
+    "epwm0": {
+        "size": 95,
+        "start": "0x48300200",
+        "description": "pwmss epwm0 registers",
+        "end": "0x4830025F",
+        "name": "epwm0"
+    }
+}

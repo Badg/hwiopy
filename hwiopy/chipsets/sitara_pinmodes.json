@@ -1,0 +1,2953 @@
+{
+    "r9": {
+        "modes": {
+            "0": "gpmc_ad6",
+            "7": "gpio1_6",
+            "1": "mmc1_dat6"
+        },
+        "pin": "r9",
+        "name": "GPMC_AD6"
+    },
+    "j13": {
+        "modes": {
+            "NA": "VDD_MPU (30)"
+        },
+        "pin": "j13",
+        "name": "VDD_MPU"
+    },
+    "a3": {
+        "modes": {
+            "0": "testout"
+        },
+        "pin": "a3",
+        "name": "RESERVED (3)"
+    },
+    "j18": {
+        "modes": {
+            "0": "gmii1_txd3",
+            "4": "mcasp1_fsx",
+            "6": "mcasp0_fsr",
+            "2": "rgmii1_td3",
+            "1": "dcan0_tx",
+            "3": "uart4_rxd",
+            "5": "mmc2_dat1",
+            "7": "gpio0_16"
+        },
+        "pin": "j18",
+        "name": "MII1_TXD3"
+    },
+    "b17": {
+        "modes": {
+            "0": "spi0_d0",
+            "4": "pr1_uart0_rts_n",
+            "6": "EMU3",
+            "2": "I2C2_SCL",
+            "1": "uart2_txd",
+            "3": "ehrpwm0B",
+            "5": "pr1_edio_latch_in",
+            "7": "gpio0_3"
+        },
+        "pin": "b17",
+        "name": "SPI0_D0"
+    },
+    "b5": {
+        "modes": {
+            "0": "RTC_PORz"
+        },
+        "pin": "b5",
+        "name": "RTC_PWRONRSTn"
+    },
+    "n18": {
+        "modes": {
+            "0": "USB0_DM"
+        },
+        "pin": "n18",
+        "name": "USB0_DM"
+    },
+    "n16": {
+        "modes": {
+            "NA": "VDDA1P8V_USB0"
+        },
+        "pin": "n16",
+        "name": "VDDA1P8V_USB0"
+    },
+    "u2": {
+        "modes": {
+            "0": "lcd_data9",
+            "4": "uart5_rxd",
+            "6": "uart2_rtsn",
+            "2": "ehrpwm0_synco",
+            "1": "gpmc_a13",
+            "3": "mcasp0_fsx",
+            "5": "pr1_mii0_rxd2",
+            "7": "gpio2_15"
+        },
+        "pin": "u2",
+        "name": "LCD_DATA9 (5)"
+    },
+    "h8": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "h8",
+        "name": "VSS"
+    },
+    "c2": {
+        "modes": {
+            "0": "ddr_a4"
+        },
+        "pin": "c2",
+        "name": "DDR_A4"
+    },
+    "g3": {
+        "modes": {
+            "0": "ddr_cke"
+        },
+        "pin": "g3",
+        "name": "DDR_CKE"
+    },
+    "l14": {
+        "modes": {
+            "NA": "VDDSHV5"
+        },
+        "pin": "l14",
+        "name": "VDDSHV5"
+    },
+    "d18": {
+        "modes": {
+            "0": "uart1_ctsn",
+            "4": "spi1_cs0",
+            "6": "pr1_edc_latch0_in",
+            "2": "dcan0_tx",
+            "1": "timer6",
+            "3": "I2C2_SDA",
+            "5": "pr1_uart0_cts_n",
+            "7": "gpio0_12"
+        },
+        "pin": "d18",
+        "name": "UART1_CTSn"
+    },
+    "b1": {
+        "modes": {
+            "0": "ddr_a5"
+        },
+        "pin": "b1",
+        "name": "DDR_A5"
+    },
+    "m12": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "m12",
+        "name": "VSS"
+    },
+    "m18": {
+        "modes": {
+            "0": "mdio_clk",
+            "4": "mmc0_sdwp",
+            "6": "mmc2_clk",
+            "2": "uart5_txd",
+            "1": "timer5",
+            "3": "uart3_rtsn",
+            "5": "mmc1_clk",
+            "7": "gpio0_1"
+        },
+        "pin": "m18",
+        "name": "MDC"
+    },
+    "p11": {
+        "modes": {
+            "NA": "VDDSHV2"
+        },
+        "pin": "p11",
+        "name": "VDDSHV2"
+    },
+    "c1": {
+        "modes": {
+            "0": "ddr_a9"
+        },
+        "pin": "c1",
+        "name": "DDR_A9"
+    },
+    "n14": {
+        "modes": {
+            "NA": "VSSA_USB"
+        },
+        "pin": "n14",
+        "name": "VSSA_USB"
+    },
+    "k1": {
+        "modes": {
+            "0": "ddr_d9"
+        },
+        "pin": "k1",
+        "name": "DDR_D9"
+    },
+    "r14": {
+        "modes": {
+            "0": "gpmc_a4",
+            "4": "gpmc_a20",
+            "6": "eQEP1A_in",
+            "2": "rgmii2_td1",
+            "1": "gmii2_txd1",
+            "3": "rmii2_txd1",
+            "5": "pr1_mii1_txd0",
+            "7": "gpio1_20"
+        },
+        "pin": "r14",
+        "name": "GPMC_A4"
+    },
+    "l10": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "l10",
+        "name": "VSS"
+    },
+    "v7": {
+        "modes": {
+            "0": "gpmc_ad1",
+            "7": "gpio1_1",
+            "1": "mmc1_dat1"
+        },
+        "pin": "v7",
+        "name": "GPMC_AD1"
+    },
+    "t18": {
+        "modes": {
+            "0": "USB1_VBUS"
+        },
+        "pin": "t18",
+        "name": "USB1_VBUS"
+    },
+    "g10": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "g10",
+        "name": "VDD_CORE"
+    },
+    "t3": {
+        "modes": {
+            "0": "lcd_data6",
+            "4": "pr1_edio_data_out6",
+            "6": "pr1_pru1_pru_r31_6",
+            "2": "pr1_edio_data_in6",
+            "1": "gpmc_a6",
+            "3": "eQEP2_index",
+            "5": "pr1_pru1_pru_r30_6",
+            "7": "gpio2_12"
+        },
+        "pin": "t3",
+        "name": "LCD_DATA6 (5)"
+    },
+    "r10": {
+        "modes": {
+            "NA": "VDDS_PLL_CORE_LCD"
+        },
+        "pin": "r10",
+        "name": "VDDS_PLL_CORE_LCD"
+    },
+    "g8": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "g8",
+        "name": "VSS"
+    },
+    "a18": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "a18",
+        "name": "VSS"
+    },
+    "u1": {
+        "modes": {
+            "0": "lcd_data8",
+            "4": "uart5_txd",
+            "6": "uart2_ctsn",
+            "2": "ehrpwm1_tripzone_input",
+            "1": "gpmc_a12",
+            "3": "mcasp0_aclkx",
+            "5": "pr1_mii0_rxd3",
+            "7": "gpio2_14"
+        },
+        "pin": "u1",
+        "name": "LCD_DATA8 (5)"
+    },
+    "p16": {
+        "modes": {
+            "0": "USB0_ID"
+        },
+        "pin": "p16",
+        "name": "USB0_ID"
+    },
+    "h14": {
+        "modes": {
+            "NA": "VDDSHV4"
+        },
+        "pin": "h14",
+        "name": "VDDSHV4"
+    },
+    "e12": {
+        "modes": {
+            "NA": "VDDSHV6"
+        },
+        "pin": "e12",
+        "name": "VDDSHV6"
+    },
+    "e8": {
+        "modes": {
+            "NA": "VSSA_ADC"
+        },
+        "pin": "e8",
+        "name": "VSSA_ADC"
+    },
+    "r2": {
+        "modes": {
+            "0": "lcd_data1",
+            "7": "gpio2_7",
+            "6": "pr1_pru1_pru_r31_1",
+            "2": "pr1_mii0_txen",
+            "1": "gpmc_a1",
+            "3": "ehrpwm2B",
+            "5": "pr1_pru1_pru_r30_1"
+        },
+        "pin": "r2",
+        "name": "LCD_DATA1 (5)"
+    },
+    "d13": {
+        "modes": {
+            "0": "mcasp0_axr1",
+            "4": "EMU3",
+            "6": "pr1_pru0_pru_r31_6",
+            "1": "eQEP0_index",
+            "3": "mcasp1_axr0",
+            "5": "pr1_pru0_pru_r30_6",
+            "7": "gpio3_20"
+        },
+        "pin": "d13",
+        "name": "MCASP0_AXR1"
+    },
+    "a16": {
+        "modes": {
+            "0": "spi0_cs0",
+            "4": "pr1_uart0_txd",
+            "6": "pr1_edio_data_out1",
+            "2": "I2C1_SCL",
+            "1": "mmc2_sdwp",
+            "3": "ehrpwm0_synci",
+            "5": "pr1_edio_data_in1",
+            "7": "gpio0_5"
+        },
+        "pin": "a16",
+        "name": "SPI0_CS0"
+    },
+    "r1": {
+        "modes": {
+            "0": "lcd_data0",
+            "7": "gpio2_6",
+            "6": "pr1_pru1_pru_r31_0",
+            "2": "pr1_mii_mt0_clk",
+            "1": "gpmc_a0",
+            "3": "ehrpwm2A",
+            "5": "pr1_pru1_pru_r30_0"
+        },
+        "pin": "r1",
+        "name": "LCD_DATA0 (5)"
+    },
+    "a13": {
+        "modes": {
+            "0": "mcasp0_aclkx",
+            "4": "mmc0_sdcd",
+            "6": "pr1_pru0_pru_r31_0",
+            "1": "ehrpwm0A",
+            "3": "spi1_sclk",
+            "5": "pr1_pru0_pru_r30_0",
+            "7": "gpio3_14"
+        },
+        "pin": "a13",
+        "name": "MCASP0_ACLKX"
+    },
+    "a10": {
+        "modes": {
+            "0": "nRESETIN_OUT"
+        },
+        "pin": "a10",
+        "name": "WARMRSTn"
+    },
+    "p1": {
+        "modes": {
+            "0": "ddr_dqs0"
+        },
+        "pin": "p1",
+        "name": "DDR_DQS0"
+    },
+    "k3": {
+        "modes": {
+            "0": "ddr_d11"
+        },
+        "pin": "k3",
+        "name": "DDR_D11"
+    },
+    "v13": {
+        "modes": {
+            "0": "gpmc_ad14",
+            "4": "eQEP2_index",
+            "6": "pr1_pru0_pru_r31_14",
+            "2": "mmc1_dat6",
+            "1": "lcd_data17",
+            "3": "mmc2_dat2",
+            "5": "pr1_mii0_txd0",
+            "7": "gpio1_14"
+        },
+        "pin": "v13",
+        "name": "GPMC_AD14"
+    },
+    "b10": {
+        "modes": {
+            "0": "nTRST"
+        },
+        "pin": "b10",
+        "name": "TRSTn"
+    },
+    "k2": {
+        "modes": {
+            "0": "ddr_d10"
+        },
+        "pin": "k2",
+        "name": "DDR_D10"
+    },
+    "c13": {
+        "modes": {
+            "0": "mcasp0_fsr",
+            "4": "EMU2",
+            "6": "pr1_pru0_pru_r31_5",
+            "2": "mcasp0_axr3",
+            "1": "eQEP0B_in",
+            "3": "mcasp1_fsx",
+            "5": "pr1_pru0_pru_r30_5",
+            "7": "gpio3_19"
+        },
+        "pin": "c13",
+        "name": "MCASP0_FSR"
+    },
+    "m3": {
+        "modes": {
+            "0": "ddr_d0"
+        },
+        "pin": "m3",
+        "name": "DDR_D0"
+    },
+    "t6": {
+        "modes": {
+            "0": "gpmc_be0n_cle",
+            "7": "gpio2_5",
+            "2": "timer5"
+        },
+        "pin": "t6",
+        "name": "GPMC_BEn0_CLE"
+    },
+    "u4": {
+        "modes": {
+            "0": "lcd_data11",
+            "4": "mcasp0_axr2",
+            "6": "uart3_rtsn",
+            "2": "ehrpwm1B",
+            "1": "gpmc_a15",
+            "3": "mcasp0_ahclkr",
+            "5": "pr1_mii0_rxd0",
+            "7": "gpio2_17"
+        },
+        "pin": "u4",
+        "name": "LCD_DATA11 (5)"
+    },
+    "v15": {
+        "modes": {
+            "0": "gpmc_a5",
+            "4": "gpmc_a21",
+            "6": "eQEP1B_in",
+            "2": "rgmii2_td0",
+            "1": "gmii2_txd0",
+            "3": "rmii2_txd0",
+            "5": "pr1_mii1_rxd3",
+            "7": "gpio1_21"
+        },
+        "pin": "v15",
+        "name": "GPMC_A5"
+    },
+    "g15": {
+        "modes": {
+            "0": "mmc0_dat1",
+            "4": "uart1_dtrn",
+            "6": "pr1_pru0_pru_r31_10",
+            "2": "uart5_ctsn",
+            "1": "gpmc_a22",
+            "3": "uart3_rxd",
+            "5": "pr1_pru0_pru_r30_10",
+            "7": "gpio2_28"
+        },
+        "pin": "g15",
+        "name": "MMC0_DAT1"
+    },
+    "f3": {
+        "modes": {
+            "0": "ddr_a0"
+        },
+        "pin": "f3",
+        "name": "DDR_A0"
+    },
+    "p5": {
+        "modes": {
+            "NA": "VDDSHV6"
+        },
+        "pin": "p5",
+        "name": "VDDSHV6"
+    },
+    "c5": {
+        "modes": {
+            "0": "EXT_WAKEUP"
+        },
+        "pin": "c5",
+        "name": "EXT_WAKEUP"
+    },
+    "f4": {
+        "modes": {
+            "0": "ddr_a10"
+        },
+        "pin": "f4",
+        "name": "DDR_A10"
+    },
+    "t10": {
+        "modes": {
+            "0": "gpmc_ad9",
+            "4": "ehrpwm2B",
+            "2": "mmc1_dat1",
+            "1": "lcd_data22",
+            "3": "mmc2_dat5",
+            "5": "pr1_mii0_col",
+            "7": "gpio0_23"
+        },
+        "pin": "t10",
+        "name": "GPMC_AD9"
+    },
+    "p9": {
+        "modes": {
+            "NA": "VDDS"
+        },
+        "pin": "p9",
+        "name": "VDDS"
+    },
+    "b9": {
+        "modes": {
+            "0": "VREFP"
+        },
+        "pin": "b9",
+        "name": "VREFP"
+    },
+    "t13": {
+        "modes": {
+            "0": "gpmc_csn3",
+            "4": "pr1_mii0_crs",
+            "6": "EMU4",
+            "2": "rmii2_crs_dv",
+            "1": "gpmc_a3",
+            "3": "mmc2_cmd",
+            "5": "pr1_mdio_data",
+            "7": "gpio2_0"
+        },
+        "pin": "t13",
+        "name": "GPMC_CSn3 (6)"
+    },
+    "v17": {
+        "modes": {
+            "0": "gpmc_a11",
+            "4": "gpmc_a27",
+            "6": "mcasp0_axr1",
+            "2": "rgmii2_rd0",
+            "1": "gmii2_rxd0",
+            "3": "rmii2_rxd0",
+            "5": "pr1_mii1_rxer",
+            "7": "gpio1_27"
+        },
+        "pin": "v17",
+        "name": "GPMC_A11"
+    },
+    "r6": {
+        "modes": {
+            "0": "lcd_ac_bias_en",
+            "4": "pr1_edio_data_out5",
+            "6": "pr1_pru1_pru_r31_11",
+            "2": "pr1_mii1_crs",
+            "1": "gpmc_a11",
+            "3": "pr1_edio_data_in5",
+            "5": "pr1_pru1_pru_r30_11",
+            "7": "gpio2_25"
+        },
+        "pin": "r6",
+        "name": "LCD_AC_BIAS_EN"
+    },
+    "p10": {
+        "modes": {
+            "NA": "VDDSHV2"
+        },
+        "pin": "p10",
+        "name": "VDDSHV2"
+    },
+    "m11": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "m11",
+        "name": "VDD_CORE"
+    },
+    "b3": {
+        "modes": {
+            "0": "ddr_ba2"
+        },
+        "pin": "b3",
+        "name": "DDR_BA2"
+    },
+    "b15": {
+        "modes": {
+            "0": "porz"
+        },
+        "pin": "b15",
+        "name": "PWRONRSTn"
+    },
+    "p2": {
+        "modes": {
+            "0": "ddr_dqsn0"
+        },
+        "pin": "p2",
+        "name": "DDR_DQSn0"
+    },
+    "g12": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "g12",
+        "name": "VSS"
+    },
+    "e13": {
+        "modes": {
+            "NA": "VDDSHV6"
+        },
+        "pin": "e13",
+        "name": "VDDSHV6"
+    },
+    "g17": {
+        "modes": {
+            "0": "mmc0_clk",
+            "4": "dcan1_tx",
+            "6": "pr1_pru0_pru_r31_12",
+            "2": "uart3_ctsn",
+            "1": "gpmc_a24",
+            "3": "uart2_rxd",
+            "5": "pr1_pru0_pru_r30_12",
+            "7": "gpio2_30"
+        },
+        "pin": "g17",
+        "name": "MMC0_CLK"
+    },
+    "f1": {
+        "modes": {
+            "0": "ddr_casn"
+        },
+        "pin": "f1",
+        "name": "DDR_CASn"
+    },
+    "g14": {
+        "modes": {
+            "NA": "VDDSHV6"
+        },
+        "pin": "g14",
+        "name": "VDDSHV6"
+    },
+    "c7": {
+        "modes": {
+            "0": "AIN1"
+        },
+        "pin": "c7",
+        "name": "AIN1"
+    },
+    "u17": {
+        "modes": {
+            "0": "gpmc_wpn",
+            "4": "mmc2_sdcd",
+            "6": "uart4_txd",
+            "2": "gpmc_csn5",
+            "1": "gmii2_rxerr",
+            "3": "rmii2_rxerr",
+            "5": "pr1_mii1_txen",
+            "7": "gpio0_31"
+        },
+        "pin": "u17",
+        "name": "GPMC_WPn"
+    },
+    "r12": {
+        "modes": {
+            "0": "gpmc_ad13",
+            "4": "eQEP2B_in",
+            "6": "pr1_pru0_pru_r30_15",
+            "2": "mmc1_dat5",
+            "1": "lcd_data18",
+            "3": "mmc2_dat1",
+            "5": "pr1_mii0_txd1",
+            "7": "gpio1_13"
+        },
+        "pin": "r12",
+        "name": "GPMC_AD13"
+    },
+    "d11": {
+        "modes": {
+            "NA": "CAP_VDD_SRAM_MPU"
+        },
+        "pin": "d11",
+        "name": "CAP_VDD_SRAM_MPU"
+    },
+    "h4": {
+        "modes": {
+            "0": "ddr_a14"
+        },
+        "pin": "h4",
+        "name": "DDR_A14"
+    },
+    "j7,": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "j7,",
+        "name": "VSS"
+    },
+    "m1": {
+        "modes": {
+            "0": "ddr_d15"
+        },
+        "pin": "m1",
+        "name": "DDR_D15"
+    },
+    "m15": {
+        "modes": {
+            "0": "USB0_CE"
+        },
+        "pin": "m15",
+        "name": "USB0_CE"
+    },
+    "k13": {
+        "modes": {
+            "NA": "VDDS"
+        },
+        "pin": "k13",
+        "name": "VDDS"
+    },
+    "v10": {
+        "modes": {
+            "0": "OSC0_IN"
+        },
+        "pin": "v10",
+        "name": "XTALIN"
+    },
+    "g16": {
+        "modes": {
+            "0": "mmc0_dat0",
+            "4": "uart1_rin",
+            "6": "pr1_pru0_pru_r31_11",
+            "2": "uart5_rtsn",
+            "1": "gpmc_a23",
+            "3": "uart3_txd",
+            "5": "pr1_pru0_pru_r30_11",
+            "7": "gpio2_29"
+        },
+        "pin": "g16",
+        "name": "MMC0_DAT0"
+    },
+    "t12": {
+        "modes": {
+            "0": "gpmc_ad12",
+            "4": "eQEP2A_in",
+            "6": "pr1_pru0_pru_r30_14",
+            "2": "mmc1_dat4",
+            "1": "lcd_data19",
+            "3": "mmc2_dat0",
+            "5": "pr1_mii0_txd2",
+            "7": "gpio1_12"
+        },
+        "pin": "t12",
+        "name": "GPMC_AD12"
+    },
+    "b18": {
+        "modes": {
+            "0": "nNMI"
+        },
+        "pin": "b18",
+        "name": "EXTINTn"
+    },
+    "h6": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "h6",
+        "name": "VSS"
+    },
+    "c18": {
+        "modes": {
+            "0": "eCAP0_in_PWM0_out",
+            "4": "spi1_sclk",
+            "6": "xdma_event_intr2",
+            "2": "spi1_cs1",
+            "1": "uart3_txd",
+            "3": "pr1_ecap0_ecap_capin_apwm_o",
+            "5": "mmc0_sdwp",
+            "7": "gpio0_7"
+        },
+        "pin": "c18",
+        "name": "ECAP0_IN_PWM0_OUT"
+    },
+    "u3": {
+        "modes": {
+            "0": "lcd_data10",
+            "7": "gpio2_16",
+            "6": "uart3_ctsn",
+            "2": "ehrpwm1A",
+            "1": "gpmc_a14",
+            "3": "mcasp0_axr0",
+            "5": "pr1_mii0_rxd1"
+        },
+        "pin": "u3",
+        "name": "LCD_DATA10 (5)"
+    },
+    "l7": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "l7",
+        "name": "VDD_CORE"
+    },
+    "t9": {
+        "modes": {
+            "0": "gpmc_ad7",
+            "7": "gpio1_7",
+            "1": "mmc1_dat7"
+        },
+        "pin": "t9",
+        "name": "GPMC_AD7"
+    },
+    "k16": {
+        "modes": {
+            "0": "gmii1_txd1",
+            "4": "mcasp1_axr1",
+            "6": "mmc1_cmd",
+            "2": "rgmii1_td1",
+            "1": "rmii1_txd1",
+            "3": "mcasp1_fsr",
+            "5": "eQEP0A_in",
+            "7": "gpio0_21"
+        },
+        "pin": "k16",
+        "name": "MII1_TXD1"
+    },
+    "h2": {
+        "modes": {
+            "0": "ddr_csn0"
+        },
+        "pin": "h2",
+        "name": "DDR_CSn0"
+    },
+    "l5": {
+        "modes": {
+            "NA": "VDDS_DDR"
+        },
+        "pin": "l5",
+        "name": "VDDS_DDR"
+    },
+    "l17": {
+        "modes": {
+            "0": "gmii1_rxd3",
+            "4": "mmc1_dat2",
+            "6": "mcasp0_axr0",
+            "2": "rgmii1_rd3",
+            "1": "uart3_rxd",
+            "3": "mmc0_dat5",
+            "5": "uart1_dtrn",
+            "7": "gpio2_18"
+        },
+        "pin": "l17",
+        "name": "MII1_RXD3"
+    },
+    "r11": {
+        "modes": {
+            "NA": "VDDS_OSC"
+        },
+        "pin": "r11",
+        "name": "VDDS_OSC"
+    },
+    "v2": {
+        "modes": {
+            "0": "lcd_data12",
+            "4": "mcasp0_axr2",
+            "6": "uart4_ctsn",
+            "2": "eQEP1A_in",
+            "1": "gpmc_a16",
+            "3": "mcasp0_aclkr",
+            "5": "pr1_mii0_rxlink",
+            "7": "gpio0_8"
+        },
+        "pin": "v2",
+        "name": "LCD_DATA12 (5)"
+    },
+    "c8": {
+        "modes": {
+            "0": "AIN4"
+        },
+        "pin": "c8",
+        "name": "AIN4"
+    },
+    "c17": {
+        "modes": {
+            "0": "I2C0_SDA",
+            "3": "eCAP2_in_PWM2_out",
+            "7": "gpio3_5",
+            "2": "uart2_ctsn",
+            "1": "timer4"
+        },
+        "pin": "c17",
+        "name": "I2C0_SDA"
+    },
+    "f17": {
+        "modes": {
+            "0": "mmc0_dat3",
+            "4": "uart1_dcdn",
+            "6": "pr1_pru0_pru_r31_8",
+            "2": "uart4_ctsn",
+            "1": "gpmc_a20",
+            "3": "timer5",
+            "5": "pr1_pru0_pru_r30_8",
+            "7": "gpio2_26"
+        },
+        "pin": "f17",
+        "name": "MMC0_DAT3"
+    },
+    "k18": {
+        "modes": {
+            "0": "gmii1_txclk",
+            "4": "mmc1_dat0",
+            "6": "mcasp0_aclkx",
+            "2": "rgmii1_tclk",
+            "1": "uart2_rxd",
+            "3": "mmc0_dat7",
+            "5": "uart1_dcdn",
+            "7": "gpio3_9"
+        },
+        "pin": "k18",
+        "name": "MII1_TX_CLK"
+    },
+    "m4": {
+        "modes": {
+            "0": "ddr_d1"
+        },
+        "pin": "m4",
+        "name": "DDR_D1"
+    },
+    "n15": {
+        "modes": {
+            "NA": "VDDA3P3V_USB0"
+        },
+        "pin": "n15",
+        "name": "VDDA3P3V_USB0"
+    },
+    "j12": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "j12",
+        "name": "VDD_CORE"
+    },
+    "l3": {
+        "modes": {
+            "0": "ddr_d13"
+        },
+        "pin": "l3",
+        "name": "DDR_D13"
+    },
+    "b12": {
+        "modes": {
+            "0": "mcasp0_aclkr",
+            "4": "mmc0_sdwp",
+            "6": "pr1_pru0_pru_r31_4",
+            "2": "mcasp0_axr2",
+            "1": "eQEP0A_in",
+            "3": "mcasp1_aclkx",
+            "5": "pr1_pru0_pru_r30_4",
+            "7": "gpio3_18"
+        },
+        "pin": "b12",
+        "name": "MCASP0_ACLKR"
+    },
+    "c9": {
+        "modes": {
+            "0": "AIN7"
+        },
+        "pin": "c9",
+        "name": "AIN7"
+    },
+    "u5": {
+        "modes": {
+            "0": "lcd_vsync",
+            "4": "pr1_edio_data_out2",
+            "6": "pr1_pru1_pru_r31_8",
+            "2": "gpmc_a1",
+            "1": "gpmc_a8",
+            "3": "pr1_edio_data_in2",
+            "5": "pr1_pru1_pru_r30_8",
+            "7": "gpio2_22"
+        },
+        "pin": "u5",
+        "name": "LCD_VSYNC (7)"
+    },
+    "v11": {
+        "modes": {
+            "NA": "VSS_OSC (28)"
+        },
+        "pin": "v11",
+        "name": "VSS_OSC"
+    },
+    "a1": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "a1",
+        "name": "VSS"
+    },
+    "f6": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "f6",
+        "name": "VDD_CORE"
+    },
+    "m9": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "m9",
+        "name": "VSS"
+    },
+    "j5": {
+        "modes": {
+            "NA": "VDDS_DDR"
+        },
+        "pin": "j5",
+        "name": "VDDS_DDR"
+    },
+    "d17": {
+        "modes": {
+            "0": "uart1_rtsn",
+            "4": "spi1_cs1",
+            "6": "pr1_edc_latch1_in",
+            "2": "dcan0_rx",
+            "1": "timer5",
+            "3": "I2C2_SCL",
+            "5": "pr1_uart0_rts_n",
+            "7": "gpio0_13"
+        },
+        "pin": "d17",
+        "name": "UART1_RTSn"
+    },
+    "p14": {
+        "modes": {
+            "NA": "VDDS"
+        },
+        "pin": "p14",
+        "name": "VDDS"
+    },
+    "k8": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "k8",
+        "name": "VDD_CORE"
+    },
+    "b11": {
+        "modes": {
+            "0": "TDI"
+        },
+        "pin": "b11",
+        "name": "TDI"
+    },
+    "p4": {
+        "modes": {
+            "0": "ddr_d7"
+        },
+        "pin": "p4",
+        "name": "DDR_D7"
+    },
+    "d1": {
+        "modes": {
+            "0": "ddr_nck"
+        },
+        "pin": "d1",
+        "name": "DDR_CKn"
+    },
+    "d3": {
+        "modes": {
+            "0": "ddr_a15"
+        },
+        "pin": "d3",
+        "name": "DDR_A15"
+    },
+    "p17": {
+        "modes": {
+            "0": "USB1_ID"
+        },
+        "pin": "p17",
+        "name": "USB1_ID"
+    },
+    "u18": {
+        "modes": {
+            "0": "gpmc_be1n",
+            "4": "gpmc_dir",
+            "6": "mcasp0_aclkr",
+            "2": "gpmc_csn6",
+            "1": "gmii2_col",
+            "3": "mmc2_dat3",
+            "5": "pr1_mii1_rxlink",
+            "7": "gpio1_28"
+        },
+        "pin": "u18",
+        "name": "GPMC_BEn1"
+    },
+    "v8": {
+        "modes": {
+            "0": "gpmc_ad5",
+            "7": "gpio1_5",
+            "1": "mmc1_dat5"
+        },
+        "pin": "v8",
+        "name": "GPMC_AD5"
+    },
+    "r3": {
+        "modes": {
+            "0": "lcd_data2",
+            "7": "gpio2_8",
+            "6": "pr1_pru1_pru_r31_2",
+            "2": "pr1_mii0_txd3",
+            "1": "gpmc_a2",
+            "3": "ehrpwm2_tripzone_input",
+            "5": "pr1_pru1_pru_r30_2"
+        },
+        "pin": "r3",
+        "name": "LCD_DATA2 (5)"
+    },
+    "c6": {
+        "modes": {
+            "0": "PMIC_POWER_EN"
+        },
+        "pin": "c6",
+        "name": "PMIC_POWER_EN"
+    },
+    "g7": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "g7",
+        "name": "VDD_CORE"
+    },
+    "v3": {
+        "modes": {
+            "0": "lcd_data13",
+            "4": "mcasp0_axr3",
+            "6": "uart4_rtsn",
+            "2": "eQEP1B_in",
+            "1": "gpmc_a17",
+            "3": "mcasp0_fsr",
+            "5": "pr1_mii0_rxer",
+            "7": "gpio0_9"
+        },
+        "pin": "v3",
+        "name": "LCD_DATA13 (5)"
+    },
+    "d4": {
+        "modes": {
+            "0": "ddr_a8"
+        },
+        "pin": "d4",
+        "name": "DDR_A8"
+    },
+    "h7,": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "h7,",
+        "name": "VSS"
+    },
+    "f11": {
+        "modes": {
+            "NA": "VDD_MPU (30)"
+        },
+        "pin": "f11",
+        "name": "VDD_MPU"
+    },
+    "e9": {
+        "modes": {
+            "NA": "VDDS_SRAM_CORE_BG"
+        },
+        "pin": "e9",
+        "name": "VDDS_SRAM_CORE_BG"
+    },
+    "m8": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "m8",
+        "name": "VSS"
+    },
+    "h13": {
+        "modes": {
+            "NA": "VDD_MPU (30)"
+        },
+        "pin": "h13",
+        "name": "VDD_MPU"
+    },
+    "u12": {
+        "modes": {
+            "0": "gpmc_ad11",
+            "4": "ehrpwm0_synco",
+            "2": "mmc1_dat3",
+            "1": "lcd_data20",
+            "3": "mmc2_dat7",
+            "5": "pr1_mii0_txd3",
+            "7": "gpio0_27"
+        },
+        "pin": "u12",
+        "name": "GPMC_AD11"
+    },
+    "f5": {
+        "modes": {
+            "NA": "VDDS_DDR"
+        },
+        "pin": "f5",
+        "name": "VDDS_DDR"
+    },
+    "a11": {
+        "modes": {
+            "0": "TDO"
+        },
+        "pin": "a11",
+        "name": "TDO"
+    },
+    "p6": {
+        "modes": {
+            "NA": "VDDSHV6"
+        },
+        "pin": "p6",
+        "name": "VDDSHV6"
+    },
+    "u8": {
+        "modes": {
+            "0": "gpmc_ad4",
+            "7": "gpio1_4",
+            "1": "mmc1_dat4"
+        },
+        "pin": "u8",
+        "name": "GPMC_AD4"
+    },
+    "u9": {
+        "modes": {
+            "0": "gpmc_csn1",
+            "4": "pr1_edio_data_out6",
+            "6": "pr1_pru1_pru_r31_12",
+            "2": "mmc1_clk",
+            "1": "gpmc_clk",
+            "3": "pr1_edio_data_in6",
+            "5": "pr1_pru1_pru_r30_12",
+            "7": "gpio1_30"
+        },
+        "pin": "u9",
+        "name": "GPMC_CSn1"
+    },
+    "n5": {
+        "modes": {
+            "NA": "VDDSHV6"
+        },
+        "pin": "n5",
+        "name": "VDDSHV6"
+    },
+    "r5": {
+        "modes": {
+            "0": "lcd_hsync",
+            "4": "pr1_edio_data_out3",
+            "6": "pr1_pru1_pru_r31_9",
+            "2": "gpmc_a2",
+            "1": "gpmc_a9",
+            "3": "pr1_edio_data_in3",
+            "5": "pr1_pru1_pru_r30_9",
+            "7": "gpio2_23"
+        },
+        "pin": "r5",
+        "name": "LCD_HSYNC (7)"
+    },
+    "f2": {
+        "modes": {
+            "0": "ddr_a11"
+        },
+        "pin": "f2",
+        "name": "DDR_A11"
+    },
+    "k12": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "k12",
+        "name": "VDD_CORE"
+    },
+    "e7": {
+        "modes": {
+            "NA": "VDDS_PLL_DDR"
+        },
+        "pin": "e7",
+        "name": "VDDS_PLL_DDR"
+    },
+    "v4": {
+        "modes": {
+            "0": "lcd_data14",
+            "4": "uart5_rxd",
+            "6": "uart5_ctsn",
+            "2": "eQEP1_index",
+            "1": "gpmc_a18",
+            "3": "mcasp0_axr1",
+            "5": "pr1_mii_mr0_clk",
+            "7": "gpio0_10"
+        },
+        "pin": "v4",
+        "name": "LCD_DATA14 (5)"
+    },
+    "m13": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "m13",
+        "name": "VDD_CORE"
+    },
+    "l6": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "l6",
+        "name": "VDD_CORE"
+    },
+    "n3": {
+        "modes": {
+            "0": "ddr_d4"
+        },
+        "pin": "n3",
+        "name": "DDR_D4"
+    },
+    "t7": {
+        "modes": {
+            "0": "gpmc_oen_ren",
+            "7": "gpio2_3",
+            "2": "timer7"
+        },
+        "pin": "t7",
+        "name": "GPMC_OEn_REn"
+    },
+    "l11": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "l11",
+        "name": "VSS"
+    },
+    "m16": {
+        "modes": {
+            "0": "gmii1_rxd0",
+            "4": "mcasp1_ahclkr",
+            "6": "mcasp0_axr3",
+            "2": "rgmii1_rd0",
+            "1": "rmii1_rxd0",
+            "3": "mcasp1_ahclkx",
+            "5": "mcasp1_aclkr",
+            "7": "gpio2_21"
+        },
+        "pin": "m16",
+        "name": "MII1_RXD0"
+    },
+    "l13": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "l13",
+        "name": "VSS"
+    },
+    "p8": {
+        "modes": {
+            "NA": "VDDSHV1"
+        },
+        "pin": "p8",
+        "name": "VDDSHV1"
+    },
+    "h16": {
+        "modes": {
+            "0": "gmii1_col",
+            "4": "mcasp1_axr2",
+            "6": "mcasp0_axr2",
+            "2": "spi1_sclk",
+            "1": "rmii2_refclk",
+            "3": "uart5_rxd",
+            "5": "mmc2_dat3",
+            "7": "gpio3_0"
+        },
+        "pin": "h16",
+        "name": "MII1_COL"
+    },
+    "m7,": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "m7,",
+        "name": "VSS"
+    },
+    "g18": {
+        "modes": {
+            "0": "mmc0_cmd",
+            "4": "dcan1_rx",
+            "6": "pr1_pru0_pru_r31_13",
+            "2": "uart3_rtsn",
+            "1": "gpmc_a25",
+            "3": "uart2_txd",
+            "5": "pr1_pru0_pru_r30_13",
+            "7": "gpio2_31"
+        },
+        "pin": "g18",
+        "name": "MMC0_CMD"
+    },
+    "p13": {
+        "modes": {
+            "NA": "VDDSHV3"
+        },
+        "pin": "p13",
+        "name": "VDDSHV3"
+    },
+    "k15": {
+        "modes": {
+            "0": "gmii1_txd2",
+            "4": "mcasp1_axr0",
+            "6": "mcasp0_ahclkx",
+            "2": "rgmii1_td2",
+            "1": "dcan0_rx",
+            "3": "uart4_txd",
+            "5": "mmc2_dat2",
+            "7": "gpio0_17"
+        },
+        "pin": "k15",
+        "name": "MII1_TXD2"
+    },
+    "m10,": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "m10,",
+        "name": "VSS"
+    },
+    "g1": {
+        "modes": {
+            "0": "ddr_odt"
+        },
+        "pin": "g1",
+        "name": "DDR_ODT"
+    },
+    "a9": {
+        "modes": {
+            "0": "VREFN"
+        },
+        "pin": "a9",
+        "name": "VREFN"
+    },
+    "h1": {
+        "modes": {
+            "0": "ddr_a1"
+        },
+        "pin": "h1",
+        "name": "DDR_A1"
+    },
+    "c16": {
+        "modes": {
+            "0": "I2C0_SCL",
+            "3": "eCAP1_in_PWM1_out",
+            "7": "gpio3_6",
+            "2": "uart2_rtsn",
+            "1": "timer7"
+        },
+        "pin": "c16",
+        "name": "I2C0_SCL"
+    },
+    "g6": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "g6",
+        "name": "VDD_CORE"
+    },
+    "n7,": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "n7,",
+        "name": "VSS"
+    },
+    "d2": {
+        "modes": {
+            "0": "ddr_ck"
+        },
+        "pin": "d2",
+        "name": "DDR_CK"
+    },
+    "d16": {
+        "modes": {
+            "0": "uart1_rxd",
+            "7": "gpio0_14",
+            "6": "pr1_pru1_pru_r31_16",
+            "2": "dcan1_tx",
+            "1": "mmc1_sdwp",
+            "3": "I2C1_SDA",
+            "5": "pr1_uart0_rxd"
+        },
+        "pin": "d16",
+        "name": "UART1_RXD"
+    },
+    "v5": {
+        "modes": {
+            "0": "lcd_pclk",
+            "4": "pr1_edio_data_out4",
+            "6": "pr1_pru1_pru_r31_10",
+            "2": "pr1_mii0_crs",
+            "1": "gpmc_a10",
+            "3": "pr1_edio_data_in4",
+            "5": "pr1_pru1_pru_r30_10",
+            "7": "gpio2_24"
+        },
+        "pin": "v5",
+        "name": "LCD_PCLK"
+    },
+    "r8": {
+        "modes": {
+            "0": "gpmc_ad2",
+            "7": "gpio1_2",
+            "1": "mmc1_dat2"
+        },
+        "pin": "r8",
+        "name": "GPMC_AD2"
+    },
+    "p12": {
+        "modes": {
+            "NA": "VDDSHV3"
+        },
+        "pin": "p12",
+        "name": "VDDSHV3"
+    },
+    "g13": {
+        "modes": {
+            "NA": "VDD_MPU (30)"
+        },
+        "pin": "g13",
+        "name": "VDD_MPU"
+    },
+    "r18": {
+        "modes": {
+            "0": "USB1_DM"
+        },
+        "pin": "r18",
+        "name": "USB1_DM"
+    },
+    "f13": {
+        "modes": {
+            "NA": "VDD_MPU (30)"
+        },
+        "pin": "f13",
+        "name": "VDD_MPU"
+    },
+    "b13": {
+        "modes": {
+            "0": "mcasp0_fsx",
+            "4": "mmc1_sdcd",
+            "6": "pr1_pru0_pru_r31_1",
+            "1": "ehrpwm0B",
+            "3": "spi1_d0",
+            "5": "pr1_pru0_pru_r30_1",
+            "7": "gpio3_15"
+        },
+        "pin": "b13",
+        "name": "MCASP0_FSX"
+    },
+    "e3": {
+        "modes": {
+            "0": "ddr_a12"
+        },
+        "pin": "e3",
+        "name": "DDR_A12"
+    },
+    "f12": {
+        "modes": {
+            "NA": "VDD_MPU (30)"
+        },
+        "pin": "f12",
+        "name": "VDD_MPU"
+    },
+    "v1,": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "v1,",
+        "name": "VSS"
+    },
+    "m14": {
+        "modes": {
+            "NA": "VSSA_USB"
+        },
+        "pin": "m14",
+        "name": "VSSA_USB"
+    },
+    "u16": {
+        "modes": {
+            "0": "gpmc_a9",
+            "4": "gpmc_a25",
+            "6": "mcasp0_fsx",
+            "2": "rgmii2_rd2",
+            "1": "gmii2_rxd2",
+            "3": "mmc2_dat7 / rmii2_crs_dv",
+            "5": "pr1_mii_mr1_clk",
+            "7": "gpio1_25"
+        },
+        "pin": "u16",
+        "name": "GPMC_A9 (10)"
+    },
+    "b2": {
+        "modes": {
+            "0": "ddr_wen"
+        },
+        "pin": "b2",
+        "name": "DDR_WEn"
+    },
+    "j10,": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "j10,",
+        "name": "VSS"
+    },
+    "g5": {
+        "modes": {
+            "NA": "VDDS_DDR"
+        },
+        "pin": "g5",
+        "name": "VDDS_DDR"
+    },
+    "l4": {
+        "modes": {
+            "0": "ddr_d14"
+        },
+        "pin": "l4",
+        "name": "DDR_D14"
+    },
+    "g4": {
+        "modes": {
+            "0": "ddr_rasn"
+        },
+        "pin": "g4",
+        "name": "DDR_RASn"
+    },
+    "r13": {
+        "modes": {
+            "0": "gpmc_a0",
+            "4": "gpmc_a16",
+            "6": "ehrpwm1_tripzone_input",
+            "2": "rgmii2_tctl",
+            "1": "gmii2_txen",
+            "3": "rmii2_txen",
+            "5": "pr1_mii_mt1_clk",
+            "7": "gpio1_16"
+        },
+        "pin": "r13",
+        "name": "GPMC_A0"
+    },
+    "u11": {
+        "modes": {
+            "0": "OSC0_OUT"
+        },
+        "pin": "u11",
+        "name": "XTALOUT"
+    },
+    "t16": {
+        "modes": {
+            "0": "gpmc_a10",
+            "4": "gpmc_a26",
+            "6": "mcasp0_axr0",
+            "2": "rgmii2_rd1",
+            "1": "gmii2_rxd1",
+            "3": "rmii2_rxd1",
+            "5": "pr1_mii1_rxdv",
+            "7": "gpio1_26"
+        },
+        "pin": "t16",
+        "name": "GPMC_A10"
+    },
+    "m6": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "m6",
+        "name": "VSS"
+    },
+    "k5": {
+        "modes": {
+            "NA": "VDDS_DDR"
+        },
+        "pin": "k5",
+        "name": "VDDS_DDR"
+    },
+    "a12": {
+        "modes": {
+            "0": "TCK"
+        },
+        "pin": "a12",
+        "name": "TCK"
+    },
+    "j8": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "j8",
+        "name": "VSS"
+    },
+    "p15": {
+        "modes": {
+            "0": "USB0_VBUS"
+        },
+        "pin": "p15",
+        "name": "USB0_VBUS"
+    },
+    "k6": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "k6",
+        "name": "VDD_CORE"
+    },
+    "f9": {
+        "modes": {
+            "NA": "VDDS"
+        },
+        "pin": "f9",
+        "name": "VDDS"
+    },
+    "l8": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "l8",
+        "name": "VDD_CORE"
+    },
+    "k10": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "k10",
+        "name": "VSS"
+    },
+    "c3": {
+        "modes": {
+            "0": "ddr_a3"
+        },
+        "pin": "c3",
+        "name": "DDR_A3"
+    },
+    "a6": {
+        "modes": {
+            "0": "OSC1_IN"
+        },
+        "pin": "a6",
+        "name": "RTC_XTALIN"
+    },
+    "j15": {
+        "modes": {
+            "0": "gmii1_rxerr",
+            "": "",
+            "6": "uart2_txd",
+            "2": "spi1_d1",
+            "1": "rmii1_rxerr",
+            "3": "I2C1_SCL",
+            "5": "uart5_rtsn",
+            "4": "mcasp1_fsx",
+            "7": "gpio3_2"
+        },
+        "pin": "j15",
+        "name": "MII1_RX_ER"
+    },
+    "j9": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "j9",
+        "name": "VSS"
+    },
+    "h11": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "h11",
+        "name": "VDD_CORE"
+    },
+    "k4": {
+        "modes": {
+            "0": "ddr_d12"
+        },
+        "pin": "k4",
+        "name": "DDR_D12"
+    },
+    "e6": {
+        "modes": {
+            "NA": "VDDS"
+        },
+        "pin": "e6",
+        "name": "VDDS"
+    },
+    "k9,": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "k9,",
+        "name": "VSS"
+    },
+    "f7": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "f7",
+        "name": "VDD_CORE"
+    },
+    "v12": {
+        "modes": {
+            "0": "gpmc_clk",
+            "4": "pr1_mii1_crs",
+            "6": "mcasp0_fsr",
+            "2": "gpmc_wait1",
+            "1": "lcd_memory_clk",
+            "3": "mmc2_clk",
+            "5": "pr1_mdio_mdclk",
+            "7": "gpio2_1"
+        },
+        "pin": "v12",
+        "name": "GPMC_CLK"
+    },
+    "t15": {
+        "modes": {
+            "0": "gpmc_a7",
+            "4": "gpmc_a23",
+            "6": "eQEP1_strobe",
+            "2": "rgmii2_rclk",
+            "1": "gmii2_rxclk",
+            "3": "mmc2_dat5",
+            "5": "pr1_mii1_rxd1",
+            "7": "gpio1_23"
+        },
+        "pin": "t15",
+        "name": "GPMC_A7"
+    },
+    "j1": {
+        "modes": {
+            "0": "ddr_d8"
+        },
+        "pin": "j1",
+        "name": "DDR_D8"
+    },
+    "g2": {
+        "modes": {
+            "0": "ddr_resetn"
+        },
+        "pin": "g2",
+        "name": "DDR_RESETn"
+    },
+    "h5": {
+        "modes": {
+            "NA": "VDDS_DDR"
+        },
+        "pin": "h5",
+        "name": "VDDS_DDR"
+    },
+    "a15": {
+        "modes": {
+            "0": "xdma_event_intr0",
+            "4": "spi1_cs1",
+            "6": "EMU2",
+            "2": "timer4",
+            "3": "clkout1",
+            "5": "pr1_pru1_pru_r31_16",
+            "7": "gpio0_19"
+        },
+        "pin": "a15",
+        "name": "XDMA_EVENT_INTR0"
+    },
+    "g9": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "g9",
+        "name": "VSS"
+    },
+    "l18": {
+        "modes": {
+            "0": "gmii1_rxclk",
+            "4": "mmc1_dat1",
+            "6": "mcasp0_fsx",
+            "2": "rgmii1_rclk",
+            "1": "uart2_txd",
+            "3": "mmc0_dat6",
+            "5": "uart1_dsrn",
+            "7": "gpio3_10"
+        },
+        "pin": "l18",
+        "name": "MII1_RX_CLK"
+    },
+    "b7": {
+        "modes": {
+            "0": "AIN2"
+        },
+        "pin": "b7",
+        "name": "AIN2"
+    },
+    "m17": {
+        "modes": {
+            "0": "mdio_data",
+            "4": "mmc0_sdcd",
+            "6": "mmc2_cmd",
+            "2": "uart5_rxd",
+            "1": "timer6",
+            "3": "uart3_ctsn",
+            "5": "mmc1_cmd",
+            "7": "gpio0_0"
+        },
+        "pin": "m17",
+        "name": "MDIO"
+    },
+    "a4": {
+        "modes": {
+            "0": "OSC1_OUT"
+        },
+        "pin": "a4",
+        "name": "RTC_XTALOUT"
+    },
+    "e18": {
+        "modes": {
+            "0": "uart0_ctsn",
+            "4": "spi1_d0",
+            "6": "pr1_edc_sync0_out",
+            "2": "dcan1_tx",
+            "1": "uart4_rxd",
+            "3": "I2C1_SDA",
+            "5": "timer7",
+            "7": "gpio1_8"
+        },
+        "pin": "e18",
+        "name": "UART0_CTSn"
+    },
+    "u14": {
+        "modes": {
+            "0": "gpmc_a2",
+            "4": "gpmc_a18",
+            "6": "ehrpwm1A",
+            "2": "rgmii2_td3",
+            "1": "gmii2_txd3",
+            "3": "mmc2_dat1",
+            "5": "pr1_mii1_txd2",
+            "7": "gpio1_18"
+        },
+        "pin": "u14",
+        "name": "GPMC_A2"
+    },
+    "j6": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "j6",
+        "name": "VSS"
+    },
+    "c11": {
+        "modes": {
+            "0": "TMS"
+        },
+        "pin": "c11",
+        "name": "TMS"
+    },
+    "t5": {
+        "modes": {
+            "0": "lcd_data15",
+            "4": "mcasp0_axr3",
+            "6": "uart5_rtsn",
+            "2": "eQEP1_strobe",
+            "1": "gpmc_a19",
+            "3": "mcasp0_ahclkx",
+            "5": "pr1_mii0_rxdv",
+            "7": "gpio0_11"
+        },
+        "pin": "t5",
+        "name": "LCD_DATA15 (5)"
+    },
+    "t14": {
+        "modes": {
+            "0": "gpmc_a3",
+            "4": "gpmc_a19",
+            "6": "ehrpwm1B",
+            "2": "rgmii2_td2",
+            "1": "gmii2_txd2",
+            "3": "mmc2_dat2",
+            "5": "pr1_mii1_txd1",
+            "7": "gpio1_19"
+        },
+        "pin": "t14",
+        "name": "GPMC_A3"
+    },
+    "c15": {
+        "modes": {
+            "0": "spi0_cs1",
+            "4": "xdma_event_intr2",
+            "6": "EMU4",
+            "2": "eCAP1_in_PWM1_out",
+            "1": "uart3_rxd",
+            "3": "mmc0_pow",
+            "5": "mmc0_sdcd",
+            "7": "gpio0_6"
+        },
+        "pin": "c15",
+        "name": "SPI0_CS1"
+    },
+    "k7": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "k7",
+        "name": "VSS"
+    },
+    "c10": {
+        "modes": {
+            "NA": "CAP_VBB_MPU"
+        },
+        "pin": "c10",
+        "name": "CAP_VBB_MPU"
+    },
+    "n12": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "n12",
+        "name": "VDD_CORE"
+    },
+    "k17": {
+        "modes": {
+            "0": "gmii1_txd0",
+            "4": "mcasp1_aclkr",
+            "6": "mmc1_clk",
+            "2": "rgmii1_td0",
+            "1": "rmii1_txd0",
+            "3": "mcasp1_axr2",
+            "5": "eQEP0B_in",
+            "7": "gpio0_28"
+        },
+        "pin": "k17",
+        "name": "MII1_TXD0"
+    },
+    "h9": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "h9",
+        "name": "VSS"
+    },
+    "j4": {
+        "modes": {
+            "0": "ddr_vref"
+        },
+        "pin": "j4",
+        "name": "DDR_VREF"
+    },
+    "e4": {
+        "modes": {
+            "0": "ddr_a2"
+        },
+        "pin": "e4",
+        "name": "DDR_A2"
+    },
+    "v14": {
+        "modes": {
+            "0": "gpmc_a1",
+            "4": "gpmc_a17",
+            "6": "ehrpwm0_synco",
+            "2": "rgmii2_rctl",
+            "1": "gmii2_rxdv",
+            "3": "mmc2_dat0",
+            "5": "pr1_mii1_txd3",
+            "7": "gpio1_17"
+        },
+        "pin": "v14",
+        "name": "GPMC_A1"
+    },
+    "f15": {
+        "modes": {
+            "0": "USB1_DRVVBUS",
+            "7": "gpio3_13"
+        },
+        "pin": "f15",
+        "name": "USB1_DRVVBUS"
+    },
+    "e2": {
+        "modes": {
+            "0": "ddr_a7"
+        },
+        "pin": "e2",
+        "name": "DDR_A7"
+    },
+    "e17": {
+        "modes": {
+            "0": "uart0_rtsn",
+            "4": "spi1_d1",
+            "6": "pr1_edc_sync1_out",
+            "2": "dcan1_rx",
+            "1": "uart4_txd",
+            "3": "I2C1_SCL",
+            "5": "spi1_cs0",
+            "7": "gpio1_9"
+        },
+        "pin": "e17",
+        "name": "UART0_RTSn"
+    },
+    "n1": {
+        "modes": {
+            "0": "ddr_d2"
+        },
+        "pin": "n1",
+        "name": "DDR_D2"
+    },
+    "n4": {
+        "modes": {
+            "0": "ddr_d5"
+        },
+        "pin": "n4",
+        "name": "DDR_D5"
+    },
+    "e16": {
+        "modes": {
+            "0": "uart0_txd",
+            "4": "eCAP1_in_PWM1_out",
+            "6": "pr1_pru1_pru_r31_15",
+            "2": "dcan0_rx",
+            "1": "spi1_cs1",
+            "3": "I2C2_SCL",
+            "5": "pr1_pru1_pru_r30_15",
+            "7": "gpio1_11"
+        },
+        "pin": "e16",
+        "name": "UART0_TXD"
+    },
+    "v16": {
+        "modes": {
+            "0": "gpmc_a8",
+            "4": "gpmc_a24",
+            "6": "mcasp0_aclkx",
+            "2": "rgmii2_rd3",
+            "1": "gmii2_rxd3",
+            "3": "mmc2_dat6",
+            "5": "pr1_mii1_rxd0",
+            "7": "gpio1_24"
+        },
+        "pin": "v16",
+        "name": "GPMC_A8"
+    },
+    "a17": {
+        "modes": {
+            "0": "spi0_sclk",
+            "4": "pr1_uart0_cts_n",
+            "6": "EMU2",
+            "2": "I2C2_SDA",
+            "1": "uart2_rxd",
+            "3": "ehrpwm0A",
+            "5": "pr1_edio_sof",
+            "7": "gpio0_2"
+        },
+        "pin": "a17",
+        "name": "SPI0_SCLK"
+    },
+    "u6": {
+        "modes": {
+            "0": "gpmc_wen",
+            "7": "gpio2_4",
+            "2": "timer6"
+        },
+        "pin": "u6",
+        "name": "GPMC_WEn"
+    },
+    "e1": {
+        "modes": {
+            "0": "ddr_ba1"
+        },
+        "pin": "e1",
+        "name": "DDR_BA1"
+    },
+    "f8,": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "f8,",
+        "name": "VSS"
+    },
+    "f18": {
+        "modes": {
+            "0": "mmc0_dat2",
+            "4": "uart1_dsrn",
+            "6": "pr1_pru0_pru_r31_9",
+            "2": "uart4_rtsn",
+            "1": "gpmc_a21",
+            "3": "timer6",
+            "5": "pr1_pru0_pru_r30_9",
+            "7": "gpio2_27"
+        },
+        "pin": "f18",
+        "name": "MMC0_DAT2"
+    },
+    "h10,": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "h10,",
+        "name": "VSS"
+    },
+    "h18": {
+        "modes": {
+            "0": "rmii1_refclk",
+            "4": "mcasp1_axr3",
+            "6": "mcasp1_ahclkx",
+            "2": "spi1_cs0",
+            "1": "xdma_event_intr2",
+            "3": "uart5_txd",
+            "5": "mmc0_pow",
+            "7": "gpio0_29"
+        },
+        "pin": "h18",
+        "name": "RMII1_REF_CLK"
+    },
+    "m5": {
+        "modes": {
+            "NA": "VPP"
+        },
+        "pin": "m5",
+        "name": "VPP"
+    },
+    "n10": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "n10",
+        "name": "VSS"
+    },
+    "d15": {
+        "modes": {
+            "0": "uart1_txd",
+            "7": "gpio0_15",
+            "6": "pr1_pru0_pru_r31_16",
+            "2": "dcan1_rx",
+            "1": "mmc2_sdwp",
+            "3": "I2C1_SCL",
+            "5": "pr1_uart0_txd"
+        },
+        "pin": "d15",
+        "name": "UART1_TXD"
+    },
+    "p18": {
+        "modes": {
+            "0": "USB1_CE"
+        },
+        "pin": "p18",
+        "name": "USB1_CE"
+    },
+    "b14": {
+        "modes": {
+            "0": "EMU1",
+            "7": "gpio3_8"
+        },
+        "pin": "b14",
+        "name": "EMU1"
+    },
+    "b16": {
+        "modes": {
+            "0": "spi0_d1",
+            "4": "pr1_uart0_rxd",
+            "6": "pr1_edio_data_out0",
+            "2": "I2C1_SDA",
+            "1": "mmc1_sdwp",
+            "3": "ehrpwm0_tripzone_input",
+            "5": "pr1_edio_data_in0",
+            "7": "gpio0_4"
+        },
+        "pin": "b16",
+        "name": "SPI0_D1"
+    },
+    "a8": {
+        "modes": {
+            "0": "AIN6"
+        },
+        "pin": "a8",
+        "name": "AIN6"
+    },
+    "e15": {
+        "modes": {
+            "0": "uart0_rxd",
+            "4": "eCAP2_in_PWM2_out",
+            "6": "pr1_pru1_pru_r31_14",
+            "2": "dcan0_tx",
+            "1": "spi1_cs0",
+            "3": "I2C2_SDA",
+            "5": "pr1_pru1_pru_r30_14",
+            "7": "gpio1_10"
+        },
+        "pin": "e15",
+        "name": "UART0_RXD"
+    },
+    "k14": {
+        "modes": {
+            "NA": "VDDSHV5"
+        },
+        "pin": "k14",
+        "name": "VDDSHV5"
+    },
+    "p3": {
+        "modes": {
+            "0": "ddr_d6"
+        },
+        "pin": "p3",
+        "name": "DDR_D6"
+    },
+    "u15": {
+        "modes": {
+            "0": "gpmc_a6",
+            "4": "gpmc_a22",
+            "6": "eQEP1_index",
+            "2": "rgmii2_tclk",
+            "1": "gmii2_txclk",
+            "3": "mmc2_dat4",
+            "5": "pr1_mii1_rxd2",
+            "7": "gpio1_22"
+        },
+        "pin": "u15",
+        "name": "GPMC_A6"
+    },
+    "t1": {
+        "modes": {
+            "0": "lcd_data4",
+            "7": "gpio2_10",
+            "6": "pr1_pru1_pru_r31_4",
+            "2": "pr1_mii0_txd1",
+            "1": "gpmc_a4",
+            "3": "eQEP2A_in",
+            "5": "pr1_pru1_pru_r30_4"
+        },
+        "pin": "t1",
+        "name": "LCD_DATA4 (5)"
+    },
+    "j16": {
+        "modes": {
+            "0": "gmii1_txen",
+            "4": "mcasp1_axr0",
+            "6": "mmc2_cmd",
+            "2": "rgmii1_tctl",
+            "1": "rmii1_txen",
+            "3": "timer4",
+            "5": "eQEP0_index",
+            "7": "gpio3_3"
+        },
+        "pin": "j16",
+        "name": "MII1_TX_EN"
+    },
+    "e10": {
+        "modes": {
+            "NA": "VDDSHV6"
+        },
+        "pin": "e10",
+        "name": "VDDSHV6"
+    },
+    "h3": {
+        "modes": {
+            "0": "ddr_a13"
+        },
+        "pin": "h3",
+        "name": "DDR_A13"
+    },
+    "h15": {
+        "modes": {
+            "NA": "VDDS_PLL_MPU"
+        },
+        "pin": "h15",
+        "name": "VDDS_PLL_MPU"
+    },
+    "h17": {
+        "modes": {
+            "0": "gmii1_crs",
+            "4": "mcasp1_aclkx",
+            "6": "uart2_rxd",
+            "2": "spi1_d0",
+            "1": "rmii1_crs_dv",
+            "3": "I2C1_SDA",
+            "5": "uart5_ctsn",
+            "7": "gpio3_1"
+        },
+        "pin": "h17",
+        "name": "MII1_CRS"
+    },
+    "l1": {
+        "modes": {
+            "0": "ddr_dqs1"
+        },
+        "pin": "l1",
+        "name": "DDR_DQS1"
+    },
+    "r15": {
+        "modes": {
+            "NA": "VDDA3P3V_USB1"
+        },
+        "pin": "r15",
+        "name": "VDDA3P3V_USB1"
+    },
+    "e14": {
+        "modes": {
+            "NA": "VDDS"
+        },
+        "pin": "e14",
+        "name": "VDDS"
+    },
+    "j14": {
+        "modes": {
+            "NA": "VDDSHV4"
+        },
+        "pin": "j14",
+        "name": "VDDSHV4"
+    },
+    "f10": {
+        "modes": {
+            "NA": "VDD_MPU (30)"
+        },
+        "pin": "f10",
+        "name": "VDD_MPU"
+    },
+    "c14": {
+        "modes": {
+            "0": "EMU0",
+            "7": "gpio3_7"
+        },
+        "pin": "c14",
+        "name": "EMU0"
+    },
+    "r7": {
+        "modes": {
+            "0": "gpmc_advn_ale",
+            "7": "gpio2_2",
+            "2": "timer4"
+        },
+        "pin": "r7",
+        "name": "GPMC_ADVn_ALE"
+    },
+    "n11": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "n11",
+        "name": "VSS"
+    },
+    "k11,": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "k11,",
+        "name": "VSS"
+    },
+    "d9": {
+        "modes": {
+            "NA": "CAP_VDD_SRAM_CORE"
+        },
+        "pin": "d9",
+        "name": "CAP_VDD_SRAM_CORE"
+    },
+    "d12": {
+        "modes": {
+            "0": "mcasp0_axr0",
+            "4": "mmc2_sdcd",
+            "6": "pr1_pru0_pru_r31_2",
+            "1": "ehrpwm0_tripzone_input",
+            "3": "spi1_d1",
+            "5": "pr1_pru0_pru_r30_2",
+            "7": "gpio3_16"
+        },
+        "pin": "d12",
+        "name": "MCASP0_AXR0"
+    },
+    "a5": {
+        "modes": {
+            "NA": "VSS_RTC (29)"
+        },
+        "pin": "a5",
+        "name": "VSS_RTC"
+    },
+    "m2": {
+        "modes": {
+            "0": "ddr_dqm0"
+        },
+        "pin": "m2",
+        "name": "DDR_DQM0"
+    },
+    "u13": {
+        "modes": {
+            "0": "gpmc_ad15",
+            "4": "eQEP2_strobe",
+            "6": "pr1_pru0_pru_r31_15",
+            "2": "mmc1_dat7",
+            "1": "lcd_data16",
+            "3": "mmc2_dat3",
+            "5": "pr1_ecap0_ecap_capin_apwm_o",
+            "7": "gpio1_15"
+        },
+        "pin": "u13",
+        "name": "GPMC_AD15"
+    },
+    "h12": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "h12",
+        "name": "VSS"
+    },
+    "l12,": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "l12,",
+        "name": "VSS"
+    },
+    "u7": {
+        "modes": {
+            "0": "gpmc_ad0",
+            "7": "gpio1_0",
+            "1": "mmc1_dat0"
+        },
+        "pin": "u7",
+        "name": "GPMC_AD0"
+    },
+    "r4": {
+        "modes": {
+            "0": "lcd_data3",
+            "7": "gpio2_9",
+            "6": "pr1_pru1_pru_r31_3",
+            "2": "pr1_mii0_txd2",
+            "1": "gpmc_a3",
+            "3": "ehrpwm0_synco",
+            "5": "pr1_pru1_pru_r30_3"
+        },
+        "pin": "r4",
+        "name": "LCD_DATA3 (5)"
+    },
+    "n8": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "n8",
+        "name": "VDD_CORE"
+    },
+    "d8": {
+        "modes": {
+            "NA": "VDDA_ADC"
+        },
+        "pin": "d8",
+        "name": "VDDA_ADC"
+    },
+    "d10": {
+        "modes": {
+            "NA": "VDDS_SRAM_MPU_BB"
+        },
+        "pin": "d10",
+        "name": "VDDS_SRAM_MPU_BB"
+    },
+    "j17": {
+        "modes": {
+            "0": "gmii1_rxdv",
+            "4": "mcasp1_aclkx",
+            "6": "mcasp0_aclkr",
+            "2": "rgmii1_rctl",
+            "1": "lcd_memory_clk",
+            "3": "uart5_txd",
+            "5": "mmc2_dat0",
+            "7": "gpio3_4"
+        },
+        "pin": "j17",
+        "name": "MII1_RX_DV"
+    },
+    "n2": {
+        "modes": {
+            "0": "ddr_d3"
+        },
+        "pin": "n2",
+        "name": "DDR_D3"
+    },
+    "t17": {
+        "modes": {
+            "0": "gpmc_wait0",
+            "4": "mmc1_sdcd",
+            "6": "uart4_rxd",
+            "2": "gpmc_csn4",
+            "1": "gmii2_crs",
+            "3": "rmii2_crs_dv",
+            "5": "pr1_mii1_col",
+            "7": "gpio0_30"
+        },
+        "pin": "t17",
+        "name": "GPMC_WAIT0"
+    },
+    "j11": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "j11",
+        "name": "VSS"
+    },
+    "g11,": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "g11,",
+        "name": "VSS"
+    },
+    "e11": {
+        "modes": {
+            "NA": "VDDSHV6"
+        },
+        "pin": "e11",
+        "name": "VDDSHV6"
+    },
+    "b8": {
+        "modes": {
+            "0": "AIN5"
+        },
+        "pin": "b8",
+        "name": "AIN5"
+    },
+    "a2": {
+        "modes": {
+            "NA": "VDD_MPU_MON (31)"
+        },
+        "pin": "a2",
+        "name": "VDD_MPU_MON"
+    },
+    "v9": {
+        "modes": {
+            "0": "gpmc_csn2",
+            "4": "pr1_edio_data_out7",
+            "6": "pr1_pru1_pru_r31_13",
+            "2": "mmc1_cmd",
+            "1": "gpmc_be1n",
+            "3": "pr1_edio_data_in7",
+            "5": "pr1_pru1_pru_r30_13",
+            "7": "gpio1_31"
+        },
+        "pin": "v9",
+        "name": "GPMC_CSn2"
+    },
+    "f14": {
+        "modes": {
+            "NA": "VDDSHV6"
+        },
+        "pin": "f14",
+        "name": "VDDSHV6"
+    },
+    "d14": {
+        "modes": {
+            "0": "xdma_event_intr1",
+            "4": "timer7",
+            "6": "EMU3",
+            "2": "tclkin",
+            "3": "clkout2",
+            "5": "pr1_pru0_pru_r31_16",
+            "7": "gpio0_20"
+        },
+        "pin": "d14",
+        "name": "XDMA_EVENT_INTR1"
+    },
+    "l16": {
+        "modes": {
+            "0": "gmii1_rxd2",
+            "4": "mmc1_dat3",
+            "6": "mcasp0_axr1",
+            "2": "rgmii1_rd2",
+            "1": "uart3_txd",
+            "3": "mmc0_dat4",
+            "5": "uart1_rin",
+            "7": "gpio2_19"
+        },
+        "pin": "l16",
+        "name": "MII1_RXD2"
+    },
+    "b6": {
+        "modes": {
+            "0": "AIN0"
+        },
+        "pin": "b6",
+        "name": "AIN0"
+    },
+    "v6": {
+        "modes": {
+            "0": "gpmc_csn0",
+            "7": "gpio1_29"
+        },
+        "pin": "v6",
+        "name": "GPMC_CSn0"
+    },
+    "u10": {
+        "modes": {
+            "0": "gpmc_ad8",
+            "4": "ehrpwm2A",
+            "2": "mmc1_dat0",
+            "1": "lcd_data23",
+            "3": "mmc2_dat4",
+            "5": "pr1_mii_mt0_clk",
+            "7": "gpio0_22"
+        },
+        "pin": "u10",
+        "name": "GPMC_AD8"
+    },
+    "d5": {
+        "modes": {
+            "0": "ddr_a6"
+        },
+        "pin": "d5",
+        "name": "DDR_A6"
+    },
+    "t11": {
+        "modes": {
+            "0": "gpmc_ad10",
+            "4": "ehrpwm2_tripzone_input",
+            "2": "mmc1_dat2",
+            "1": "lcd_data21",
+            "3": "mmc2_dat6",
+            "5": "pr1_mii0_txen",
+            "7": "gpio0_26"
+        },
+        "pin": "t11",
+        "name": "GPMC_AD10"
+    },
+    "r16": {
+        "modes": {
+            "NA": "VDDA1P8V_USB1"
+        },
+        "pin": "r16",
+        "name": "VDDA1P8V_USB1"
+    },
+    "t8": {
+        "modes": {
+            "0": "gpmc_ad3",
+            "7": "gpio1_3",
+            "1": "mmc1_dat3"
+        },
+        "pin": "t8",
+        "name": "GPMC_AD3"
+    },
+    "c4": {
+        "modes": {
+            "0": "ddr_ba0"
+        },
+        "pin": "c4",
+        "name": "DDR_BA0"
+    },
+    "t2": {
+        "modes": {
+            "0": "lcd_data5",
+            "7": "gpio2_11",
+            "6": "pr1_pru1_pru_r31_5",
+            "2": "pr1_mii0_txd0",
+            "1": "gpmc_a5",
+            "3": "eQEP2B_in",
+            "5": "pr1_pru1_pru_r30_5"
+        },
+        "pin": "t2",
+        "name": "LCD_DATA5 (5)"
+    },
+    "t4": {
+        "modes": {
+            "0": "lcd_data7",
+            "4": "pr1_edio_data_out7",
+            "6": "pr1_pru1_pru_r31_7",
+            "2": "pr1_edio_data_in7",
+            "1": "gpmc_a7",
+            "3": "eQEP2_strobe",
+            "5": "pr1_pru1_pru_r30_7",
+            "7": "gpio2_13"
+        },
+        "pin": "t4",
+        "name": "LCD_DATA7 (5)"
+    },
+    "a7": {
+        "modes": {
+            "0": "AIN3"
+        },
+        "pin": "a7",
+        "name": "AIN3"
+    },
+    "d6": {
+        "modes": {
+            "NA": "CAP_VDD_RTC"
+        },
+        "pin": "d6",
+        "name": "CAP_VDD_RTC"
+    },
+    "l9": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "l9",
+        "name": "VDD_CORE"
+    },
+    "f16": {
+        "modes": {
+            "0": "USB0_DRVVBUS"
+        },
+        "pin": "f16",
+        "name": "USB0_DRVVBUS"
+    },
+    "e5": {
+        "modes": {
+            "NA": "VDDS_DDR"
+        },
+        "pin": "e5",
+        "name": "VDDS_DDR"
+    },
+    "b4": {
+        "modes": {
+            "0": "ENZ_KALDO_1P8V"
+        },
+        "pin": "b4",
+        "name": "RTC_KALDO_ENn"
+    },
+    "l2": {
+        "modes": {
+            "0": "ddr_dqsn1"
+        },
+        "pin": "l2",
+        "name": "DDR_DQSn1"
+    },
+    "r17": {
+        "modes": {
+            "0": "USB1_DP"
+        },
+        "pin": "r17",
+        "name": "USB1_DP"
+    },
+    "n13": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "n13",
+        "name": "VDD_CORE"
+    },
+    "n6": {
+        "modes": {
+            "NA": "VDDS"
+        },
+        "pin": "n6",
+        "name": "VDDS"
+    },
+    "a14": {
+        "modes": {
+            "0": "mcasp0_ahclkx",
+            "4": "EMU4",
+            "6": "pr1_pru0_pru_r31_7",
+            "2": "mcasp0_axr3",
+            "1": "eQEP0_strobe",
+            "3": "mcasp1_axr1",
+            "5": "pr1_pru0_pru_r30_7",
+            "7": "gpio3_21"
+        },
+        "pin": "a14",
+        "name": "MCASP0_AHCLKX"
+    },
+    "j3": {
+        "modes": {
+            "0": "ddr_vtp"
+        },
+        "pin": "j3",
+        "name": "DDR_VTP"
+    },
+    "l15": {
+        "modes": {
+            "0": "gmii1_rxd1",
+            "4": "mcasp1_fsr",
+            "6": "mmc2_clk",
+            "2": "rgmii1_rd1",
+            "1": "rmii1_rxd1",
+            "3": "mcasp1_axr3",
+            "5": "eQEP0_strobe",
+            "7": "gpio2_20"
+        },
+        "pin": "l15",
+        "name": "MII1_RXD1"
+    },
+    "n9": {
+        "modes": {
+            "NA": "VDD_CORE"
+        },
+        "pin": "n9",
+        "name": "VDD_CORE"
+    },
+    "n17": {
+        "modes": {
+            "0": "USB0_DP"
+        },
+        "pin": "n17",
+        "name": "USB0_DP"
+    },
+    "v18": {
+        "modes": {
+            "NA": "VSS"
+        },
+        "pin": "v18",
+        "name": "VSS"
+    },
+    "d7": {
+        "modes": {
+            "NA": "VDDS_RTC"
+        },
+        "pin": "d7",
+        "name": "VDDS_RTC"
+    },
+    "j2": {
+        "modes": {
+            "0": "ddr_dqm1"
+        },
+        "pin": "j2",
+        "name": "DDR_DQM1"
+    },
+    "p7": {
+        "modes": {
+            "NA": "VDDSHV1"
+        },
+        "pin": "p7",
+        "name": "VDDSHV1"
+    },
+    "c12": {
+        "modes": {
+            "0": "mcasp0_ahclkr",
+            "4": "eCAP2_in_PWM2_out",
+            "6": "pr1_pru0_pru_r31_3",
+            "2": "mcasp0_axr2",
+            "1": "ehrpwm0_synci",
+            "3": "spi1_cs0",
+            "5": "pr1_pru0_pru_r30_3",
+            "7": "gpio3_17"
+        },
+        "pin": "c12",
+        "name": "MCASP0_AHCLKR"
+    }
+}
