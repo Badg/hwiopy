@@ -258,6 +258,13 @@
         "end": "0x4830EFFF",
         "name": "lcd_controller"
     },
+    "mdio": {
+        "size": 255,
+        "start": "0x4A101000",
+        "description": "Ethernet MDIO Controller",
+        "end": "0x4A1010FF",
+        "name": "mdio"
+    },  
     "mmchs0": {
         "size": 4095,
         "start": "0x48060000",
