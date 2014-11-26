@@ -4,7 +4,7 @@
         "pin": "f14", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV6", 
                 "mode_desc": "VDDSHV6 (not yet at all supported)", 
@@ -13,12 +13,12 @@
             }
         }
     }, 
-    "g11,": {
+    "g11": {
         "name": "VSS", 
-        "pin": "g11,", 
+        "pin": "g11", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -32,7 +32,7 @@
         "pin": "j9", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -108,7 +108,7 @@
         "pin": "k8", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -136,7 +136,7 @@
         "pin": "k5", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS_DDR", 
                 "mode_desc": "VDDS_DDR (not yet at all supported)", 
@@ -150,7 +150,7 @@
         "pin": "k6", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -164,7 +164,7 @@
         "pin": "k7", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -408,7 +408,7 @@
         }
     }, 
     "u16": {
-        "name": "GPMC_A9 (10)", 
+        "name": "GPMC_A9", 
         "pin": "u16", 
         "modes": {
             "mmc": {
@@ -790,7 +790,7 @@
         "pin": "d7", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS_RTC", 
                 "mode_desc": "VDDS_RTC (not yet at all supported)", 
@@ -804,7 +804,7 @@
         "pin": "d6", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "CAP_VDD_RTC", 
                 "mode_desc": "CAP_VDD_RTC (not yet at all supported)", 
@@ -818,7 +818,7 @@
         "pin": "d9", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "CAP_VDD_SRAM_CORE", 
                 "mode_desc": "CAP_VDD_SRAM_CORE (not yet at all supported)", 
@@ -832,7 +832,7 @@
         "pin": "d8", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDA_ADC", 
                 "mode_desc": "VDDA_ADC (not yet at all supported)", 
@@ -1184,7 +1184,7 @@
         "pin": "l11", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -1198,7 +1198,7 @@
         "pin": "l10", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -1212,7 +1212,7 @@
         "pin": "l13", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -1288,7 +1288,7 @@
         "pin": "l14", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV5", 
                 "mode_desc": "VDDSHV5 (not yet at all supported)", 
@@ -1486,7 +1486,7 @@
         "pin": "r11", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS_OSC", 
                 "mode_desc": "VDDS_OSC (not yet at all supported)", 
@@ -1500,7 +1500,7 @@
         "pin": "r10", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS_PLL_CORE_LCD", 
                 "mode_desc": "VDDS_PLL_CORE_LCD (not yet at all supported)", 
@@ -1528,7 +1528,7 @@
         "pin": "r16", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDA1P8V_USB1", 
                 "mode_desc": "VDDA1P8V_USB1 (not yet at all supported)", 
@@ -1542,7 +1542,7 @@
         "pin": "r15", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDA3P3V_USB1", 
                 "mode_desc": "VDDA3P3V_USB1 (not yet at all supported)", 
@@ -1556,7 +1556,7 @@
         "pin": "j8", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -1570,7 +1570,7 @@
         "pin": "j6", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -1584,7 +1584,7 @@
         "pin": "j5", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS_DDR", 
                 "mode_desc": "VDDS_DDR (not yet at all supported)", 
@@ -1654,10 +1654,10 @@
         "pin": "g13", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
-                "mode_name": "VDD_MPU (30)", 
-                "mode_desc": "VDD_MPU (30) (not yet at all supported)", 
+                "mode_name": "VDD_MPU", 
+                "mode_desc": "VDD_MPU (not yet at all supported)", 
                 "register": null, 
                 "register_detail": null
             }
@@ -1744,7 +1744,7 @@
         "pin": "h15", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS_PLL_MPU", 
                 "mode_desc": "VDDS_PLL_MPU (not yet at all supported)", 
@@ -1758,7 +1758,7 @@
         "pin": "h14", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV4", 
                 "mode_desc": "VDDSHV4 (not yet at all supported)", 
@@ -1896,7 +1896,7 @@
         "pin": "h11", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -1910,10 +1910,10 @@
         "pin": "h13", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
-                "mode_name": "VDD_MPU (30)", 
-                "mode_desc": "VDD_MPU (30) (not yet at all supported)", 
+                "mode_name": "VDD_MPU", 
+                "mode_desc": "VDD_MPU (not yet at all supported)", 
                 "register": null, 
                 "register_detail": null
             }
@@ -1924,7 +1924,7 @@
         "pin": "h12", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -2036,10 +2036,10 @@
         "pin": "j13", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
-                "mode_name": "VDD_MPU (30)", 
-                "mode_desc": "VDD_MPU (30) (not yet at all supported)", 
+                "mode_name": "VDD_MPU", 
+                "mode_desc": "VDD_MPU (not yet at all supported)", 
                 "register": null, 
                 "register_detail": null
             }
@@ -2050,7 +2050,7 @@
         "pin": "j12", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -2064,7 +2064,7 @@
         "pin": "j11", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -2190,7 +2190,7 @@
         "pin": "j14", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV4", 
                 "mode_desc": "VDDSHV4 (not yet at all supported)", 
@@ -2218,7 +2218,7 @@
         "pin": "n16", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDA1P8V_USB0", 
                 "mode_desc": "VDDA1P8V_USB0 (not yet at all supported)", 
@@ -2232,7 +2232,7 @@
         "pin": "n15", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDA3P3V_USB0", 
                 "mode_desc": "VDDA3P3V_USB0 (not yet at all supported)", 
@@ -2246,7 +2246,7 @@
         "pin": "n14", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSSA_USB", 
                 "mode_desc": "VSSA_USB (not yet at all supported)", 
@@ -2260,7 +2260,7 @@
         "pin": "n13", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -2274,7 +2274,7 @@
         "pin": "n12", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -2826,10 +2826,10 @@
         "pin": "v11", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
-                "mode_name": "VSS_OSC (28)", 
-                "mode_desc": "VSS_OSC (28) (not yet at all supported)", 
+                "mode_name": "VSS_OSC", 
+                "mode_desc": "VSS_OSC (not yet at all supported)", 
                 "register": null, 
                 "register_detail": null
             }
@@ -2993,12 +2993,12 @@
             }
         }
     }, 
-    "l12,": {
+    "l12": {
         "name": "VSS", 
-        "pin": "l12,", 
+        "pin": "l12", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -3012,7 +3012,7 @@
         "pin": "k10", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -3026,7 +3026,7 @@
         "pin": "n5", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV6", 
                 "mode_desc": "VDDSHV6 (not yet at all supported)", 
@@ -3144,7 +3144,7 @@
         "pin": "n8", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -3158,10 +3158,10 @@
         "pin": "f13", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
-                "mode_name": "VDD_MPU (30)", 
-                "mode_desc": "VDD_MPU (30) (not yet at all supported)", 
+                "mode_name": "VDD_MPU", 
+                "mode_desc": "VDD_MPU (not yet at all supported)", 
                 "register": null, 
                 "register_detail": null
             }
@@ -3172,10 +3172,10 @@
         "pin": "f12", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
-                "mode_name": "VDD_MPU (30)", 
-                "mode_desc": "VDD_MPU (30) (not yet at all supported)", 
+                "mode_name": "VDD_MPU", 
+                "mode_desc": "VDD_MPU (not yet at all supported)", 
                 "register": null, 
                 "register_detail": null
             }
@@ -3186,10 +3186,10 @@
         "pin": "f11", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
-                "mode_name": "VDD_MPU (30)", 
-                "mode_desc": "VDD_MPU (30) (not yet at all supported)", 
+                "mode_name": "VDD_MPU", 
+                "mode_desc": "VDD_MPU (not yet at all supported)", 
                 "register": null, 
                 "register_detail": null
             }
@@ -3200,21 +3200,21 @@
         "pin": "f10", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
-                "mode_name": "VDD_MPU (30)", 
-                "mode_desc": "VDD_MPU (30) (not yet at all supported)", 
+                "mode_name": "VDD_MPU", 
+                "mode_desc": "VDD_MPU (not yet at all supported)", 
                 "register": null, 
                 "register_detail": null
             }
         }
     }, 
-    "k11,": {
+    "k11": {
         "name": "VSS", 
-        "pin": "k11,", 
+        "pin": "k11", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -3228,7 +3228,7 @@
         "pin": "f9", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS", 
                 "mode_desc": "VDDS (not yet at all supported)", 
@@ -3408,7 +3408,7 @@
         "pin": "f7", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -3422,7 +3422,7 @@
         "pin": "f6", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -3436,7 +3436,7 @@
         "pin": "f5", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS_DDR", 
                 "mode_desc": "VDDS_DDR (not yet at all supported)", 
@@ -3588,7 +3588,7 @@
         "pin": "k14", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV5", 
                 "mode_desc": "VDDSHV5 (not yet at all supported)", 
@@ -3664,7 +3664,7 @@
         "pin": "k12", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -3678,7 +3678,7 @@
         "pin": "k13", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS", 
                 "mode_desc": "VDDS (not yet at all supported)", 
@@ -3866,7 +3866,7 @@
         "pin": "l9", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -3880,7 +3880,7 @@
         "pin": "l8", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -3889,12 +3889,12 @@
             }
         }
     }, 
-    "m10,": {
+    "m10": {
         "name": "VSS", 
-        "pin": "m10,", 
+        "pin": "m10", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -3908,7 +3908,7 @@
         "pin": "j7,", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -3964,7 +3964,7 @@
         "pin": "l5", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS_DDR", 
                 "mode_desc": "VDDS_DDR (not yet at all supported)", 
@@ -3992,7 +3992,7 @@
         "pin": "l7", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -4006,7 +4006,7 @@
         "pin": "l6", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -4020,7 +4020,7 @@
         "pin": "m6", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -4048,7 +4048,7 @@
         "pin": "m5", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VPP", 
                 "mode_desc": "VPP (not yet at all supported)", 
@@ -4166,7 +4166,7 @@
         "pin": "m8", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -4180,7 +4180,7 @@
         "pin": "m9", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -4194,7 +4194,7 @@
         "pin": "k9,", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -4208,7 +4208,7 @@
         "pin": "h6", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -4217,12 +4217,12 @@
             }
         }
     }, 
-    "j10,": {
+    "j10": {
         "name": "VSS", 
-        "pin": "j10,", 
+        "pin": "j10", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -4236,7 +4236,7 @@
         "pin": "e8", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSSA_ADC", 
                 "mode_desc": "VSSA_ADC (not yet at all supported)", 
@@ -4250,7 +4250,7 @@
         "pin": "e9", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS_SRAM_CORE_BG", 
                 "mode_desc": "VDDS_SRAM_CORE_BG (not yet at all supported)", 
@@ -4264,7 +4264,7 @@
         "pin": "e6", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS", 
                 "mode_desc": "VDDS (not yet at all supported)", 
@@ -4278,7 +4278,7 @@
         "pin": "e7", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS_PLL_DDR", 
                 "mode_desc": "VDDS_PLL_DDR (not yet at all supported)", 
@@ -4306,7 +4306,7 @@
         "pin": "e5", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS_DDR", 
                 "mode_desc": "VDDS_DDR (not yet at all supported)", 
@@ -4458,7 +4458,7 @@
         "pin": "f8,", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -4634,7 +4634,7 @@
         "pin": "a18", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -4648,7 +4648,7 @@
         "pin": "h8", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -4662,7 +4662,7 @@
         "pin": "n7,", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -4838,7 +4838,7 @@
         "pin": "n11", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -4852,7 +4852,7 @@
         "pin": "g12", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -4866,7 +4866,7 @@
         "pin": "h9", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -4880,7 +4880,7 @@
         "pin": "g10", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -4894,7 +4894,7 @@
         "pin": "n10", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -5008,7 +5008,7 @@
         "pin": "g14", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV6", 
                 "mode_desc": "VDDSHV6 (not yet at all supported)", 
@@ -5068,7 +5068,7 @@
         "pin": "m14", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSSA_USB", 
                 "mode_desc": "VSSA_USB (not yet at all supported)", 
@@ -5188,7 +5188,7 @@
         "pin": "m11", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -5202,7 +5202,7 @@
         "pin": "m12", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -5216,7 +5216,7 @@
         "pin": "m13", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -5230,7 +5230,7 @@
         "pin": "e13", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV6", 
                 "mode_desc": "VDDSHV6 (not yet at all supported)", 
@@ -5868,7 +5868,7 @@
         "pin": "d11", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "CAP_VDD_SRAM_MPU", 
                 "mode_desc": "CAP_VDD_SRAM_MPU (not yet at all supported)", 
@@ -5882,7 +5882,7 @@
         "pin": "d10", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS_SRAM_MPU_BB", 
                 "mode_desc": "VDDS_SRAM_MPU_BB (not yet at all supported)", 
@@ -6256,7 +6256,7 @@
         "pin": "g8", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -6270,7 +6270,7 @@
         "pin": "g9", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -6340,7 +6340,7 @@
         "pin": "g5", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS_DDR", 
                 "mode_desc": "VDDS_DDR (not yet at all supported)", 
@@ -6354,7 +6354,7 @@
         "pin": "g6", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -6368,7 +6368,7 @@
         "pin": "g7", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
@@ -6382,7 +6382,7 @@
         "pin": "h7,", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -6694,7 +6694,7 @@
         "pin": "m7,", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -6940,7 +6940,7 @@
         "pin": "v1,", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -7314,7 +7314,7 @@
         "pin": "v18", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -8090,7 +8090,7 @@
         "pin": "c10", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "CAP_VBB_MPU", 
                 "mode_desc": "CAP_VBB_MPU (not yet at all supported)", 
@@ -8118,7 +8118,7 @@
         "pin": "h5", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS_DDR", 
                 "mode_desc": "VDDS_DDR (not yet at all supported)", 
@@ -8217,12 +8217,12 @@
             }
         }
     }, 
-    "h10,": {
+    "h10": {
         "name": "VSS", 
-        "pin": "h10,", 
+        "pin": "h10", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -8264,7 +8264,7 @@
         "pin": "e14", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS", 
                 "mode_desc": "VDDS (not yet at all supported)", 
@@ -8472,7 +8472,7 @@
         "pin": "e10", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV6", 
                 "mode_desc": "VDDSHV6 (not yet at all supported)", 
@@ -8486,7 +8486,7 @@
         "pin": "e11", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV6", 
                 "mode_desc": "VDDSHV6 (not yet at all supported)", 
@@ -8500,7 +8500,7 @@
         "pin": "e12", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV6", 
                 "mode_desc": "VDDSHV6 (not yet at all supported)", 
@@ -8514,7 +8514,7 @@
         "pin": "n6", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS", 
                 "mode_desc": "VDDS (not yet at all supported)", 
@@ -8542,7 +8542,7 @@
         "pin": "p14", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS", 
                 "mode_desc": "VDDS (not yet at all supported)", 
@@ -8584,7 +8584,7 @@
         "pin": "p11", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV2", 
                 "mode_desc": "VDDSHV2 (not yet at all supported)", 
@@ -8598,7 +8598,7 @@
         "pin": "p10", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV2", 
                 "mode_desc": "VDDSHV2 (not yet at all supported)", 
@@ -8612,7 +8612,7 @@
         "pin": "p13", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV3", 
                 "mode_desc": "VDDSHV3 (not yet at all supported)", 
@@ -8626,7 +8626,7 @@
         "pin": "p12", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV3", 
                 "mode_desc": "VDDSHV3 (not yet at all supported)", 
@@ -8640,10 +8640,10 @@
         "pin": "a2", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
-                "mode_name": "VDD_MPU_MON (31)", 
-                "mode_desc": "VDD_MPU_MON (31) (not yet at all supported)", 
+                "mode_name": "VDD_MPU_MON", 
+                "mode_desc": "VDD_MPU_MON (not yet at all supported)", 
                 "register": null, 
                 "register_detail": null
             }
@@ -8668,7 +8668,7 @@
         "pin": "a1", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VSS", 
                 "mode_desc": "VSS (not yet at all supported)", 
@@ -8724,10 +8724,10 @@
         "pin": "a5", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
-                "mode_name": "VSS_RTC (29)", 
-                "mode_desc": "VSS_RTC (29) (not yet at all supported)", 
+                "mode_name": "VSS_RTC", 
+                "mode_desc": "VSS_RTC (not yet at all supported)", 
                 "register": null, 
                 "register_detail": null
             }
@@ -8792,7 +8792,7 @@
         "pin": "p9", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDS", 
                 "mode_desc": "VDDS (not yet at all supported)", 
@@ -8806,7 +8806,7 @@
         "pin": "p8", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV1", 
                 "mode_desc": "VDDSHV1 (not yet at all supported)", 
@@ -8820,7 +8820,7 @@
         "pin": "p5", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV6", 
                 "mode_desc": "VDDSHV6 (not yet at all supported)", 
@@ -8848,7 +8848,7 @@
         "pin": "p7", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV1", 
                 "mode_desc": "VDDSHV1 (not yet at all supported)", 
@@ -8862,7 +8862,7 @@
         "pin": "p6", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDDSHV6", 
                 "mode_desc": "VDDSHV6 (not yet at all supported)", 
@@ -8890,7 +8890,7 @@
         "pin": "n9", 
         "modes": {
             "other": {
-                "mode_num": "NA", 
+                "mode_num": null, 
                 "mode_type": "other", 
                 "mode_name": "VDD_CORE", 
                 "mode_desc": "VDD_CORE (not yet at all supported)", 
