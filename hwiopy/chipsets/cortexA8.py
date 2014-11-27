@@ -48,6 +48,7 @@ class sitara335(core.soc):
         ''' Must be called to start the device.
         '''
         super().on_start()
+        # Need to parse over all pin modes and open mmaps for each
 
     def on_stop():
         ''' Cleans up the started device.
@@ -58,6 +59,17 @@ class sitara335(core.soc):
         ''' Sets up a pin as something, checks for available modes, etc.
         '''
         super().declare_pin()
+
+    def _setup_pin(self, pin, mode):
+        ''' Gets the pin ready for use. Handles muxing, mode select, etc.
+        '''
+        # Need to figure out the appropriate mmap for the pin
+        #    That said, the mmap should already be opened, probably in the 
+        #    on_start method. Then go over each mmap that the SoC needs to 
+        #    make. This would be after the super() call.
+        # Need to mux the pin
+        # Might need an overlay for the pin
+        pass
 
 
 def create_gpio():

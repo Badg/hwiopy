@@ -18,15 +18,28 @@ class device():
     def __exit__(self, type, value, traceback):
         pass
 
-class device_pin():
-    ''' A generic single channel for communication. 
+class pin():
+    ''' A generic single channel for communication on a *device*.
 
     '''
-    def __init__(self, name=None, mode=None):
+    def __init__(self, connection, mode, name=None):
         self.name = name
         self.mode = mode
+        self.value = None
+        # Connection describes the processor pin
+        self.connection = connection
 
-class device_plug():
+    def update(self):
+        ''' Update output for output pin, or input for input pin.
+        '''
+        pass
+
+    def status(self):
+        ''' Check output for output pin. Does (same as update?) for input pin.
+        '''
+        pass
+
+class plug():
     ''' A base object for any multiple-pin interface, for example, SPI.
     '''
     def __init__(self):
@@ -47,7 +60,9 @@ class soc():
 
         # Every pin must be defined in pin_modes_available; use keys as pins.
         self.pins = list(pin_modes_all)
-        # No keys have been declared to start.
+
+        # No keys have been declared to start. This dict is used to actually
+        # setup the pins with on_start is called and clean up with on_stop
         self.pins_declared = {}
 
         # Add any declarable pins to pins_available
@@ -65,8 +80,9 @@ class soc():
             if pin_available:
                 self.pins_available[sys_name]
 
-    def declare_pin(self, pin_name, pin_to_declare):
-        ''' Creates a pin object in the chipset, checking it for validity.
+    def declare_pin(self, pin_to_declare, mode):
+        ''' Sets up the pin for on_start initialization and returns a 
+        pin object.
 
         pin_to_declare must be of type soc_pin, and the soc_pin device must be
         the same object as the pin being declared.
@@ -80,25 +96,27 @@ class soc():
                 'prior to declaring a pin.')
 
         # Now make sure the pin name is valid:
-        if pin_name not in self.pin_modes_all:
+        if pin_to_declare not in self.pin_modes_all:
             raise AttributeError('Invalid pin name.')
 
         # Now check to make sure the mode is valid:
-        if pin.mode not in self.pin_modes_all[pin_name]['modes']:
+        if mode not in self.pin_modes_all[pin_to_declare]['modes']:
             possible_modes = list(
-                self.pin_modes_all[pin_name]['modes'].values())
+                self.pin_modes_all[pin_to_declare]['modes'].values())
             raise KeyError('Invalid mode type. Current pin may have the '
                 'following modes: \n' + possible_modes)
 
         # Now check to make sure that pin hasn't already been declared
-        if pin_name in self.pins_declared:
+        if pin_to_declare in self.pins_declared:
             raise AttributeError('Pin has already been declared. Cannot '
                 're-declare pins after pin initialization.')
 
         # Pin declaration
         # ---------------
 
-        self.pins_declared[pin_name] = pin_to_declare
+        self.pins_declared[pin_to_declare] = mode
+        return pin(pin_to_declare, mode)
+        # Note that now the chipset must create update, status, etc methods
 
     def __enter__(self):
         self.on_start()
@@ -106,27 +124,18 @@ class soc():
     def __exit__(self, type, value, traceback):
         self.on_stop()
 
-    def on_start():
+    def on_start(self):
         ''' Must be called to start the device.
         '''
-        pass
+        for pin, mode in self.pins_declared.items():
+            self._setup_pin(pin, mode)
 
-    def on_stop():
+    def on_stop(self):
         ''' Cleans up the started device.
         '''
         pass
 
-class soc_pin():
-    ''' A generic single pin on a SoC. Meant to be used programmatically and 
-    may not be renamed to something user-friendly.
-
-    '''
-    def __init__(self, sys_name, soc, mode=None):
-        self._mode = None
-        self.soc = soc
-        self.sys_name = sys_name
-
-        if mode:
-            self.set_mode(mode)
-
-    def set_mode(mode):
+    def _setup_pin(self, pin, mode):
+        ''' Gets the pin ready for use. Handles muxing, mode select, etc.
+        '''
+        pass
