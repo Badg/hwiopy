@@ -17,16 +17,35 @@ class device():
 
     ### kwargs:
 
-    pinmap:         dict        [pin name] = core.pin object, subclass, etc
+    sysmap:         dict        [pin name] = <pin dict>
+        <pin dict>  dict        ['pin'] = 'header pin number from datasheet'
+                                ['terminals'] = ['corresponding sys terminal']
+                                ['connections'] = ['nonprogrammable output']
+    system:         object      core.system, subclass, etc
 
     ### Conventional subclass kwargs:
 
-    chipset:        object      core.soc, subclass, etc
+    pinout:         dict        [pin name] = core.pin object, subclass, etc
     '''
-    def __init__(self, pinmap):
+    def __init__(self, system, sysmap):
 
-        self.pinmap = pinmap
-        self.chipset = None
+        self.sysmap = sysmap
+        self.system = system
+        self.pinout = {}
+
+        self.pins_available = {}
+        # Inspect the sysmap dict for assignable pins
+        for pin_num, pin_dict in self.sysmap.items():
+            # If a connection already exists, it's occupied
+            if pin_dict['connections']:
+                pin_available = False
+                self.pinout[pin_num] = pin_dict['connections']
+            # Otherwise we can mark the pin available
+            else:
+                pin_available = True
+
+            self.pins_available[pin_num] = pin_available
+
 
     def __enter__(self):
         pass
@@ -34,8 +53,19 @@ class device():
     def __exit__(self, type, value, traceback):
         pass
 
+    def create_pin(self, pin_num, mode, name=None, which_terminal=0):
+        # Need lots of error traps first
+        terminal = self.sysmap[pin_num]['terminals'][which_terminal]
+        pin = self.system.declare_linked_pin(terminal, mode)
+        if name:
+            pin.name = name
+        else:
+            pin.name = pin_num
+        self.pinout[pin.name] = pin
+
 class pin():
-    ''' A generic single channel for communication on a *device*.
+    ''' A generic single channel for communication on a device. Pins connect
+    to the 'outside world'.
 
     '''
     def __init__(self, terminal, mode, name=None):
@@ -61,8 +91,8 @@ class plug():
     def __init__(self):
         self.pins = {}
 
-class soc():
-    ''' A base object for any system-on-a-chip.
+class system():
+    ''' A base object for any computer system, be it SoC, desktop, whatever.
     '''
     def __init__(self, terminal_modes):
         self.terminal_modes = terminal_modes

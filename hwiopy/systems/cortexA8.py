@@ -19,7 +19,7 @@ with open(__path__[0] + '/cortexA8_registers.json', 'r', newline='') \
         as json_mem_map:
     _cortexA8_registers = json.load(json_mem_map)
 
-class sitara335(core.soc):
+class sitara335(core.system):
     ''' The sitara 335 SoC. Used in the Beaglebone Black.
     '''
     def __init__(self, mem_filename):
@@ -83,9 +83,3 @@ class sitara335(core.soc):
         # Need to mux the term
         # Might need an overlay for the term
         pass
-
-
-def create_gpio():
-    ''' Initializes a processor terminal as a GPIO pin.
-    '''
-    pass

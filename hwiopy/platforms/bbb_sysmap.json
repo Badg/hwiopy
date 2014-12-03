@@ -1,0 +1,648 @@
+{
+    "9_2": {
+        "pin": "9_2", 
+        "connections": [
+            "GND"
+        ], 
+        "terminals": []
+    }, 
+    "9_3": {
+        "pin": "9_3", 
+        "connections": [
+            "DC_3.3V"
+        ], 
+        "terminals": []
+    }, 
+    "8_9": {
+        "pin": "8_9", 
+        "connections": [], 
+        "terminals": [
+            "t6"
+        ]
+    }, 
+    "9_1": {
+        "pin": "9_1", 
+        "connections": [
+            "GND"
+        ], 
+        "terminals": []
+    }, 
+    "9_6": {
+        "pin": "9_6", 
+        "connections": [
+            "VDD_5V"
+        ], 
+        "terminals": []
+    }, 
+    "9_7": {
+        "pin": "9_7", 
+        "connections": [
+            "SYS_5V"
+        ], 
+        "terminals": []
+    }, 
+    "9_4": {
+        "pin": "9_4", 
+        "connections": [
+            "DC_3.3V"
+        ], 
+        "terminals": []
+    }, 
+    "9_5": {
+        "pin": "9_5", 
+        "connections": [
+            "VDD_5V"
+        ], 
+        "terminals": []
+    }, 
+    "8_3": {
+        "pin": "8_3", 
+        "connections": [], 
+        "terminals": [
+            "r9"
+        ]
+    }, 
+    "8_2": {
+        "pin": "8_2", 
+        "connections": [
+            "GND"
+        ], 
+        "terminals": []
+    }, 
+    "8_1": {
+        "pin": "8_1", 
+        "connections": [
+            "GND"
+        ], 
+        "terminals": []
+    }, 
+    "9_9": {
+        "pin": "9_9", 
+        "connections": [
+            "PWR_BUT"
+        ], 
+        "terminals": []
+    }, 
+    "8_7": {
+        "pin": "8_7", 
+        "connections": [], 
+        "terminals": [
+            "r7"
+        ]
+    }, 
+    "8_6": {
+        "pin": "8_6", 
+        "connections": [], 
+        "terminals": [
+            "t8"
+        ]
+    }, 
+    "8_5": {
+        "pin": "8_5", 
+        "connections": [], 
+        "terminals": [
+            "r8"
+        ]
+    }, 
+    "8_4": {
+        "pin": "8_4", 
+        "connections": [], 
+        "terminals": [
+            "t9"
+        ]
+    }, 
+    "9_38": {
+        "pin": "9_38", 
+        "connections": [], 
+        "terminals": [
+            "a7"
+        ]
+    }, 
+    "9_39": {
+        "pin": "9_39", 
+        "connections": [], 
+        "terminals": [
+            "b6"
+        ]
+    }, 
+    "9_34": {
+        "pin": "9_34", 
+        "connections": [
+            "AGND"
+        ], 
+        "terminals": []
+    }, 
+    "9_35": {
+        "pin": "9_35", 
+        "connections": [], 
+        "terminals": [
+            "a8"
+        ]
+    }, 
+    "9_36": {
+        "pin": "9_36", 
+        "connections": [], 
+        "terminals": [
+            "b8"
+        ]
+    }, 
+    "9_37": {
+        "pin": "9_37", 
+        "connections": [], 
+        "terminals": [
+            "b7"
+        ]
+    }, 
+    "9_30": {
+        "pin": "9_30", 
+        "connections": [], 
+        "terminals": [
+            "d12"
+        ]
+    }, 
+    "9_31": {
+        "pin": "9_31", 
+        "connections": [], 
+        "terminals": [
+            "a13"
+        ]
+    }, 
+    "9_32": {
+        "pin": "9_32", 
+        "connections": [
+            "VADC"
+        ], 
+        "terminals": []
+    }, 
+    "9_33": {
+        "pin": "9_33", 
+        "connections": [], 
+        "terminals": [
+            "c8"
+        ]
+    }, 
+    "8_24": {
+        "pin": "8_24", 
+        "connections": [], 
+        "terminals": [
+            "v7"
+        ]
+    }, 
+    "8_25": {
+        "pin": "8_25", 
+        "connections": [], 
+        "terminals": [
+            "u7"
+        ]
+    }, 
+    "8_26": {
+        "pin": "8_26", 
+        "connections": [], 
+        "terminals": [
+            "v6"
+        ]
+    }, 
+    "8_27": {
+        "pin": "8_27", 
+        "connections": [], 
+        "terminals": [
+            "u5"
+        ]
+    }, 
+    "8_20": {
+        "pin": "8_20", 
+        "connections": [], 
+        "terminals": [
+            "v9"
+        ]
+    }, 
+    "8_21": {
+        "pin": "8_21", 
+        "connections": [], 
+        "terminals": [
+            "u9"
+        ]
+    }, 
+    "8_22": {
+        "pin": "8_22", 
+        "connections": [], 
+        "terminals": [
+            "v8"
+        ]
+    }, 
+    "8_23": {
+        "pin": "8_23", 
+        "connections": [], 
+        "terminals": [
+            "u8"
+        ]
+    }, 
+    "8_28": {
+        "pin": "8_28", 
+        "connections": [], 
+        "terminals": [
+            "v5"
+        ]
+    }, 
+    "8_29": {
+        "pin": "8_29", 
+        "connections": [], 
+        "terminals": [
+            "r5"
+        ]
+    }, 
+    "9_41": {
+        "pin": "9_41", 
+        "connections": [], 
+        "terminals": [
+            "d14", 
+            "d13"
+        ]
+    }, 
+    "9_40": {
+        "pin": "9_40", 
+        "connections": [], 
+        "terminals": [
+            "c7"
+        ]
+    }, 
+    "9_43": {
+        "pin": "9_43", 
+        "connections": [
+            "gnd"
+        ], 
+        "terminals": []
+    }, 
+    "9_42": {
+        "pin": "9_42", 
+        "connections": [], 
+        "terminals": [
+            "c18", 
+            "b12"
+        ]
+    }, 
+    "9_45": {
+        "pin": "9_45", 
+        "connections": [
+            "gnd"
+        ], 
+        "terminals": []
+    }, 
+    "9_44": {
+        "pin": "9_44", 
+        "connections": [
+            "gnd"
+        ], 
+        "terminals": []
+    }, 
+    "9_46": {
+        "pin": "9_46", 
+        "connections": [
+            "gnd"
+        ], 
+        "terminals": []
+    }, 
+    "8_8": {
+        "pin": "8_8", 
+        "connections": [], 
+        "terminals": [
+            "t7"
+        ]
+    }, 
+    "8_19": {
+        "pin": "8_19", 
+        "connections": [], 
+        "terminals": [
+            "u10"
+        ]
+    }, 
+    "8_18": {
+        "pin": "8_18", 
+        "connections": [], 
+        "terminals": [
+            "v12"
+        ]
+    }, 
+    "8_15": {
+        "pin": "8_15", 
+        "connections": [], 
+        "terminals": [
+            "u13"
+        ]
+    }, 
+    "8_14": {
+        "pin": "8_14", 
+        "connections": [], 
+        "terminals": [
+            "t11"
+        ]
+    }, 
+    "8_17": {
+        "pin": "8_17", 
+        "connections": [], 
+        "terminals": [
+            "u12"
+        ]
+    }, 
+    "8_16": {
+        "pin": "8_16", 
+        "connections": [], 
+        "terminals": [
+            "v13"
+        ]
+    }, 
+    "8_11": {
+        "pin": "8_11", 
+        "connections": [], 
+        "terminals": [
+            "r12"
+        ]
+    }, 
+    "8_10": {
+        "pin": "8_10", 
+        "connections": [], 
+        "terminals": [
+            "u6"
+        ]
+    }, 
+    "8_13": {
+        "pin": "8_13", 
+        "connections": [], 
+        "terminals": [
+            "t10"
+        ]
+    }, 
+    "8_12": {
+        "pin": "8_12", 
+        "connections": [], 
+        "terminals": [
+            "t12"
+        ]
+    }, 
+    "9_8": {
+        "pin": "9_8", 
+        "connections": [
+            "SYS_5V"
+        ], 
+        "terminals": []
+    }, 
+    "9_16": {
+        "pin": "9_16", 
+        "connections": [], 
+        "terminals": [
+            "t14"
+        ]
+    }, 
+    "9_17": {
+        "pin": "9_17", 
+        "connections": [], 
+        "terminals": [
+            "a16"
+        ]
+    }, 
+    "9_14": {
+        "pin": "9_14", 
+        "connections": [], 
+        "terminals": [
+            "u14"
+        ]
+    }, 
+    "9_15": {
+        "pin": "9_15", 
+        "connections": [], 
+        "terminals": [
+            "r13"
+        ]
+    }, 
+    "9_12": {
+        "pin": "9_12", 
+        "connections": [], 
+        "terminals": [
+            "u18"
+        ]
+    }, 
+    "9_13": {
+        "pin": "9_13", 
+        "connections": [], 
+        "terminals": [
+            "u17"
+        ]
+    }, 
+    "9_10": {
+        "pin": "9_10", 
+        "connections": [], 
+        "terminals": [
+            "a10"
+        ]
+    }, 
+    "9_11": {
+        "pin": "9_11", 
+        "connections": [], 
+        "terminals": [
+            "t17"
+        ]
+    }, 
+    "9_18": {
+        "pin": "9_18", 
+        "connections": [], 
+        "terminals": [
+            "b16"
+        ]
+    }, 
+    "9_19": {
+        "pin": "9_19", 
+        "connections": [], 
+        "terminals": [
+            "d17"
+        ]
+    }, 
+    "8_42": {
+        "pin": "8_42", 
+        "connections": [], 
+        "terminals": [
+            "t2"
+        ]
+    }, 
+    "8_43": {
+        "pin": "8_43", 
+        "connections": [], 
+        "terminals": [
+            "r3"
+        ]
+    }, 
+    "8_40": {
+        "pin": "8_40", 
+        "connections": [], 
+        "terminals": [
+            "t4"
+        ]
+    }, 
+    "8_41": {
+        "pin": "8_41", 
+        "connections": [], 
+        "terminals": [
+            "t1"
+        ]
+    }, 
+    "8_46": {
+        "pin": "8_46", 
+        "connections": [], 
+        "terminals": [
+            "r2"
+        ]
+    }, 
+    "8_44": {
+        "pin": "8_44", 
+        "connections": [], 
+        "terminals": [
+            "r4"
+        ]
+    }, 
+    "8_45": {
+        "pin": "8_45", 
+        "connections": [], 
+        "terminals": [
+            "r1"
+        ]
+    }, 
+    "9_23": {
+        "pin": "9_23", 
+        "connections": [], 
+        "terminals": [
+            "v14"
+        ]
+    }, 
+    "9_22": {
+        "pin": "9_22", 
+        "connections": [], 
+        "terminals": [
+            "a17"
+        ]
+    }, 
+    "9_21": {
+        "pin": "9_21", 
+        "connections": [], 
+        "terminals": [
+            "b17"
+        ]
+    }, 
+    "9_20": {
+        "pin": "9_20", 
+        "connections": [], 
+        "terminals": [
+            "d18"
+        ]
+    }, 
+    "9_27": {
+        "pin": "9_27", 
+        "connections": [], 
+        "terminals": [
+            "c13"
+        ]
+    }, 
+    "9_26": {
+        "pin": "9_26", 
+        "connections": [], 
+        "terminals": [
+            "d16"
+        ]
+    }, 
+    "9_25": {
+        "pin": "9_25", 
+        "connections": [], 
+        "terminals": [
+            "a14"
+        ]
+    }, 
+    "9_24": {
+        "pin": "9_24", 
+        "connections": [], 
+        "terminals": [
+            "d15"
+        ]
+    }, 
+    "9_29": {
+        "pin": "9_29", 
+        "connections": [], 
+        "terminals": [
+            "b13"
+        ]
+    }, 
+    "9_28": {
+        "pin": "9_28", 
+        "connections": [], 
+        "terminals": [
+            "c12"
+        ]
+    }, 
+    "8_39": {
+        "pin": "8_39", 
+        "connections": [], 
+        "terminals": [
+            "t3"
+        ]
+    }, 
+    "8_38": {
+        "pin": "8_38", 
+        "connections": [], 
+        "terminals": [
+            "u2"
+        ]
+    }, 
+    "8_33": {
+        "pin": "8_33", 
+        "connections": [], 
+        "terminals": [
+            "v3"
+        ]
+    }, 
+    "8_32": {
+        "pin": "8_32", 
+        "connections": [], 
+        "terminals": [
+            "t5"
+        ]
+    }, 
+    "8_31": {
+        "pin": "8_31", 
+        "connections": [], 
+        "terminals": [
+            "v4"
+        ]
+    }, 
+    "8_30": {
+        "pin": "8_30", 
+        "connections": [], 
+        "terminals": [
+            "r6"
+        ]
+    }, 
+    "8_37": {
+        "pin": "8_37", 
+        "connections": [], 
+        "terminals": [
+            "u1"
+        ]
+    }, 
+    "8_36": {
+        "pin": "8_36", 
+        "connections": [], 
+        "terminals": [
+            "u3"
+        ]
+    }, 
+    "8_35": {
+        "pin": "8_35", 
+        "connections": [], 
+        "terminals": [
+            "v2"
+        ]
+    }, 
+    "8_34": {
+        "pin": "8_34", 
+        "connections": [], 
+        "terminals": [
+            "u4"
+        ]
+    }
+}

@@ -13,7 +13,7 @@ import json
 # Intrapackage dependencies
 from . import __path__
 from .. import core
-from .. import chipsets
+from .. import systems
 
 # from . import generic
 # from .generic import device
@@ -31,19 +31,13 @@ class bbb(core.device):
         '''
         # Grab the json file describing what processor pins, voltages, etc
         # are tied to which header pins
-        with open(__path__[0] + '/bbb_pinmap.json', 'r', newline='') \
-                as json_pinmap:
+        with open(__path__[0] + '/bbb_sysmap.json', 'r', newline='') \
+                as json_sysmap:
             # Store that information in the pinmap
-            pinmap = json.load(json_pinmap)
+            sysmap = json.load(json_sysmap)
 
-        # Now let's store the memory location
-        self.mem_filename = mem_filename
-
-        # Add the chipset; pass it the mem_filename
-        self.chipset = chipsets.sitara335(self.mem_filename)
-
-        # Finally, call super
-        super().__init__(pinmap=pinmap)
+        # Call super, initializing all of the abstract base class attributes
+        super().__init__(systems.sitara335(mem_filename), sysmap=sysmap)
 
     def __enter__(self):
         ''' Initializes hardware control and readies device for input/output.
@@ -85,8 +79,19 @@ class bbb(core.device):
         # Call super
         super().__exit__()
 
+    def create_pin(self, pin_num, mode, name=None, which_terminal=0):
+        ''' Gets a pin object from the self.chipset object and connects it to 
+        a pin on the self.pinout dict.
+
+        which_terminal is redundant with mode?
+        '''
+        super().create_pin(pin_num, mode, name, which_terminal)
+
     def validate(self):
         ''' Checks the device setup for conflicting pins, etc.
+
+        Actually this is probably unnecessary, as individual pin assingments
+        should error out with conflicting setups.
         '''
         pass
 
@@ -100,7 +105,3 @@ class bbb(core.device):
     #define GPIO2_BASE 0x481AC000
     #define GPIO3_BASE 0x481AE000
     #define GPIO_SIZE  0x00000FFF
-
-class bbb_gpio_pin(core.pin):
-    def __init__(self, mode, bbb_device):
-        super.__init__()
