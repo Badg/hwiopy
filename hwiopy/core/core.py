@@ -15,7 +15,11 @@ class device():
     ''' A base object for a generic hardware-inspecific device. Will probably,
     at some point, provide a graceful fallback to sysfs access.
 
-    ### kwargs:
+    __init()__
+    ==========================================================================
+    
+    kwargs
+    ----------------------------------------------------------------
 
     sysmap:         dict        [pin name] = <pin dict>
         <pin dict>  dict        ['pin'] = 'header pin number from datasheet'
@@ -23,29 +27,19 @@ class device():
                                 ['connections'] = ['nonprogrammable output']
     system:         object      core.system, subclass, etc
 
-    ### Conventional subclass kwargs:
+    local namespace (self.XXXX; use for subclassing)
+    ----------------------------------------------------------------
 
     pinout:         dict        [pin name] = core.pin object, subclass, etc
+    system:         object      core.system, subclass, etc
+    sysmap:         callable    resolves a pin into a header      
     '''
-    def __init__(self, system, sysmap):
+    def __init__(self, system, resolve_header):
 
-        self.sysmap = sysmap
+        self._resolve_header = resolve_header
         self.system = system
         self.pinout = {}
-
-        self.pins_available = {}
-        # Inspect the sysmap dict for assignable pins
-        for pin_num, pin_dict in self.sysmap.items():
-            # If a connection already exists, it's occupied
-            if pin_dict['connections']:
-                pin_available = False
-                self.pinout[pin_num] = pin_dict['connections']
-            # Otherwise we can mark the pin available
-            else:
-                pin_available = True
-
-            self.pins_available[pin_num] = pin_available
-
+        self.pins_available = self._resolve_header.list_mutable_headers()
 
     def __enter__(self):
         pass
@@ -53,9 +47,9 @@ class device():
     def __exit__(self, type, value, traceback):
         pass
 
-    def create_pin(self, pin_num, mode, name=None, which_terminal=0):
+    def create_pin(self, pin_num, mode, name=None):
         # Need lots of error traps first
-        terminal = self.sysmap[pin_num]['terminals'][which_terminal]
+        terminal = self._resolve_header(pin_num, mode, name)
         pin = self.system.declare_linked_pin(terminal, mode)
         if name:
             pin.name = name
@@ -101,14 +95,11 @@ class system():
         # Set the conventions for memory reference dicts, which might not be
         # used for every SoC (but probably will?)
         # mem_filename is the file system location of the memory map
-        self.mem_filename = None
-        # mem_mapping describes which registers are where, ex the 4KB GPIO1 
-        # register is at 0x??????
-        self.mem_mapping = None
-        # The register_bits describe which bits correspond to what within each
-        # type of register, ex the gpio config is offset 0x154 and to set the
-        # idle mode you change bits 3-4
-        self.register_bits = None
+        self._mem_filename = None
+        # callable that turns a register name into a (start, end) tuple:
+        self._resolve_map = None
+        # callable that turns a register type into an (offset, bitsize) tuple:
+        self._resolve_register_bits = None
 
         # Every terminal must be defined in terminal_modes
         # The keys in terminal_modes therefore provide the definition for

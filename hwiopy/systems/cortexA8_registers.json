@@ -1,194 +1,194 @@
 {
     "gpio": {
-        "gpio_revision": {
+        "revision": {
             "address": "0x0",
             "bitsize": 32,
             "bits": {
-                "minor": "0-5",
-                "custom": "6-7",
-                "major": "8-10",
-                "rtl": "11-15",
-                "func": "16-27",
-                "scheme": "30-31"
+                "minor": [0, 5],
+                "custom": [6, 7],
+                "major": [8, 10],
+                "rtl": [11, 15],
+                "func": [16, 27],
+                "scheme": [30, 31]
             }
         },
-        "gpio_sysconfig": {
+        "sysconfig": {
             "address": "0x10",
             "bitsize": 32,
             "bits": {
-                "autoidle": "0",
-                "softreset": "1",
-                "enawakeup": "2",
-                "idlemode": "3-4"
+                "autoidle": [0, 0],
+                "softreset": [1, 1],
+                "enawakeup": [2, 2],
+                "idlemode": [3, 4]
             }
         },
-        "gpio_debouncingtime": {
+        "debouncingtime": {
             "address": "0x154", 
             "bitsize": 32,
             "bits": {
-                "debouncetime": "0-7"
+                "debouncetime": [0, 7]
             }
         },
-        "gpio_irqstatus_clr_0": {
+        "irqstatus_clr_0": {
             "address": "0x3C", 
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },  
-        "gpio_irqstatus_clr_1": {
+        "irqstatus_clr_1": {
             "address": "0x40", 
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },
-        "gpio_irqstatus_0": {
+        "irqstatus_0": {
             "address": "0x2C",
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         }, 
-        "gpio_irqstatus_1": {
+        "irqstatus_1": {
             "address": "0x30",
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },
-        "gpio_eoi": {
+        "eoi": {
             "address": "0x20",
             "bitsize": 32,
             "bits": {
-                "dmaevent_ack": "0"
+                "dmaevent_ack": [0, 0]
             }
         },
-        "gpio_datain": {
+        "datain": {
             "address": "0x138", 
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },
-        "gpio_irqstatus_set_0": {
+        "irqstatus_set_0": {
             "address": "0x34",
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         }, 
-        "gpio_irqstatus_set_1": {
+        "irqstatus_set_1": {
             "address": "0x38",
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         }, 
-        "gpio_dataout": {
+        "dataout": {
             "address": "0x13C", 
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },
-        "gpio_fallingdetect": {
+        "fallingdetect": {
             "address": "0x14C", 
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },
-        "gpio_setdataout": {
+        "setdataout": {
             "address": "0x194", 
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },
-        "gpio_irqwaken_0": {
+        "irqwaken_0": {
             "address": "0x44", 
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },
-        "gpio_irqwaken_1": {
+        "irqwaken_1": {
             "address": "0x48", 
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },
-        "gpio_ctrl": {
+        "ctrl": {
             "address": "0x130", 
             "bitsize": 32,
             "bits": {
-                "disablemodule": "0",
-                "gatingratio": "1-2"
+                "disablemodule": [0, 0],
+                "gatingratio": [1, 2]
             }
         },
-        "gpio_oe": {
+        "oe": {
             "address": "0x134", 
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },
-        "gpio_debouncenable": {
+        "debouncenable": {
             "address": "0x150", 
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },
-        "gpio_cleardataout": {
+        "cleardataout": {
             "address": "0x190", 
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },
-        "gpio_risingdetect": {
+        "risingdetect": {
             "address": "0x148", 
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },
-        "gpio_sysstatus": {
+        "sysstatus": {
             "address": "0x114", 
             "bitsize": 32,
             "bits": {
-                "resetdone": "0"
+                "resetdone": [0, 0]
             }
         },
-        "gpio_irqstatus_raw_0": {
+        "irqstatus_raw_0": {
             "address": "0x24",
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },
-        "gpio_irqstatus_raw_1": {
+        "irqstatus_raw_1": {
             "address": "0x28",
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         }, 
-        "gpio_leveldetect0": {
+        "leveldetect0": {
             "address": "0x140", 
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         },
-        "gpio_leveldetect1": {
+        "leveldetect1": {
             "address": "0x144", 
             "bitsize": 32,
             "bits": {
-                "_intchannel": "0-31"
+                "_intchannel": [0, 31]
             }
         }
     }
