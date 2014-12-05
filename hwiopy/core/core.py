@@ -11,63 +11,32 @@ generic SoC defines terminals available in the fallback sysFS mappings?
 Or summat.
 '''
 
-class device():
-    ''' A base object for a generic hardware-inspecific device. Will probably,
-    at some point, provide a graceful fallback to sysfs access.
-
-    __init()__
-    ==========================================================================
-    
-    kwargs
-    ----------------------------------------------------------------
-
-    sysmap:         dict        [pin name] = <pin dict>
-        <pin dict>  dict        ['pin'] = 'header pin number from datasheet'
-                                ['terminals'] = ['corresponding sys terminal']
-                                ['connections'] = ['nonprogrammable output']
-    system:         object      core.system, subclass, etc
-
-    local namespace (self.XXXX; use for subclassing)
-    ----------------------------------------------------------------
-
-    pinout:         dict        [pin name] = core.pin object, subclass, etc
-    system:         object      core.system, subclass, etc
-    sysmap:         callable    resolves a pin into a header      
-    '''
-    def __init__(self, system, resolve_header):
-
-        self._resolve_header = resolve_header
-        self.system = system
-        self.pinout = {}
-        self.pins_available = self._resolve_header.list_mutable_headers()
-
-    def __enter__(self):
-        pass
-
-    def __exit__(self, type, value, traceback):
-        pass
-
-    def create_pin(self, pin_num, mode, name=None):
-        # Need lots of error traps first
-        terminal = self._resolve_header(pin_num, mode, name)
-        pin = self.system.declare_linked_pin(terminal, mode)
-        if name:
-            pin.name = name
-        else:
-            pin.name = pin_num
-        self.pinout[pin.name] = pin
-
-class pin():
+class Pin():
     ''' A generic single channel for communication on a device. Pins connect
     to the 'outside world'.
 
     '''
-    def __init__(self, terminal, mode, name=None):
+    def __init__(self, terminal, mode, name=None, pin_num=None):
+        # An optional, nice, human-readable name.
         self.name = name
+        # What number does the datasheet assign the pin on the device header?
+        self.num = pin_num
+        # What mode the pin has been configured to. All Pin objects will have
+        # a mode, since that's how the Pin is created.
         self.mode = mode
+        # This may need to be removed and replaced with a function
         self.value = None
-        # Connection describes the processor pin
+        # Which SoC terminal?
         self.terminal = terminal
+        # For the purpose of fast updating, store the location?
+        # It might be worthwhile to verify that this is in fact faster than
+        # using locate(). Or I suppose both could be made available.
+        self.location = None
+
+    def locate(self):
+        ''' Returns the filesystem/mmap/etc representation of the pin.
+        '''
+        pass
 
     def update(self):
         ''' Update output for output pin, or input for input pin.
@@ -79,13 +48,18 @@ class pin():
         '''
         pass
 
-class plug():
+    def setup(self):
+        ''' Things to do to set up the pin when a core.Device is __enter__ed.
+        '''
+        pass
+
+class Plug():
     ''' A base object for any multiple-pin interface, for example, SPI.
     '''
     def __init__(self):
         self.pins = {}
 
-class system():
+class System():
     ''' A base object for any computer system, be it SoC, desktop, whatever.
     '''
     def __init__(self, terminal_modes):
@@ -224,3 +198,94 @@ class system():
         be released after use.
         '''
         pass
+
+class Device():
+    ''' A base object for a generic hardware-inspecific device. Will probably,
+    at some point, provide a graceful fallback to sysfs access.
+
+    __init()__
+    =========================================================================
+    
+    **kwargs
+    ----------------------------------------------------------------
+
+    resolve_header: callable    takes str pin_num and returns str term_num
+    system          object      core.system, subclass, etc
+
+    local namespace (self.XXXX; use for subclassing)
+    ----------------------------------------------------------------
+
+    pinout          dict        [pin name] = core.pin object, subclass, etc
+    system          object      core.system, subclass, etc
+    _resolve_header callable    resolves a pin into a header   
+    create_pin      callable    connects a header pin to a specific term mode
+
+    create_pin()
+    =========================================================================
+
+    Connects a header pin to the specified mode on the corresponding system 
+    terminal. Likely overridden in each platform definition. 
+
+    *args
+    ----------------------------------------------------------------
+
+    pin_num         str         'pin number'
+    mode            str         'mode of SoC terminal'
+
+    **kwargs
+    ----------------------------------------------------------------
+
+    name=None       str         'friendly name for the pin'
+    '''
+    def __init__(self, system, resolve_header):
+
+        self._resolve_header = resolve_header
+        self.system = system
+        self.pinout = {}
+        self.pins_available = self._resolve_header.list_system_headers()
+
+    def __enter__(self):
+        pass
+
+    def __exit__(self, type, value, traceback):
+        pass
+
+    def create_pin(self, pin_num, mode, name=None, **kwargs):
+        # Need lots of error traps first
+        terminal = self._resolve_header(pin_num)
+        pin = self.system.declare_linked_pin(terminal, mode, name=name)
+        pin.num = pin_num
+
+        # Check for a given 'pretty' name. If it has one, add both the pin
+        # number and the pin name as keys in the pinout dict. Note that as
+        # pin is a mutable object, as long as pin itself isn't re-declared,
+        # pinout[name] is pinout[number] will always -> True.
+        if name:
+            self.pinout[pin.name] = pin
+        self.pinout[pin_num] = pin
+
+    def release_pin(self, pin):
+        ''' Releases the called pin. Can be called by friendly name or pin
+        number.
+        '''
+
+        # Get relevant information from the pin before deleting it
+        pin = self.pinout[pin]
+        name = pin.name
+        num = pin.num
+        terminal = pin.terminal
+
+        # Remove all associated keys in the pinout
+        if name:
+            try:
+                del self.pinout[name]
+            except KeyError:
+                pass
+        if num:
+            try:
+                del self.pinout[num]
+            except KeyError:
+                pass
+
+        # Finally, call the system's function to release the terminal
+        self.system.release_terminal(terminal)

@@ -185,7 +185,7 @@ class _register_map():
             desc[fn] = list(fn_dict['bits'].keys())
         return desc
 
-class sitara335(core.system):
+class Sitara335(core.System):
     ''' The sitara 335 SoC. Used in the Beaglebone Black.
     '''
     def __init__(self, mem_filename):

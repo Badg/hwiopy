@@ -25,25 +25,30 @@ class _header_map():
     _header_map():
     ======================================================
 
+    Returns the header connection, be it a hardwired one (ex 5VDC) or a SoC
+    terminal.
+
     *args
     ------------------------------------------------------
 
-    pin:                str             'pin number'
+    pin_num:            str             'pin number'
 
     return
     -------------------------------------------------------
 
-    tuple               (start address, end address)
+    str                 'SoC terminal or other'
 
-    _header_map.list():
+    _header_map.list_system_headers():
     ========================================================
+
+    Returns all of the header pins that connect to the sitara SoC.
 
     return
     --------------------------------------------------------
 
-    tuple               ('register0', 'register1', 'register2'...)
+    dict                {'pin num': 
 
-    _memory_map.describe():
+    _memory_map.list_all_headers():
     =========================================================
 
     *args
@@ -78,22 +83,43 @@ class _header_map():
                 self._connected[pin_num] = pin_dict['terminals']
                 self._all_headers[pin_num] = pin_dict['terminals']
 
-    def __call__(self, pin_num, *args, **kwargs):
+    def __call__(self, pin_num, pin_941=None, pin_942=None *args, **kwargs):
         # Grab the start and convert it to int (aka long)
         # NOTE THAT HERE IS THE PLACE TO DEAL WITH THE TWO HEADER PINS THAT
-        # ARE CONNECTED TO TWO SOC PINS!!
-        return self._all_headers[pin_num][0]
+        # ARE CONNECTED TO TWO SOC PINS!! (pin 9_41 and pin 9_42)
+
+        # Don't necessarily want to error trap out declaring pin_941 and/or
+        # pin_942 with each other, or with a different pin number
+
+        which_connection = 0
+        if pin_num == '9_41':
+            if pin_941:
+                which_connection = pin_941
+            else:
+                raise RuntimeWarning('Lookup on pin 9_41 without specifying '
+                    'which mode to connect to. Defaulting to Sitara pin D14. '
+                    'Consult the BBB system reference manual for details.')
+        if pin_num == '9_42':
+            if pin_942:
+                which_connection = pin_942
+            else:
+                raise RuntimeWarning('Lookup on pin 9_42 without specifying '
+                    'which mode to connect to. Defaulting to Sitara pin C18. '
+                    'Consult the BBB system reference manual for details.')
+        
+        # Now use whatever information we have to output the connection
+        return self._all_headers[pin_num][which_connection]
 
     # Returns all header pins that are configurable
-    def list_mutable_headers(self):
+    def list_system_headers(self):
         return self._connected
 
     # Very simply return a description of the queried register
-    def describe(self):
+    def list_all_headers(self):
         return self._all_headers
 
 
-class bbb(core.device):
+class BBB(core.Device):
     ''' A beaglebone black. Must have kernel version >=3.8, use overlays, etc.
     '''
     # Where is the memory mapping stored to?
@@ -153,7 +179,16 @@ class bbb(core.device):
 
         which_terminal is redundant with mode?
         '''
+        # NOTE THAT DUE TO THE ODDITY OF THE BBB, pins 9_41 and 9_42 need to 
+        # be specially configured, as they each connect to two SoC terminals.
         super().create_pin(pin_num, mode, name)
+
+        pin = self.pinout[pin_num]
+
+        # Need to add update, status, setup methods
+        # Should pin.register, pin.bits, etc be defined first in core.Pin, or
+        # should they be added specifically and only to the BBB?
+        # Perhaps a pin.location? 
 
     def validate(self):
         ''' Checks the device setup for conflicting pins, etc.
