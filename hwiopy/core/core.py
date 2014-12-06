@@ -16,7 +16,7 @@ class Pin():
     to the 'outside world'.
 
     '''
-    def __init__(self, terminal, mode, name=None, pin_num=None):
+    def __init__(self, terminal, mode, methods=None, name=None, pin_num=None):
         # An optional, nice, human-readable name.
         self.name = name
         # What number does the datasheet assign the pin on the device header?
@@ -26,32 +26,27 @@ class Pin():
         self.mode = mode
         # This may need to be removed and replaced with a function
         self.value = None
-        # Which SoC terminal?
+        # Which System terminal?
         self.terminal = terminal
+
+        # Dict for holding the pin's methods:
+        if methods:
+            # Need to always have setup and teardown methods, even if empty
+            if 'setup' not in methods:
+                methods['setup'] = lambda: None
+            if 'teardown' not in methods:
+                methods['teardown'] = lambda: None
+        else:
+            methods = {}
+        self.methods = methods
+
+
+
         # For the purpose of fast updating, store the location?
         # It might be worthwhile to verify that this is in fact faster than
         # using locate(). Or I suppose both could be made available.
+        # Deprecate?
         self.location = None
-
-    def locate(self):
-        ''' Returns the filesystem/mmap/etc representation of the pin.
-        '''
-        pass
-
-    def update(self):
-        ''' Update output for output pin, or input for input pin.
-        '''
-        pass
-
-    def status(self):
-        ''' Check output for output pin. Does (same as update?) for input pin.
-        '''
-        pass
-
-    def setup(self):
-        ''' Things to do to set up the pin when a core.Device is __enter__ed.
-        '''
-        pass
 
 class Plug():
     ''' A base object for any multiple-pin interface, for example, SPI.
@@ -62,8 +57,8 @@ class Plug():
 class System():
     ''' A base object for any computer system, be it SoC, desktop, whatever.
     '''
-    def __init__(self, terminal_modes):
-        self.terminal_modes = terminal_modes
+    def __init__(self, resolve_mode):
+        self._resolve_mode = resolve_mode
         self.running = False
 
         # Set the conventions for memory reference dicts, which might not be
@@ -75,28 +70,26 @@ class System():
         # callable that turns a register type into an (offset, bitsize) tuple:
         self._resolve_register_bits = None
 
+        # Where are mapped registers?
+        self._register_mmap = {}
+
         # Every terminal must be defined in terminal_modes
         # The keys in terminal_modes therefore provide the definition for
         # the terminals
-        self.terminals = list(terminal_modes)
+        self.terminals = list(self._resolve_mode.list())
 
         # No keys have been declared to start. This dict is used to actually
         # set up the terminals with on_start and clean up with on_stop
         self.terminals_declared = {}
 
         # Add any declarable terminals to terminals_available
-        self.terminals_available = {}
-        # Inspect each terminal_mode to make sure it's declarable
-        for sys_name, sys_term in self.terminal_modes.items():
-            # Predeclare a lookup flag
-            terminal_available = False
-            # Look into the sys_term dict at each mode defined in 'modes'
-            for mode in sys_term['modes'].values():
-                # If the 'mode_num' is defined, we can declare it as a mode
-                if mode['mode_num']:
-                    terminal_available = True
-            # If the terminal is available, declare it as such.
-            self.terminals_available[sys_name] = terminal_available
+        self.terminals_available = \
+            self._resolve_mode.list(only_assignable=True)
+
+    def _open_register_mmap(self, register):
+        # Open up an mmap at the appropriate location for the specified
+        # register and then add it to self._register_mmap{}
+        pass
 
     def declare_linked_pin(self, terminal, mode):
         ''' Sets up the terminal for on_start initialization and returns a 
@@ -105,23 +98,7 @@ class System():
         # Error traps
         # --------------
 
-        # First make sure terminal_modes exists and has content.
-        if not self.terminal_modes:
-            raise AttributeError('Available terminal modes must be specified '
-                'prior to declaring a pin.')
-
-        # Now make sure the terminal name is valid:
-        if terminal not in self.terminal_modes:
-            raise AttributeError('Invalid terminal name.')
-
-        # Now check to make sure the mode is valid:
-        if mode not in self.terminal_modes[terminal]['modes']:
-            possible_modes = list(
-                self.terminal_modes[terminal]['modes'].values())
-            raise KeyError('Invalid mode type. Current terminal may have the '
-                'following modes: \n' + possible_modes)
-
-        # Now check to make sure that the terminal hasn't already been used
+        # Check to make sure that the terminal hasn't already been used
         if terminal in self.terminals_declared:
             raise AttributeError('Terminal has already been declared as a '
                 'pin. Cannot re-declare a terminal after its initialization.')
@@ -130,13 +107,14 @@ class System():
         # ---------------
 
         self.terminals_declared[terminal] = mode
-        return pin(terminal, mode)
-        # Note that now the chipset must create update, status, etc methods
+        return Pin(terminal, mode, 
+            methods=self._resolve_mode(self, terminal, mode)())
 
     def release_terminal(self, terminal):
         ''' Releases a terminal, allowing re-declaration. Note: the device 
         must independently release its pin; if it calls the terminal once it's
-        been released, an error will result.
+        been released, an error will result. This is NOT for repurposing a
+        terminal while the device is running.
         '''
         # Error traps
         # --------
@@ -152,7 +130,8 @@ class System():
         # ------------
 
         del self.terminals_declared[terminal]
-        self.terminals_available[terminal] = True
+        # I don't think the terminals_available bit was ever modified?
+        # self.terminals_available[terminal] = True
 
     def mutate_terminal(self, *args, **kwargs):
         ''' Changes a terminal's function while the device it's attached to is 

@@ -1,4 +1,4 @@
 from ..core import *
 
-from . import bbb
-from .bbb import *
+from . import beagle
+from .beagle import *

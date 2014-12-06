@@ -1,4 +1,4 @@
-''' Beaglebone Black hardware-specific operations.
+''' Beaglebone/Beagleboard/Etc hardware-specific operations.
 
 Something something sooooomething goes here.
 '''
@@ -83,7 +83,7 @@ class _header_map():
                 self._connected[pin_num] = pin_dict['terminals']
                 self._all_headers[pin_num] = pin_dict['terminals']
 
-    def __call__(self, pin_num, pin_941=None, pin_942=None *args, **kwargs):
+    def __call__(self, pin_num, pin_941=None, pin_942=None, *args, **kwargs):
         # Grab the start and convert it to int (aka long)
         # NOTE THAT HERE IS THE PLACE TO DEAL WITH THE TWO HEADER PINS THAT
         # ARE CONNECTED TO TWO SOC PINS!! (pin 9_41 and pin 9_42)
@@ -131,7 +131,7 @@ class BBB(core.Device):
         ''' Creates the device and begins setting it up.
         '''
         # Call super, initializing all of the abstract base class attributes
-        super().__init__(systems.sitara335(mem_filename), _header_map())
+        super().__init__(systems.Sitara335(mem_filename), _header_map())
 
     def __enter__(self):
         ''' Initializes hardware control and readies device for input/output.
@@ -184,6 +184,10 @@ class BBB(core.Device):
         super().create_pin(pin_num, mode, name)
 
         pin = self.pinout[pin_num]
+
+        if mode == 'gpio':
+            pass
+            # _create_gpio(self, pin)
 
         # Need to add update, status, setup methods
         # Should pin.register, pin.bits, etc be defined first in core.Pin, or

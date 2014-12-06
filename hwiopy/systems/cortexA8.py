@@ -7,17 +7,15 @@ Missing a great many error traps.
 # Global dependencies
 import io
 import json
+import struct
 
 # Intrapackage dependencies
 from . import __path__
 from .. import core
 # from .. import platforms
 
-# Get the imported definitions of the memory mapping itself and the 
-# memory registers, both from the datasheets / TRM / etc. The map 
-# describes the block, ex: the GPIO1 register is at 0x??????, while
-# the registers describe the bitwise breakup of each type of register,
-# ex: within the GPIO1 register, the first bit is _, second is _, etc
+# This dict gets updated each time a new mode generator is implemented.
+_mode_generators = {}
 
 # Convert dicts into functions for memory maps and registers
 class _memory_map():
@@ -185,18 +183,142 @@ class _register_map():
             desc[fn] = list(fn_dict['bits'].keys())
         return desc
 
+class _mode_map():
+    ''' Callable class that resolves a sitara terminal into its 
+    available modes, which are callable to initialize that mode.
+
+    _mode_map():
+    ======================================================
+
+    *args
+    ------------------------------------------------------
+
+    terminal:           str             'name of terminal'
+    mode=None           str             'mode for terminal'
+
+    return
+    -------------------------------------------------------
+
+    mode=None           dict            {'mode': callable, 'gpio': gpio}
+    mode=str            callable class  
+
+    _memory_map.list():
+    ========================================================
+
+    *args
+    --------------------------------------------------------
+
+    terminal=None       str             'name of terminal'
+    only_assignable=False   bool        Only list assignable modes
+
+    return
+    --------------------------------------------------------
+
+    terminal=None       dict            {'term': ['mode', ...], ...}
+    terminal=str        list            ['mode', 'mode', ...]
+
+    _memory_map.describe():
+    ========================================================
+
+    *args
+    --------------------------------------------------------
+
+    terminal            str             'name of terminal'
+    mode=None           str             'name of mode to describe'
+
+    return
+    --------------------------------------------------------
+
+    mode=None           list            ['mode description, mode descr...]
+    mode=str            str             'description of mode'
+    '''
+    def __init__(self, modes_file):
+        # First grab the termmodes file, which describes which terminals
+        # are capable of which modes, what mem map to look up, etc
+        with open(modes_file, 'r', 
+                newline='') as json_termmodes:
+            self._mode_dict = json.load(json_termmodes)
+
+        # Now construct a reference dict with all of the terminals: modes
+        self._terminals = {}
+        for term, term_dict in self._mode_dict.items():
+            self._terminals[term] = list(term_dict['modes'].keys())
+
+        # Construct a second reference dict with each terminal's 
+        # mode: callables
+        self._terminal_callables = {}
+        for term, mode_list in self._terminals.items():
+            # Initialize the dict for the terminal
+            self._terminal_callables[term] = {}
+            # Check modes for implementation; if none, add generic oops
+            for mode in mode_list:
+                try:
+                    self._terminal_callables[term][mode] = \
+                        _mode_generators[mode]
+                except KeyError:
+                    self._terminal_callables[term][mode] = \
+                        _mode_not_implemented
+
+        # Generate a reference dict of only assignable modes
+        self._assignable = {}
+        for term, term_dict in self._mode_dict.items():
+            self._assignable[term] = []
+            for mode, mode_dict in term_dict['modes'].items():
+                # Validate that the mode has a number
+                if mode_dict['mode_num']:
+                    # Therefore make it assignable
+                    self._assignable[term].append(mode)
+        
+    def __call__(self, system, terminal, mode):
+        # Note that the system bit is needed due to inner/outer class 
+        # namespaces. It would be nice to have a bound inner class, but
+        # That can maybe be hammered out another time.
+        # Error trap for the terminal name:
+
+        # Call up the description; currently just for error trapping
+        desc = self.describe(terminal, mode)
+        return self._terminal_callables[terminal][mode](system, terminal)
+
+    # List the available modes
+    def list(self, terminal=None, only_assignable=False):
+        if terminal:
+            # Error trap out a bad terminal name
+            desc = self.describe(terminal)
+            if only_assignable:
+                return self._assignable[terminal]
+            else:
+                return self._terminals[terminal]
+        else: 
+            if only_assignable:
+                return self._assignable
+            else:
+                return self._terminals
+
+    # Describe the available modes. Also used to check mode validity.
+    # Yeah, I could probably devote a separate return True method to that,
+    # but why bother?
+    def describe(self, terminal, mode=None):
+        # Error trap on bad terminal name 
+        if terminal not in self._terminals:
+            raise ValueError('Terminal ' + terminal + ' not found.')
+
+        if mode:
+            # Error trap on bad mode name
+            if mode not in self._terminals[terminal]:
+                raise ValueError(mode + 'mode is unavailable for ' + 
+                    terminal.upper() + ' terminal.')
+            else:
+                return \
+                    self._mode_dict[terminal]['modes'][mode]
+        else: 
+            return self._mode_dict[terminal]['modes'].values()
+
 class Sitara335(core.System):
     ''' The sitara 335 SoC. Used in the Beaglebone Black.
     '''
     def __init__(self, mem_filename):
-        # First grab the termmodes file, which describes which terminals
-        # are capable of which modes, what mem map to look up, etc
-        with open(__path__[0] + '/sitara_termmodes.json', 'r', newline='') \
-                as json_termmodes:
-            terminal_modes = json.load(json_termmodes)
-
-        # Call the super() with the parsed terminal modes
-        super().__init__(terminal_modes=terminal_modes)
+        # Call the super(), creating and passing the callable resolve_mode
+        super().__init__(_mode_map(__path__[0] + '/sitara_termmodes.json'))
 
         # Grab the filename for the memory mapping
         self._mem_filename = mem_filename
@@ -246,3 +368,49 @@ class Sitara335(core.System):
         # Need to mux the term
         # Might need an overlay for the term
         pass
+
+
+class _gpio():
+    ''' Callable class for creating a GPIO terminal for cortex A8 SoCs.
+    Functions as a generator for core.Pin update, status, and setup methods,
+    as well as any other methods relevant to the gpio.
+    '''
+    def __init__(self, system, terminal):
+        # Doublecheck that the terminal can be set as a gpio and get its deets
+        self.desc = system._resolve_mode.list(terminal)
+
+        self.methods = {}
+        self.methods['setup'] = self.setup()
+        self.methods['update'] = self.update()
+        self.methods['status'] = self.status()
+
+        self.system = system
+        self.terminal = terminal
+
+        # Use the description dictionary to figure out which gpio register
+        self.register_name = self.desc['register']
+        # Now resolve the memory address (start, end tuple)
+        self.register_address = system._resolve_map(self.register_name)
+        # Use the desc dict to get which gpio channel within the register
+        self.channel_number = int(self.desc['register_detail'])
+        # And generate a bit-shifted description of which channel this is
+        self.channel_bit = 1 << self.channel_number
+
+    def __call__(self):
+        return self.methods
+
+    def update(self):
+        pass
+
+    def status(self):
+        pass
+
+    def setup(self):
+        # Check to see if the 
+        pass
+
+_mode_generators['gpio'] = _gpio
+
+def _mode_not_implemented():
+    raise NotImplementedError('This package does not yet support that '
+        'mode on the cortex A8 chipset.')
