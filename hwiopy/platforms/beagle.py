@@ -189,6 +189,8 @@ class BBB(core.Device):
             pass
             # _create_gpio(self, pin)
 
+        return pin
+
         # Need to add update, status, setup methods
         # Should pin.register, pin.bits, etc be defined first in core.Pin, or
         # should they be added specifically and only to the BBB?

@@ -93,14 +93,16 @@ class _register_map():
     ------------------------------------------------------
 
     register_type:      str             'ex: gpio, pwm, etc'
-    register_function:  str             'ex: dataout, cleardataout, etc'
+    register_function=None: str             'ex: dataout, cleardataout, etc'
     bit_command=None:   str             'ex: autoidle, enawakeup, etc'
 
     return
     -------------------------------------------------------
 
-    bit_command=None:   tuple           (offset, bitsize)
-    bit_command=str:    tuple           (offset, bitsize, bitrange)
+    register_function=None: dict            {'function': (offset, bitsize)...}
+    register_function=str:
+        bit_command=None:   tuple           (offset, bitsize)
+        bit_command=str:    tuple           (offset, bitsize, bitrange)
 
 
     _register_map.list():
@@ -143,29 +145,49 @@ class _register_map():
         for reg, reg_dict in self._register_dict.items():
             self._register_functions[reg] = tuple(reg_dict.keys())
 
-    def __call__(self, register_type, register_function, bit_command=None):
-        # Grab the function's definition
-        # Then resolve the offset and size for the register function
-        function_dict = \
-            self._register_dict[register_type][register_function]
-        # Return a tuple of (offset, bitsize)
-        resolved = [int(function_dict['address'], base=16), 
-            function_dict['bitsize']]
+    def __call__(self, register_type, register_function=None, 
+            bit_command=None):
+        # Error trap bit_command without register_function
+        if bit_command and not register_function:
+            raise ValueError('Must select function to resolve bit command.')
 
-        # If we're trying to call a specific bit command, resolve which bits
-        # correspond to that setting.
-        if bit_command:
-            # Grab the dictionary of possible bits for this function
-            bit_range_dict = \
-                self._register_dict[register_type][register_function]['bits']
-            # Extract the bits as a list and return it
-            bit_range = list(range(
-                bit_range_dict[bit_command][0], 
-                bit_range_dict[bit_command][1] + 1
-                ))
-            resolved.append(bit_range)
+        if not register_function:
+            reg_fns = self.list(register_type)
+        else:
+            reg_fns = [register_function]
 
-        return tuple(resolved)
+        tmp_dict = {}
+        for reg_fn in reg_fns:
+            # Grab the function's definition
+            # Then resolve the offset and size for the register function
+            function_dict = \
+                self._register_dict[register_type][reg_fn]
+            # Return a tuple of (offset, bitsize)
+            resolved = [int(function_dict['address'], base=16), 
+                function_dict['bitsize']]
+
+            # If we're trying to call a specific bit command, resolve which 
+            # bits correspond to that setting. Note that due to error trap, 
+            # this will only be true if we're focusing on a specific function
+            if bit_command:
+                # Grab the dictionary of possible bits for this function
+                bit_range_dict = self.\
+                    _register_dict[register_type][reg_fn]['bits']
+                # Extract the bits as a list and return it
+                bit_range = list(range(
+                    bit_range_dict[bit_command][0], 
+                    bit_range_dict[bit_command][1] + 1
+                    ))
+                resolved.append(bit_range)
+
+            tmp_dict[reg_fn] = tuple(resolved)
+
+        # If we are, in fact, only concerned with a single function, strip the
+        # dict down to the tuple
+        if not register_function:
+            return tmp_dict
+        else: 
+            return tmp_dict[register_function]
 
     # Return the available register types, or if a type is specified, the 
     # functions available within that register.
@@ -377,37 +399,63 @@ class _gpio():
     '''
     def __init__(self, system, terminal):
         # Doublecheck that the terminal can be set as a gpio and get its deets
-        self.desc = system._resolve_mode.list(terminal)
-
-        self.methods = {}
-        self.methods['setup'] = self.setup()
-        self.methods['update'] = self.update()
-        self.methods['status'] = self.status()
+        self.desc = system._resolve_mode.describe(terminal, mode='gpio')
 
         self.system = system
         self.terminal = terminal
 
+        self.direction = None
+
         # Use the description dictionary to figure out which gpio register
         self.register_name = self.desc['register']
         # Now resolve the memory address (start, end tuple)
-        self.register_address = system._resolve_map(self.register_name)
+        self.register_address = self.system._resolve_map(self.register_name)
         # Use the desc dict to get which gpio channel within the register
         self.channel_number = int(self.desc['register_detail'])
         # And generate a bit-shifted description of which channel this is
         self.channel_bit = 1 << self.channel_number
+        # Grab the description of all gpio registers:
+        self.register_map = self.system._resolve_register_bits('gpio')
+        # For fast access, store the setdataout and cleardataout
+        self.set_out = self.register_map['setdataout']
+        self.clear_out = self.register_map['cleardataout']
+
+        # I looooooooooooove late-binding closures right now, this shit is 
+        # fucking magical. I can't believe this worked first try.
+        self.methods = {}
+        self.methods['setup'] = self.setup
+        self.methods['update'] = self.update
+        self.methods['status'] = self.status
+        self.methods['output_high_nocheck'] = self.output_high_nocheck
 
     def __call__(self):
         return self.methods
 
-    def update(self):
+    def update(self, reg_mmap, status):
+        # Check self.direction
+        # Check status and call corresponding 
         pass
+
+    def output_high_nocheck(self, r_mmap):
+        # Update HIGH/True without checking if input/output.
+        r_mmap[self.set_out[0]: self.set_out[0] + self.set_out[1]/8] = \
+            struct.pack('<L', self.channel_bit)
+
+    def output_low_nocheck(self, r_mmap):
+        # Update LOW/False without checking if input/output.
+        r_mmap[self.clear_out[0]: self.clear_out[0] + self.clear_out[1]/8] = \
+            struct.pack('<L', self.channel_bit)
 
     def status(self):
-        pass
+        print(self.direction)
 
-    def setup(self):
-        # Check to see if the 
-        pass
+    def setup(self, direction):
+        # Error trap the direction (only in/out)
+        if direction != 'in' and direction != 'out':
+            raise ValueError('GPIO direction must be "in" or "out".')
+        
+        # Cool, let's set up
+        self.direction = direction
 
 _mode_generators['gpio'] = _gpio
 
