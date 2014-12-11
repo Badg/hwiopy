@@ -385,7 +385,7 @@ class Sitara335(core.System):
         # Need to parse over all pin modes and open mmaps for each
 
         # Open the memfile
-        self._memfile = open(self.mem_filename, "r+b")
+        self._memfile = open(self._mem_filename, "r+b")
 
         for term, mode in self.terminals_declared.items():
             # Get the register name from the terminals_declared dict.
@@ -496,6 +496,7 @@ class _gpio():
         self.methods['on_start'] = self.on_start
         self.methods['on_stop'] = self.on_stop
         self.methods['output_high_nocheck'] = self.output_high_nocheck
+        self.methods['output_low_nocheck'] = self.output_low_nocheck
 
     def __call__(self):
         return self.methods
