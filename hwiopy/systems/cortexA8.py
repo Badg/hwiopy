@@ -405,9 +405,10 @@ class Sitara335(core.System):
         '''
         super().on_stop()
 
+        registers = list(self._register_mmaps)
         # Close all mmaps and remove them from self._register_maps
-        for register, register_mmap in self._register_mmaps.items():
-            register_mmap.close()
+        for register in registers:
+            self._register_mmaps[register].close()
             del self._register_mmaps[register]
 
         # Cleanup the memfile
