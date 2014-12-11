@@ -497,6 +497,7 @@ class _gpio():
         self.methods['on_stop'] = self.on_stop
         self.methods['output_high_nocheck'] = self.output_high_nocheck
         self.methods['output_low_nocheck'] = self.output_low_nocheck
+        self.methods['config'] = self.config
 
     def __call__(self):
         return self.methods
@@ -520,24 +521,32 @@ class _gpio():
     # Updates all of the methods with the appropriate mmap.
     # I fucking love late binding closures.
     # No __enter__ as this is not intended for external use / context mgmt
-    def on_start(self, direction):
+    def on_start(self):
+        # Error trap: is direction configured?
+        if not self.direction:
+            raise RuntimeError('GPIO direction (in/out) has not been '
+                'configured.')
+
         # Update my _mmap and direction
         self._mmap = self.system._get_register_mmap(self.register_name)
-        self._set_direction(direction)
+        self._set_direction(self.direction)
 
     # No __exit__ as this is not intended for external use / context managment
     def on_stop(self):
         self._mmap = None
 
-    def _set_direction(self, direction):
+    def _set_direction(self):
+        # Update the mmap direction
+        pass
+        # something something something, function(self.direction)
+
+    def config(self, direction):
         # Error trap the direction (only in/out)
         if direction != 'in' and direction != 'out':
             raise ValueError('GPIO direction must be "in" or "out".')
         
         # Cool, let's set up
         self.direction = direction
-
-        # Update the mmap direction
 
 _mode_generators['gpio'] = _gpio
 

@@ -37,7 +37,7 @@ class Pin():
 
         # Dict for holding the pin's methods:
         if methods:
-            # Need to always have setup and teardown methods.
+            # Need to always have on_start, on_stop, and config methods.
             # Pop them from the methods dict, or if they don't exist, create
             # them as empty lambdas.
             if 'on_start' not in methods:
@@ -48,6 +48,10 @@ class Pin():
                 self.on_stop = lambda: None
             else:
                 self.on_stop = methods.pop('on_stop')
+            if 'config' not in methods:
+                self.config = lambda: None
+            else:
+                self.config = methods.pop('config')
         else:
             methods = {}
         self.methods = methods
