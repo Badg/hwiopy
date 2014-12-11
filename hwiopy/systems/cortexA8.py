@@ -391,7 +391,7 @@ class Sitara335(core.System):
             # Get the register name from the terminals_declared dict.
             # Should the register name be folded into the terminals_declared
             # dict? It's being accessed more than once.
-            register = self._resolve_mode.get_register(terminal, mode)
+            register = self._resolve_mode.get_register(term, mode)
             # Create the mmaps.
             self._get_register_mmap(register)
 
