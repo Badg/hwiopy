@@ -11,6 +11,7 @@ import io
 import json
 import struct
 import mmap
+from math import ceil
 
 # Intrapackage dependencies
 from . import __path__
@@ -481,12 +482,14 @@ class _gpio():
         # For fast access store the setdataout and cleardataout bits as slices
         # This yields an (address, bit length) tuple
         set_out = self.register_map['setdataout']
+        set_out_bytes = ceil(set_out[1]/8)
         # We want (byte start: byte end) slice
-        self.set_out = slice(set_out[0], set_out[0] + set_out[1]/8)
+        self.set_out = slice(set_out[0], set_out[0] + set_out_bytes)
         # (address, bit length) tuple
         clear_out = self.register_map['cleardataout']
+        clear_out_bytes = ceil(clear_out[1]/8)
         # To (byte start: byte end) slice
-        self.clear_out = slice(clear_out[0], clear_out[0] + clear_out[1]/8)
+        self.clear_out = slice(clear_out[0], clear_out[0] + clear_out_bytes)
 
         # I looooooooooooove late-binding closures right now, this shit is 
         # fucking magical. I can't believe this worked first try.
