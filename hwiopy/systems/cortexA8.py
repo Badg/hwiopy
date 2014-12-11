@@ -3,11 +3,14 @@
 Something something sooooomething goes here.
 
 Missing a great many error traps.
+
+This should all be made threadsafe. It is currently HIGHLY un-threadsafe.
 '''
 # Global dependencies
 import io
 import json
 import struct
+import mmap
 
 # Intrapackage dependencies
 from . import __path__
@@ -224,7 +227,7 @@ class _mode_map():
     mode=None           dict            {'mode': callable, 'gpio': gpio}
     mode=str            callable class  
 
-    _memory_map.list():
+    _mode_map.list():
     ========================================================
 
     *args
@@ -239,7 +242,7 @@ class _mode_map():
     terminal=None       dict            {'term': ['mode', ...], ...}
     terminal=str        list            ['mode', 'mode', ...]
 
-    _memory_map.describe():
+    _mode_map.describe():
     ========================================================
 
     *args
@@ -253,6 +256,20 @@ class _mode_map():
 
     mode=None           list            ['mode description, mode descr...]
     mode=str            str             'description of mode'
+
+    _mode_map.get_register():
+    ========================================================
+
+    *args
+    --------------------------------------------------------
+
+    terminal            str             'name of terminal'
+    mode                str             'name of mode'
+
+    return
+    --------------------------------------------------------
+
+    str                 'name of register'
     '''
     def __init__(self, modes_file):
         # First grab the termmodes file, which describes which terminals
@@ -335,6 +352,9 @@ class _mode_map():
         else: 
             return self._mode_dict[terminal]['modes'].values()
 
+    def get_register(self, terminal, mode):
+        return self.describe(terminal, mode)['register']
+
 class Sitara335(core.System):
     ''' The sitara 335 SoC. Used in the Beaglebone Black.
     '''
@@ -344,6 +364,8 @@ class Sitara335(core.System):
 
         # Grab the filename for the memory mapping
         self._mem_filename = mem_filename
+        # Memfile will only exist when the memfile is open.
+        self._memfile = None
 
         # Now create the _memory_map object for callable use
         self._resolve_map = _memory_map()
@@ -354,11 +376,7 @@ class Sitara335(core.System):
         ''' Overrides the generic chipset entry method.
         '''
         self.on_start()
-
-    def __exit__(self, type, value, traceback):
-        ''' Overrides the generic chipset exit method.
-        '''
-        self.on_stop()
+        return self
 
     def on_start(self, *args, **kwargs):
         ''' Must be called to start the device.
@@ -366,31 +384,73 @@ class Sitara335(core.System):
         super().on_start()
         # Need to parse over all pin modes and open mmaps for each
 
+        # Open the memfile
+        self._memfile = open(self.mem_filename, "r+b")
+
+        for term, mode in self.terminals_declared.items():
+            # Get the register name from the terminals_declared dict.
+            # Should the register name be folded into the terminals_declared
+            # dict? It's being accessed more than once.
+            register = self._resolve_mode.get_register(terminal, mode)
+            # Create the mmaps.
+            self._get_register_mmap(register)
+
+    def __exit__(self, type, value, traceback):
+        ''' Overrides the generic chipset exit method.
+        '''
+        self.on_stop()
+
     def on_stop(self, *args, **kwargs):
         ''' Cleans up the started device.
         '''
         super().on_stop()
+
+        # Close all mmaps and remove them from self._register_maps
+        for register, register_mmap in self._register_mmaps.items():
+            register_mmap.close()
+            del self._register_mmaps[register]
+
+        # Cleanup the memfile
+        self._memfile.close()
+        self._memfile = None
 
     def declare_linked_pin(self, terminal, mode, *args, **kwargs):
         ''' Sets up a pin as something, checks for available modes, etc.
         '''
         # Don't forget to assign the result of the pin declaration
         pin = super().declare_linked_pin(terminal, mode)
+
+        # Add the register name to the pin
+        pin.register_name = self._resolve_mode.get_register(terminal, mode)
+
         # Potentially modify the result of the pin declaration
         # Now return the pin
         return pin
 
-    def _setup_term(self, term, mode):
-        ''' Gets the terminal ready for use. Handles muxing, mode select, etc.
-        '''
-        # Need to figure out the appropriate mmap for the term
-        #    That said, the mmap should already be opened, probably in the 
-        #    on_start method. Then go over each mmap that the SoC needs to 
-        #    make. This would be after the super() call.
-        # Need to mux the term
-        # Might need an overlay for the term
-        pass
+    def _get_register_mmap(self, register):
+        ''' Returns an mmap for the specified register. If the register hasn't
+        been opened, opens it.
 
+        This should only be called during setup, not during initialization or
+        after the system has started.
+        '''
+        # Error trap: is the memfile open?
+        if not self._memfile:
+            raise RuntimeError('System must be started and the memory file '
+                'opened for access to pin functions.')
+
+        # If it hasn't already been opened, open it and add it to the dict
+        if register not in self._register_mmaps:
+            # This will result in a (start, end) tuple, so unpack it
+            register_start, register_end = self._resolve_map(register)
+            # Convert to start, size
+            register_size = register_end - register_start
+            # Open and add the mmap
+            self._register_mmaps[register] = mmap.mmap(
+                self._memfile.fileno(), register_size, offset=register_start)
+
+        # Now it's definitely open. Return the mmap.
+        return self._register_mmaps[register]
 
 class _gpio():
     ''' Callable class for creating a GPIO terminal for cortex A8 SoCs.
@@ -405,57 +465,78 @@ class _gpio():
         self.terminal = terminal
 
         self.direction = None
+        self._mmap = None
 
         # Use the description dictionary to figure out which gpio register
-        self.register_name = self.desc['register']
+        self.register_name = \
+            system._resolve_mode.get_register(terminal, 'gpio')
         # Now resolve the memory address (start, end tuple)
-        self.register_address = self.system._resolve_map(self.register_name)
-        # Use the desc dict to get which gpio channel within the register
         self.channel_number = int(self.desc['register_detail'])
         # And generate a bit-shifted description of which channel this is
         self.channel_bit = 1 << self.channel_number
         # Grab the description of all gpio registers:
         self.register_map = self.system._resolve_register_bits('gpio')
-        # For fast access, store the setdataout and cleardataout
-        self.set_out = self.register_map['setdataout']
-        self.clear_out = self.register_map['cleardataout']
+
+        # For fast access store the setdataout and cleardataout bits as slices
+        # This yields an (address, bit length) tuple
+        set_out = self.register_map['setdataout']
+        # We want (byte start: byte end) slice
+        self.set_out = slice(set_out[0], set_out[0] + set_out[1]/8)
+        # (address, bit length) tuple
+        clear_out = self.register_map['cleardataout']
+        # To (byte start: byte end) slice
+        self.clear_out = slice(clear_out[0], clear_out[0] + clear_out[1]/8)
 
         # I looooooooooooove late-binding closures right now, this shit is 
         # fucking magical. I can't believe this worked first try.
         self.methods = {}
-        self.methods['setup'] = self.setup
+        # self.methods['setup'] = self.setup
         self.methods['update'] = self.update
         self.methods['status'] = self.status
+        self.methods['on_start'] = self.on_start
+        self.methods['on_stop'] = self.on_stop
         self.methods['output_high_nocheck'] = self.output_high_nocheck
 
     def __call__(self):
         return self.methods
 
-    def update(self, reg_mmap, status):
+    def update(self, status):
         # Check self.direction
         # Check status and call corresponding 
         pass
 
-    def output_high_nocheck(self, r_mmap):
+    def output_high_nocheck(self):
         # Update HIGH/True without checking if input/output.
-        r_mmap[self.set_out[0]: self.set_out[0] + self.set_out[1]/8] = \
-            struct.pack('<L', self.channel_bit)
+        self._mmap[self.set_out] = struct.pack('<L', self.channel_bit)
 
-    def output_low_nocheck(self, r_mmap):
+    def output_low_nocheck(self):
         # Update LOW/False without checking if input/output.
-        r_mmap[self.clear_out[0]: self.clear_out[0] + self.clear_out[1]/8] = \
-            struct.pack('<L', self.channel_bit)
+        self._mmap[self.clear_out] = struct.pack('<L', self.channel_bit)
 
     def status(self):
         print(self.direction)
 
-    def setup(self, direction):
+    # Updates all of the methods with the appropriate mmap.
+    # I fucking love late binding closures.
+    # No __enter__ as this is not intended for external use / context mgmt
+    def on_start(self, direction):
+        # Update my _mmap and direction
+        self._mmap = self.system._get_register_mmap(self.register_name)
+        self._set_direction(direction)
+
+    # No __exit__ as this is not intended for external use / context managment
+    def on_stop(self):
+        self._mmap = None
+
+    def _set_direction(self, direction):
         # Error trap the direction (only in/out)
         if direction != 'in' and direction != 'out':
             raise ValueError('GPIO direction must be "in" or "out".')
         
         # Cool, let's set up
         self.direction = direction
+
+        # Update the mmap direction
 
 _mode_generators['gpio'] = _gpio
 

@@ -9,6 +9,9 @@ already.
 Will probably need to add a virtual terminal at some point? Or maybe the 
 generic SoC defines terminals available in the fallback sysFS mappings? 
 Or summat.
+
+WILL NEED TO BE MADE THREADSAFE AT SOME POINT. THIS IS EXTREMELY DANGEROUS TO
+RUN THREADED AT THE MOMENT.
 '''
 
 class Pin():
@@ -28,18 +31,35 @@ class Pin():
         self.value = None
         # Which System terminal?
         self.terminal = terminal
+        # Which system register? Note that not all systems will use this
+        # Oh, and it's just a name, not the actual location.
+        self.register_name = None
 
         # Dict for holding the pin's methods:
         if methods:
-            # Need to always have setup and teardown methods, even if empty
-            if 'setup' not in methods:
-                methods['setup'] = lambda: None
-            if 'teardown' not in methods:
-                methods['teardown'] = lambda: None
+            # Need to always have setup and teardown methods.
+            # Pop them from the methods dict, or if they don't exist, create
+            # them as empty lambdas.
+            if 'on_start' not in methods:
+                self.on_start = lambda: None
+            else:
+                self.on_start = methods.pop('on_start')
+            if 'on_stop' not in methods:
+                self.on_stop = lambda: None
+            else:
+                self.on_stop = methods.pop('on_stop')
         else:
             methods = {}
         self.methods = methods
 
+        # It might be nice to be able to use 
+        #   with pin as pin:
+        # You'd need to reference the system, because you'd have to start it
+        # or else you'd lack any access to the memory. That would be tough 
+        # for anything that modifies pin. Would just need to check against 
+        # system.running and if not, then set self.standalone = True and call
+        # system.on_start and then, in self.__exit__() call system.on_stop 
+        # if self.standalone == True
 
 
         # For the purpose of fast updating, store the location?
@@ -56,6 +76,8 @@ class Plug():
 
 class System():
     ''' A base object for any computer system, be it SoC, desktop, whatever.
+
+    Might want to subclass to mmapped system, then to cortex?
     '''
     def __init__(self, resolve_mode):
         self._resolve_mode = resolve_mode
@@ -70,8 +92,8 @@ class System():
         # callable that turns a register type into an (offset, bitsize) tuple:
         self._resolve_register_bits = None
 
-        # Where are mapped registers?
-        self._register_mmap = {}
+        # Where are mapped registers? Not all systems will use this
+        self._register_mmaps = {}
 
         # Every terminal must be defined in terminal_modes
         # The keys in terminal_modes therefore provide the definition for
@@ -86,10 +108,24 @@ class System():
         self.terminals_available = \
             self._resolve_mode.list(only_assignable=True)
 
-    def _open_register_mmap(self, register):
-        # Open up an mmap at the appropriate location for the specified
-        # register and then add it to self._register_mmap{}
-        pass
+    def __enter__(self):
+        self.on_start()
+        return self
+
+    def on_start(self, *args, **kwargs):
+        ''' Must be called to start the device.
+        '''
+        self.running = True
+
+    def __exit__(self, type, value, traceback):
+        ''' Cleans up and handles errors.
+        '''
+        self.on_stop()
+
+    def on_stop(self, *args, **kwargs):
+        ''' Cleans up the started device.
+        '''
+        self.running = False
 
     def declare_linked_pin(self, terminal, mode):
         ''' Sets up the terminal for on_start initialization and returns a 
@@ -106,7 +142,11 @@ class System():
         # Pin declaration
         # ---------------
 
+        # Update declared terminals
         self.terminals_declared[terminal] = mode
+
+        # Return the declared pin. If a system uses a mmap, it'll be handled 
+        # in the child declare_linked_pin method
         return Pin(terminal, mode, 
             methods=self._resolve_mode(self, terminal, mode)())
 
@@ -141,42 +181,6 @@ class System():
         '''
         raise NotImplementedError('mutate_terminal must be defined for each '
             'individual SoC.')
-
-    def __enter__(self):
-        self.on_start()
-
-    def __exit__(self, type, value, traceback):
-        self.on_stop()
-
-    def on_start(self, *args, **kwargs):
-        ''' Must be called to start the device.
-        '''
-        self.running = True
-        for term, mode in self.terminals_declared.items():
-            self._setup_term(term, mode)
-
-    def on_stop(self, *args, **kwargs):
-        ''' Cleans up the started device.
-        '''
-        for term, mode in self.terminals_declared.items():
-            self._unsetup_term(term, mode)
-        self.running = False
-
-    def _setup_term(self, *args, **kwargs):
-        ''' Gets the terminal ready for use. Handles muxing, mode select, etc. 
-
-        MUST be overridden for each individual SoC that needs to be set up.
-        '''
-        pass
-
-    def _unsetup_term(self, *args, **kwargs):
-        ''' If anything needs to be released before a new call to _setup_term,
-        this is the place to do it.
-
-        MUST be overridden for each individual SoC that needs its terminals to 
-        be released after use.
-        '''
-        pass
 
 class Device():
     ''' A base object for a generic hardware-inspecific device. Will probably,
@@ -222,15 +226,51 @@ class Device():
         self.system = system
         self.pinout = {}
         self.pins_available = self._resolve_header.list_system_headers()
+        self.running = False
 
     def __enter__(self):
-        pass
+        self.on_start()
+        return self
+
+    def on_start(self):
+        # This is separated out so that there is a start method that doesn't
+        # return, which is useful for subclassing
+
+        self.running = True
+
+        # MUST call system on_start before pin on_start
+        self.system.on_start()
+
+        # Now start every pin
+        for pin in self.pinout.values():
+            pin.on_start()
 
     def __exit__(self, type, value, traceback):
-        pass
+        self.on_stop()
+
+    def on_stop(self):
+        # This is separated out so that there is a stop method that doesn't
+        # return, which is useful for subclassing
+
+        # MUST call pin on_stop before system on_stop
+        for pin in self.pinout.values():
+            pin.on_stop()
+
+        self.system.on_stop()
+
+        self.running = False
 
     def create_pin(self, pin_num, mode, name=None, **kwargs):
         # Need lots of error traps first
+        # Check for existing pin at pin_num (note that this is a little 
+        # redundant, since declare_linked_pin already checks for repeated 
+        # terminal choice)
+        if pin_num in self.pinout:
+            raise ValueError('Pin ' + pin_num + ' has already been assigned.') 
+        # Ensure a unique pin_name
+        if name and name in self.pinout:
+            raise ValueError('Choose a unique pin name.')
+
         terminal = self._resolve_header(pin_num)
         pin = self.system.declare_linked_pin(terminal, mode, name=name)
         pin.num = pin_num
