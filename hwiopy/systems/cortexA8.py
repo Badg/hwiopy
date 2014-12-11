@@ -529,7 +529,7 @@ class _gpio():
 
         # Update my _mmap and direction
         self._mmap = self.system._get_register_mmap(self.register_name)
-        self._set_direction(self.direction)
+        self._set_direction()
 
     # No __exit__ as this is not intended for external use / context managment
     def on_stop(self):
