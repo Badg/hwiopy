@@ -101,7 +101,14 @@ All (period?) "prior art" packages do io through writing to sysfs. Adafruit libr
 
 Can also map pins to /dev/mem using mmap? This would be a possible route for improvement. Not 100% sure how to deal with pinmuxing -- perhaps mux with the /sys/ mappings -- but theoretically possible within /dev/mem as well. [Check this out.](http://chiragnagpal.com/examples.html)
 
-I compared IO for the simple /sys/ mappings was between numpy and the stock io libraries. Stock io was significantly faster, roughly 3x. Timing using:
+I compared IO for the simple /sys/ mappings was between numpy and the stock io libraries. Stock io was significantly faster, roughly 3x.
+
+**You will take a significant performance hit if you try to access functions via the pin dictionary. Give them a new name first, then call that:**
+
+    fastup = test_led.methods['output_high_nocheck']
+    fastdown = test_led.methods['output_low_nocheck']
+
+Could probably speed things up a bit more by using lambdas with default arguments and stuff.
 
 
 Memory mapping
