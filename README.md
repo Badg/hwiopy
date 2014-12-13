@@ -12,14 +12,46 @@ All that said: the purpose of this library is to develop a standard platform-ind
 
 Special thanks to [Tabula](http://tabula.technology/) for help with datasheet table processing.
 
-Scratchbook
+Installation
 ===========
 
-All (period?) io is being done through writing to sysfs. Need to sudo (or chmod) /sys/class. Adafruit library uses this through c++ wrapper. Could entirely circumvent with own python library, which would probably be best case. Have verified file writing works with sudo echo 1 > /sys/class/leds/beaglebone:green:usr0/brightness (may need to sudo su). 
+    git clone https://github.com/Badg/hwiopy.git
 
-Can also map pins to /dev/mem using mmap? This would be a possible route for improvement. Not 100% sure how to deal with pinmuxing -- perhaps mux with the /sys/ mappings -- but theoretically possible within /dev/mem as well. [Check this out.](http://chiragnagpal.com/examples.html)
+For now, there is no stable release, so you must:
 
-I compared IO for the simple /sys/ mappings was between numpy and the stock io libraries. Stock io was significantly faster, roughly 3x. Timing using:
+    git branch -b develop origin/develop
+    git checkout develop
+
+Gotchas and other things that are likely to screw you up or otherwise don't work yet
+============
+
+Hwiopy currently only supports gpio output.
+
+Before being used, the pin must be manually exported for use. I've been doing this by using sysFS to export pins. To enable gpio, first figure out what terminal of the Sitara SoC the BBB is connected to:
+
+    bbb = hwiopy.platforms.BBB()
+    test_pin = bbb.create_pin('8_7', 'gpio', 'test_pin')
+    sitara_terminal = test_pin.terminal
+
+then figure out what GPIO number we have:
+
+    gpio_desc = bbb.system._resolve_mode.describe(test_pin.terminal, 'gpio')
+    gpio_num = gpio_dec['mode_name']
+
+it should look like "gpio2_2", "gpio1_22", etc. Now take the first number (this is the register number; there's gpio0, gpio1, gpio2, etc, each with 32 bits/channels total). Multiply that by 32, and add the second number. So gpio2_2 becomes (2*32) + 2, gpio1_22 becomes (1*32) + 22, etc. That's the number you use when you use the sysFS mappings to configure the pin, for example:
+
+    echo 66 > /sys/class/gpio/export 
+
+will set up the gpio2_2 channel, which corresponds to pin 8_7 on the BBB header.
+
+As of this writing, you do not need to set the output/input configuration in sysFS; hwiopy will do that for you.
+
+
+Preliminary work
+=============
+
+SysFS access for reference speeds:
+--------------
 
     sudo ~/.virtualenvs/python34/bin/python
     import timeit
@@ -53,78 +85,36 @@ and for 1000000x testing yielded an average access time of:
 * .000153 seconds, corresponding to 6.54 khz
 * .000153 seconds, corresponding to 6.54 khz
 
+[Scope testing](http://i.imgur.com/ReNK9gz.png) the adafruit library resulted in a 6.826kHz max switching speed.
+
+Accessing one pin explicitly using python in /dev/mem for a maximum expectable performance baseline
+-----------------
+
+Using a direct, explicitly-hardcoded memory access approach, I was able to reach average switching speeds (one cycle being turn the pin on, turn the pin off) of 350-450 kHz over a test duration of 2-15 minutes. This was likely approaching the limits of timer overhead; it would be better to verify this with a scope. At any rate I would expect around 500 kHz to be an approximate maximum switching speed for python gpio access. The file used for this test is vollgas_test.py, and the timing mechanism is pretty basic.
+
+This script is also a good place to test optimizations; for example, what happens if you decrease the size of the mmap, or decrease the number of bits you're setting? You don't *actually* need to pull the entire 32-bit register to update a GPIO pin; how much faster is it if you don't?
+
+Scratchbook
+===========
+
+All (period?) "prior art" packages do io through writing to sysfs. Adafruit library, for example, uses this through a... rather convoluted c++ wrapper. This package, on the other hand, 
+
+Can also map pins to /dev/mem using mmap? This would be a possible route for improvement. Not 100% sure how to deal with pinmuxing -- perhaps mux with the /sys/ mappings -- but theoretically possible within /dev/mem as well. [Check this out.](http://chiragnagpal.com/examples.html)
+
+I compared IO for the simple /sys/ mappings was between numpy and the stock io libraries. Stock io was significantly faster, roughly 3x. Timing using:
+
+
 Memory mapping
 ------------
 
-This comes from the ARM cortex A8 TRM, starting around page 175.
+The ARM cortex A8 TRM, BBB SRM, and a datasheet or two are in /doc. I realize that it's not necessarily the best practice to include those in the git repo, but the links to them online seem to have been a little less static than would otherwise be desirable, making them difficult to link to. I'd rather unambiguously and conveniently include them here. That said, the json files in the source code are likely to be more helpful.
 
-Map:
-
-* DMTIMER0 0x44E0_5000 0x44E0_5FFF 4KB DMTimer0 Registers
-* GPIO0 0x44E0_7000 0x44E0_7FFF 4KB GPIO Registers
-* UART0 0x44E0_9000 0x44E0_9FFF 4KB UART Registers
-* I2C0 0x44E0_B000 0x44E0_BFFF 4KB I2C Registers
-* ADC_TSC 0x44E0_D000 0x44E0_EFFF 8KB ADC_TSC Registers
-* DMTIMER1_1MS 0x44E3_1000 0x44E3_1FFF 4KB DMTimer1 1ms Registers
-* RTCSS 0x44E3_E000 0x44E3_EFFF 4KB RTC Registers
-* UART1 0x4802_2000 0x4802_2FFF 4KB UART1 Registers
-* UART2 0x4802_4000 0x4802_4FFF 4KB UART2 Registers
-* I2C1 0x4802_A000 0x4802_AFFF 4KB I2C1 Registers
-* McSPI0 0x4803_0000 0x4803_0FFF 4KB McSPI0 Registers
-* DMTIMER2 0x4804_0000 0x4804_0FFF 4KB DMTimer2 Registers
-* DMTIMER3 0x4804_2000 0x4804_2FFF 4KB DMTimer3 Registers
-* DMTIMER4 0x4804_4000 0x4804_4FFF 4KB DMTimer4 Registers
-* DMTIMER5 0x4804_6000 0x4804_6FFF 4KB DMTimer5 Registers
-* DMTIMER6 0x4804_8000 0x4804_8FFF 4KB DMTimer6 Registers
-* DMTIMER7 0x4804_A000 0x4804_AFFF 4KB DMTimer7 Registers
-* GPIO1 0x4804_C000 0x4804_CFFF 4KB GPIO1 Registers
-* MMCHS0 0x4806_0000 0x4806_0FFF 4KB MMCHS0 Registers
-* I2C2 0x4819_C000 0x4819_CFFF 4KB I2C2 Registers
-* McSPI1 0x481A_0000 0x481A_0FFF 4KB McSPI1 Registers
-* UART3 0x481A_6000 0x481A_6FFF 4KB UART3 Registers
-* UART4 0x481A_8000 0x481A_8FFF 4KB UART4 Registers
-* UART5 0x481A_A000 0x481A_AFFF 4KB UART5 Registers
-* GPIO2 0x481A_C000 0x481A_CFFF 4KB GPIO2 Registers
-* GPIO3 0x481A_E000 0x481A_EFFF 4KB GPIO3 Registers
-* DCAN0 0x481C_C000 0x481C_DFFF 8KB DCAN0 Registers
-* DCAN1 0x481D_0000 0x481D_1FFF 8KB DCAN1 Registers
-* INTCPS 0x4820_0000 0x4820_0FFF 4KB Interrupt Controller Registers
-* PRU_ICSS 0x4A30_0000 0x4A37_FFFF 512KB PRU-ICSS Instruction/Data/Control Space
-* LCD Controller 0x4830_E000 0x4830_EFFF 4KB LCD Registers
-* 
-
-PWM (each 4KB total):
-
-* PWM Subsystem 0 0x4830_0000 0x4830_00FF PWMSS0 Configuration Registers
-    * eCAP0 0x4830_0100 0x4830_017F PWMSS eCAP0 Registers
-    * eQEP0 0x4830_0180 0x4830_01FF PWMSS eQEP0 Registers
-    * ePWM0 0x4830_0200 0x4830_025F PWMSS ePWM0 Registers
-* PWM Subsystem 1 0x4830_2000 0x4830_20FF PWMSS1 Configuration Registers
-    * eCAP1 0x4830_2100 0x4830_217F PWMSS eCAP1 Registers
-    * eQEP1 0x4830_2180 0x4830_21FF PWMSS eQEP1 Registers
-    * ePWM1 0x4830_2200 0x4830_225F PWMSS ePWM1 Registers
-* PWM Subsystem 2 0x4830_4000 0x4830_40FF PWMSS2 Configuration Registers
-    * eCAP2 0x4830_4100 0x4830_417F PWMSS eCAP2 Registers
-    * eQEP2 0x4830_4180 0x4830_41FF PWMSS eQEP2 Registers
-    * ePWM2 0x4830_4200 0x4830_425F PWMSS ePWM2 Registers
-
-GPIO registers: page 4871
-
-When setting the datain / dataout bits, remember that each GPIO register has one bit per GPIO. So in other words, if you wanted to set the 1 bit for gpioX_5, you'd need to set
-
-    0000100000...
-
-BBB Pinout
----------
-
-See the .json
+By far the most tedious part about this has been bringing in the bitwise/bytewise description of the /dev/mem mapping. All of the information I've gathered has been put into json files: check them out if you're looking to do any other kind of access to the memory register, as it will save an enormous amount of time compared to the reference material. For any register that contains the string "_intchannel", the corresponding part of the register uses 1 bit per GPIO. So for example, on the gpio1 register, when you set output, bit 1 is gpio1-1, bit 2 is gpio1-2, bit 3 is gpio1-3, etc.
 
 Planning committee
 -------
 
-+ Need to reorganize .json files
-    + modes_available
-+ Need to add chipset class
++ **Need to compare the speed of the library with the speed of explicitly calling out the bits to change**
 
 + capability to declare a pin for a purpose
 + resolve pin on header to memory mapping
@@ -165,46 +155,3 @@ PRU links
 --------
 
 * [beagleboard.org on PRUs](http://beagleboard.org/pru)
-
-Installation
-===========
-
-Cannibalize the Adafruit library. Seriously. After a little finagling (one of my other repos, look for a fork of the Adafruit library with a python3 branch) I installed it into a py=3.4 virtualenv using 
-
-```
-sudo /path/to/clone setup.py install
-```
-  
-then stole the compiled .so libraries:
-
-```
-sudo mkdir /usr/local/lib/hwio
-sudo cp /path/to/dir/ADC.cpython.34.so /usr/local/lib/hwio/adc_py34.so
-```
-
-(etc), and don't forget to verify path:
-
-'''
-echo $LD_LIBRARY_PATH
-'''
-
-and then, if missing, 
-
-'''
-export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:$LD_LIBRARY_PATH
-'''
-
-and finally to allow access to the libraries (don't actually do it this way):
-
-'''
-sudo chmod 777 /usr/local/lib/hwio/*
-'''
-
-then cloned this repo:
-
-```
-git clone https://github.com/Badg/hwiopy.git ~/hwiopy
-cd ~/hwiopy
-```
-
-More when I actually get it working and shit.

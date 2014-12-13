@@ -475,7 +475,7 @@ class _gpio():
         # Now resolve the memory address (start, end tuple)
         self.channel_number = int(self.desc['register_detail'])
         # And generate a bit-shifted description of which channel this is
-        self.channel_bit = 1 << self.channel_number
+        self.channel_flag = struct.pack('<L', 1 << self.channel_number)
         # Grab the description of all gpio registers:
         self.register_map = self.system._resolve_register_bits('gpio')
 
@@ -490,6 +490,9 @@ class _gpio():
         clear_out_bytes = ceil(clear_out[1]/8)
         # To (byte start: byte end) slice
         self.clear_out = slice(clear_out[0], clear_out[0] + clear_out_bytes)
+        oe = self.register_map['oe']
+        oe_bytes = ceil(oe[1]/8)
+        self.output_enable = slice(oe[0], oe[0] + oe_bytes)
 
         # I looooooooooooove late-binding closures right now, this shit is 
         # fucking magical. I can't believe this worked first try.
@@ -513,11 +516,11 @@ class _gpio():
 
     def output_high_nocheck(self):
         # Update HIGH/True without checking if input/output.
-        self._mmap[self.set_out] = struct.pack('<L', self.channel_bit)
+        self._mmap[self.set_out] = self.channel_flag
 
     def output_low_nocheck(self):
         # Update LOW/False without checking if input/output.
-        self._mmap[self.clear_out] = struct.pack('<L', self.channel_bit)
+        self._mmap[self.clear_out] = self.channel_flag
 
     def status(self):
         print(self.direction)
@@ -551,6 +554,18 @@ class _gpio():
         
         # Cool, let's set up
         self.direction = direction
+
+        # Set or clear the output enable register. Note that in the oe, 
+        # a but of 1 indicates use as an INPUT, not an output.
+        out_ena = struct.unpack('<L', self._mmap[self.output_enable])[0]
+        if direction == 'out':
+            # Set the channel bit to 0 (note the flip)
+            out_ena &= ~(1 << self.channel_number)
+        else:
+            # Set the channel bit to 1
+            out_ena |= (1 << self.channel_number)
+        self._mmap[self.output_enable] = struct.pack('<L', out_ena)
+
 
 _mode_generators['gpio'] = _gpio
 
