@@ -543,9 +543,19 @@ class _gpio():
         self._mmap = None
 
     def _set_direction(self):
-        # Update the mmap direction
-        pass
-        # something something something, function(self.direction)
+        # Set or clear the output enable register. Note that in the oe, 
+        # a but of 1 indicates use as an INPUT, not an output.
+        out_ena = struct.unpack('<L', self._mmap[self.output_enable])[0]
+        if self.direction == 'out':
+            # Set the channel bit to 0 (note the flip)
+            out_ena &= ~(1 << self.channel_number)
+        elif self.direction == 'in':
+            # Set the channel bit to 1
+            out_ena |= (1 << self.channel_number)
+        else:
+            raise RuntimeError('Invalid direction specified.')
+        # At any rate, now take care of all of that nonsense.
+        self._mmap[self.output_enable] = struct.pack('<L', out_ena)
 
     def config(self, direction):
         # Error trap the direction (only in/out)
@@ -555,16 +565,6 @@ class _gpio():
         # Cool, let's set up
         self.direction = direction
 
-        # Set or clear the output enable register. Note that in the oe, 
-        # a but of 1 indicates use as an INPUT, not an output.
-        out_ena = struct.unpack('<L', self._mmap[self.output_enable])[0]
-        if direction == 'out':
-            # Set the channel bit to 0 (note the flip)
-            out_ena &= ~(1 << self.channel_number)
-        else:
-            # Set the channel bit to 1
-            out_ena |= (1 << self.channel_number)
-        self._mmap[self.output_enable] = struct.pack('<L', out_ena)
 
 
 _mode_generators['gpio'] = _gpio
