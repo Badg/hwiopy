@@ -90,9 +90,75 @@ and for 1000000x testing yielded an average access time of:
 Accessing one pin explicitly using python in /dev/mem for a maximum expectable performance baseline
 -----------------
 
-Using a direct, explicitly-hardcoded memory access approach, I was able to reach average switching speeds (one cycle being turn the pin on, turn the pin off) of 350-450 kHz over a test duration of 2-15 minutes. This was likely approaching the limits of timer overhead; it would be better to verify this with a scope. At any rate I would expect around 500 kHz to be an approximate maximum switching speed for python gpio access. The file used for this test is vollgas_test.py, and the timing mechanism is pretty basic.
+Using a direct, explicitly-hardcoded memory access approach, I was able to reach average switching speeds (one cycle being turn the pin on, turn the pin off) of 350-450 kHz over a test duration of 2-15 minutes. This was likely approaching the limits of timer overhead; it would be better to verify this with a scope. At any rate I would expect around 500 kHz to be an approximate maximum switching speed for python gpio access. The file used for this test is vollgas_stats.py, and the timing mechanism is pretty basic.
 
-This script is also a good place to test optimizations; for example, what happens if you decrease the size of the mmap, or decrease the number of bits you're setting? You don't *actually* need to pull the entire 32-bit register to update a GPIO pin; how much faster is it if you don't?
+This script is also a good place to test optimizations; for example, what happens if you decrease the number of bits you're setting? You don't *actually* need to pull the entire 32-bit register to update a GPIO pin; how much faster is it if you don't?
+
+Note that I've actually run this test. First, it's worth noting that the minimum mmap size for the BBB is 4096 bytes, or 0:4095, and that any mmap must be a multiple of that. So the 4KB gpio register is already the minimum mmap-able size. I've not seen an appreciable difference between setting single bytes and setting the entire four-byte "setdataout" or "cleardataout" "line" of the register; both appear to max out at 350-450 kHz with results averaged across test times ranging from 1.5 to 15 minutes.
+
+Tests as of 15 Dec 2014, on commit ddd34a0, running "stock" ubuntu 14.04:
+
+* Process time, setting 1-byte lines:
+
+Total iterations:           300000000
+Batch size:                 100
+Total average frequency:    425.49753103800003kHz
+Median batch frequency:     428.954kHz
+Best batch frequency:       431.188kHz
+Worst batch frequency:      215.053kHz
+50th percentile batch:      429.0548687006123kHz
+
+* Process time, setting 4-byte lines:
+
+Total iterations:           300000000
+Batch size:                 100
+Total average frequency:    422.53790626833336kHz
+Median batch frequency:     426.288kHz
+Best batch frequency:       427.503kHz
+Worst batch frequency:      245.198kHz
+50th percentile batch:      426.0616522026246kHz
+
+* Performance time, setting 1-byte lines:
+
+Total iterations:           300000000
+Batch size:                 100
+Total average frequency:    427.95563750233333kHz
+Median batch frequency:     431.732kHz
+Best batch frequency:       433.918kHz
+Worst batch frequency:      12.063kHz
+50th percentile batch:      431.5824456327986kHz
+
+* Performance time, setting 4-byte lines:
+
+Total iterations:           300000000
+Batch size:                 100
+Total average frequency:    425.1705433643333kHz
+Median batch frequency:     429.184kHz
+Best batch frequency:       430.263kHz
+Worst batch frequency:      102.722kHz
+50th percentile batch:      429.12251310922545kHz
+
+* Monotonic time, setting 1-byte lines:
+
+Total iterations:           300000000
+Batch size:                 100
+Total average frequency:    427.99319446199996kHz
+Median batch frequency:     431.733kHz
+Best batch frequency:       433.839kHz
+Worst batch frequency:      7.158kHz
+50th percentile batch:      431.423574404455kHz
+
+* Monotonic time, setting 4-byte lines:
+
+Total iterations:           300000000
+Batch size:                 100
+Total average frequency:    424.9962927153333kHz
+Median batch frequency:     428.954kHz
+Best batch frequency:       430.185kHz
+Worst batch frequency:      23.066kHz
+50th percentile batch:      429.0035250076771kHz
+
+It's very clear from these results that there are some serious limitations associated with the non-RT nature of the system, with some batches having millisecond-order average latencies. These indicate that a preempt-RT patch might be worth considering, and that bit banging protocols may have some serious difficulties running directly (without assistance from PRUs).
 
 Scratchbook
 ===========
