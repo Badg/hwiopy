@@ -98,65 +98,65 @@ Note that I've actually run this test. First, it's worth noting that the minimum
 
 Tests as of 15 Dec 2014, on commit ddd34a0, running "stock" ubuntu 14.04:
 
-* Process time, setting 1-byte lines:
+** Process time, setting 1-byte lines:**
 
-Total iterations:           300000000
-Batch size:                 100
-Total average frequency:    425.49753103800003kHz
-Median batch frequency:     428.954kHz
-Best batch frequency:       431.188kHz
-Worst batch frequency:      215.053kHz
-50th percentile batch:      429.0548687006123kHz
+    Total iterations:         | 300000000
+    Batch size:               | 100
+    Total average frequency:  | 425.49753103800003kHz
+    Median batch frequency:   | 428.954kHz
+    Best batch frequency:     | 431.188kHz
+    Worst batch frequency:    | 215.053kHz
+    50th percentile batch:    | 429.0548687006123kHz
 
-* Process time, setting 4-byte lines:
+** Process time, setting 4-byte lines:**
 
-Total iterations:           300000000
-Batch size:                 100
-Total average frequency:    422.53790626833336kHz
-Median batch frequency:     426.288kHz
-Best batch frequency:       427.503kHz
-Worst batch frequency:      245.198kHz
-50th percentile batch:      426.0616522026246kHz
+    Total iterations:         | 300000000
+    Batch size:               | 100
+    Total average frequency:  | 422.53790626833336kHz
+    Median batch frequency:   | 426.288kHz
+    Best batch frequency:     | 427.503kHz
+    Worst batch frequency:    | 245.198kHz
+    50th percentile batch:    | 426.0616522026246kHz
 
-* Performance time, setting 1-byte lines:
+** Performance time, setting 1-byte lines:**
 
-Total iterations:           300000000
-Batch size:                 100
-Total average frequency:    427.95563750233333kHz
-Median batch frequency:     431.732kHz
-Best batch frequency:       433.918kHz
-Worst batch frequency:      12.063kHz
-50th percentile batch:      431.5824456327986kHz
+    Total iterations:         | 300000000
+    Batch size:               | 100
+    Total average frequency:  | 427.95563750233333kHz
+    Median batch frequency:   | 431.732kHz
+    Best batch frequency:     | 433.918kHz
+    Worst batch frequency:    | 12.063kHz
+    50th percentile batch:    | 431.5824456327986kHz
 
-* Performance time, setting 4-byte lines:
+** Performance time, setting 4-byte lines:**
 
-Total iterations:           300000000
-Batch size:                 100
-Total average frequency:    425.1705433643333kHz
-Median batch frequency:     429.184kHz
-Best batch frequency:       430.263kHz
-Worst batch frequency:      102.722kHz
-50th percentile batch:      429.12251310922545kHz
+    Total iterations:         | 300000000
+    Batch size:               | 100
+    Total average frequency:  | 425.1705433643333kHz
+    Median batch frequency:   | 429.184kHz
+    Best batch frequency:     | 430.263kHz
+    Worst batch frequency:    | 102.722kHz
+    50th percentile batch:    | 429.12251310922545kHz
 
-* Monotonic time, setting 1-byte lines:
+** Monotonic time, setting 1-byte lines:**
 
-Total iterations:           300000000
-Batch size:                 100
-Total average frequency:    427.99319446199996kHz
-Median batch frequency:     431.733kHz
-Best batch frequency:       433.839kHz
-Worst batch frequency:      7.158kHz
-50th percentile batch:      431.423574404455kHz
+    Total iterations:         | 300000000
+    Batch size:               | 100
+    Total average frequency:  | 427.99319446199996kHz
+    Median batch frequency:   | 431.733kHz
+    Best batch frequency:     | 433.839kHz
+    Worst batch frequency:    | 7.158kHz
+    50th percentile batch:    | 431.423574404455kHz
 
-* Monotonic time, setting 4-byte lines:
+** Monotonic time, setting 4-byte lines:**
 
-Total iterations:           300000000
-Batch size:                 100
-Total average frequency:    424.9962927153333kHz
-Median batch frequency:     428.954kHz
-Best batch frequency:       430.185kHz
-Worst batch frequency:      23.066kHz
-50th percentile batch:      429.0035250076771kHz
+    Total iterations:         | 300000000
+    Batch size:               | 100
+    Total average frequency:  | 424.9962927153333kHz
+    Median batch frequency:   | 428.954kHz
+    Best batch frequency:     | 430.185kHz
+    Worst batch frequency:    | 23.066kHz
+    50th percentile batch:    | 429.0035250076771kHz
 
 It's very clear from these results that there are some serious limitations associated with the non-RT nature of the system, with some batches having millisecond-order average latencies. These indicate that a preempt-RT patch might be worth considering, and that bit banging protocols may have some serious difficulties running directly (without assistance from PRUs).
 
