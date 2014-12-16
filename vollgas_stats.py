@@ -51,11 +51,11 @@ med_50 = statistics.median_grouped(khz)
 print('\nSetting 1-byte lines: \n'
     '    Total iterations: ' + str(nn) + '\n'
     '    Batch size: ' + str(batch) + '\n'
-    '    Total average frequency: ' + str(tot_avg) + 'kHz\n'
-    '    Median batch frequency: ' + str(tot_med) + 'kHz\n'
-    '    Best batch frequency: ' + str(max(khz)) + 'kHz\n'
-    '    Worst batch frequency: ' + str(min(khz)) + 'kHz\n'
-    '    50th percentile batch: ' + str(med_50) + 'kHz\n')
+    '    Total average frequency: ' + str(tot_avg) + ' kHz\n'
+    '    Median batch frequency: ' + str(tot_med) + ' kHz\n'
+    '    Best batch frequency: ' + str(max(khz)) + ' kHz\n'
+    '    Worst batch frequency: ' + str(min(khz)) + ' kHz\n'
+    '    50th percentile batch: ' + str(med_50) + ' kHz\n')
 
 set_dataout = slice(0x194, 0x194 + 4)
 clear_dataout = slice(0x190, 0x190 + 4)
@@ -84,11 +84,11 @@ med_50 = statistics.median_grouped(khz)
 print('\nSetting 4-byte lines: \n'
     '    Total iterations: ' + str(nn) + '\n'
     '    Batch size: ' + str(batch) + '\n'
-    '    Total average frequency: ' + str(tot_avg) + 'kHz\n'
-    '    Median batch frequency: ' + str(tot_med) + 'kHz\n'
-    '    Best batch frequency: ' + str(max(khz)) + 'kHz\n'
-    '    Worst batch frequency: ' + str(min(khz)) + 'kHz\n'
-    '    50th percentile batch: ' + str(med_50) + 'kHz\n')
+    '    Total average frequency: ' + str(tot_avg) + ' kHz\n'
+    '    Median batch frequency: ' + str(tot_med) + ' kHz\n'
+    '    Best batch frequency: ' + str(max(khz)) + ' kHz\n'
+    '    Worst batch frequency: ' + str(min(khz)) + ' kHz\n'
+    '    50th percentile batch: ' + str(med_50) + ' kHz\n')
 
 print('\n### Performance time:')
 
@@ -119,11 +119,11 @@ med_50 = statistics.median_grouped(khz)
 print('\nSetting 1-byte lines: \n'
     '    Total iterations: ' + str(nn) + '\n'
     '    Batch size: ' + str(batch) + '\n'
-    '    Total average frequency: ' + str(tot_avg) + 'kHz\n'
-    '    Median batch frequency: ' + str(tot_med) + 'kHz\n'
-    '    Best batch frequency: ' + str(max(khz)) + 'kHz\n'
-    '    Worst batch frequency: ' + str(min(khz)) + 'kHz\n'
-    '    50th percentile batch: ' + str(med_50) + 'kHz\n')
+    '    Total average frequency: ' + str(tot_avg) + ' kHz\n'
+    '    Median batch frequency: ' + str(tot_med) + ' kHz\n'
+    '    Best batch frequency: ' + str(max(khz)) + ' kHz\n'
+    '    Worst batch frequency: ' + str(min(khz)) + ' kHz\n'
+    '    50th percentile batch: ' + str(med_50) + ' kHz\n')
 
 set_dataout = slice(0x194, 0x194 + 4)
 clear_dataout = slice(0x190, 0x190 + 4)
@@ -152,11 +152,11 @@ med_50 = statistics.median_grouped(khz)
 print('\nSetting 4-byte lines: \n'
     '    Total iterations: ' + str(nn) + '\n'
     '    Batch size: ' + str(batch) + '\n'
-    '    Total average frequency: ' + str(tot_avg) + 'kHz\n'
-    '    Median batch frequency: ' + str(tot_med) + 'kHz\n'
-    '    Best batch frequency: ' + str(max(khz)) + 'kHz\n'
-    '    Worst batch frequency: ' + str(min(khz)) + 'kHz\n'
-    '    50th percentile batch: ' + str(med_50) + 'kHz\n')
+    '    Total average frequency: ' + str(tot_avg) + ' kHz\n'
+    '    Median batch frequency: ' + str(tot_med) + ' kHz\n'
+    '    Best batch frequency: ' + str(max(khz)) + ' kHz\n'
+    '    Worst batch frequency: ' + str(min(khz)) + ' kHz\n'
+    '    50th percentile batch: ' + str(med_50) + ' kHz\n')
 
 print('\n### Monotonic time:')
 
@@ -187,11 +187,11 @@ med_50 = statistics.median_grouped(khz)
 print('\nSetting 1-byte lines: \n'
     '    Total iterations: ' + str(nn) + '\n'
     '    Batch size: ' + str(batch) + '\n'
-    '    Total average frequency: ' + str(tot_avg) + 'kHz\n'
-    '    Median batch frequency: ' + str(tot_med) + 'kHz\n'
-    '    Best batch frequency: ' + str(max(khz)) + 'kHz\n'
-    '    Worst batch frequency: ' + str(min(khz)) + 'kHz\n'
-    '    50th percentile batch: ' + str(med_50) + 'kHz\n')
+    '    Total average frequency: ' + str(tot_avg) + ' kHz\n'
+    '    Median batch frequency: ' + str(tot_med) + ' kHz\n'
+    '    Best batch frequency: ' + str(max(khz)) + ' kHz\n'
+    '    Worst batch frequency: ' + str(min(khz)) + ' kHz\n'
+    '    50th percentile batch: ' + str(med_50) + ' kHz\n')
 
 set_dataout = slice(0x194, 0x194 + 4)
 clear_dataout = slice(0x190, 0x190 + 4)
@@ -220,8 +220,8 @@ med_50 = statistics.median_grouped(khz)
 print('\nSetting 4-byte lines: \n'
     '    Total iterations: ' + str(nn) + '\n'
     '    Batch size: ' + str(batch) + '\n'
-    '    Total average frequency: ' + str(tot_avg) + 'kHz\n'
-    '    Median batch frequency: ' + str(tot_med) + 'kHz\n'
-    '    Best batch frequency: ' + str(max(khz)) + 'kHz\n'
-    '    Worst batch frequency: ' + str(min(khz)) + 'kHz\n'
-    '    50th percentile batch: ' + str(med_50) + 'kHz\n')
+    '    Total average frequency: ' + str(tot_avg) + ' kHz\n'
+    '    Median batch frequency: ' + str(tot_med) + ' kHz\n'
+    '    Best batch frequency: ' + str(max(khz)) + ' kHz\n'
+    '    Worst batch frequency: ' + str(min(khz)) + ' kHz\n'
+    '    50th percentile batch: ' + str(med_50) + ' kHz\n')
