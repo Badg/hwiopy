@@ -131,7 +131,8 @@ class BBB(core.Device):
         ''' Creates the device and begins setting it up.
         '''
         # Call super, initializing all of the abstract base class attributes
-        super().__init__(systems.Sitara335(mem_filename), _header_map())
+        super(type(BBB), self).__init__(systems.Sitara335(mem_filename), 
+            _header_map())
 
     def create_pin(self, pin_num, mode, name=None):
         ''' Gets a pin object from the self.chipset object and connects it to 
@@ -141,7 +142,7 @@ class BBB(core.Device):
         '''
         # NOTE THAT DUE TO THE ODDITY OF THE BBB, pins 9_41 and 9_42 need to 
         # be specially configured, as they each connect to two SoC terminals.
-        super().create_pin(pin_num, mode, name)
+        super(type(BBB), self).create_pin(pin_num, mode, name)
 
 
         # pin = self.pinout[pin_num]

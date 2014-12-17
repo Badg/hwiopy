@@ -361,7 +361,8 @@ class Sitara335(core.System):
     '''
     def __init__(self, mem_filename):
         # Call the super(), creating and passing the callable resolve_mode
-        super().__init__(_mode_map(__path__[0] + '/sitara_termmodes.json'))
+        super(type(Sitara335), self).__init__(_mode_map(__path__[0] + 
+            '/sitara_termmodes.json'))
 
         # Grab the filename for the memory mapping
         self._mem_filename = mem_filename
@@ -382,7 +383,7 @@ class Sitara335(core.System):
     def on_start(self, *args, **kwargs):
         ''' Must be called to start the device.
         '''
-        super().on_start()
+        super(type(Sitara335), self).on_start()
         # Need to parse over all pin modes and open mmaps for each
 
         # Open the memfile
@@ -404,7 +405,7 @@ class Sitara335(core.System):
     def on_stop(self, *args, **kwargs):
         ''' Cleans up the started device.
         '''
-        super().on_stop()
+        super(type(Sitara335), self).on_stop()
 
         registers = list(self._register_mmaps)
         # Close all mmaps and remove them from self._register_maps
@@ -420,7 +421,8 @@ class Sitara335(core.System):
         ''' Sets up a pin as something, checks for available modes, etc.
         '''
         # Don't forget to assign the result of the pin declaration
-        pin = super().declare_linked_pin(terminal, mode)
+        pin = super(type(Sitara335), self).declare_linked_pin(terminal, 
+            mode)
 
         # Add the register name to the pin
         pin.register_name = self._resolve_mode.get_register(terminal, mode)
@@ -523,7 +525,8 @@ class _gpio():
         self._mmap[self.clear_out] = self.channel_flag
 
     def status(self):
-        print(self.direction)
+        pass
+        # print(self.direction)
 
     # Updates all of the methods with the appropriate mmap.
     # I fucking love late binding closures.
