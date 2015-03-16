@@ -1,5 +1,30 @@
 ''' Beaglebone/Beagleboard/Etc hardware-specific operations.
 
+LICENSING
+-------------------------------------------------
+
+hwiopy: A common API for hardware input/output access.
+    Copyright (C) 2014-2015 Nicholas Badger
+    badg@nickbadger.com
+    nickbadger.com
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
+    USA
+
+------------------------------------------------------
+
 Something something sooooomething goes here.
 '''
 # Global dependencies
@@ -7,6 +32,7 @@ import io
 import struct
 import mmap
 import json
+from pkg_resources import resource_string
 # from os import listdir
 # from os.path import isfile, join, split
 
@@ -62,11 +88,10 @@ class _header_map():
     str                 'description of register'
     '''
     def __init__(self):
-        # Simply load the corresponding json file and create a map dict
-        with open(__path__[0] + '/bbb_sysmap.json', 'r', newline='') \
-                as json_sysmap:
-            # Store that information in the pinmap
-            self._sys_map = json.load(json_sysmap)
+        # Load the corresponding json file and create a map dict
+        self._sys_map = json.loads(
+            resource_string('hwiopy', 'maps/bbb_sysmap.json').\
+            decode('utf-8'))
         self._header_pins = tuple(self._sys_map.keys())
 
         # Predeclare 

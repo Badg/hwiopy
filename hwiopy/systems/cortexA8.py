@@ -1,5 +1,30 @@
 ''' Beaglebone Black hardware-specific operations.
 
+LICENSING
+-------------------------------------------------
+
+hwiopy: A common API for hardware input/output access.
+    Copyright (C) 2014-2015 Nicholas Badger
+    badg@nickbadger.com
+    nickbadger.com
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
+    USA
+
+------------------------------------------------------
+
 Something something sooooomething goes here.
 
 Missing a great many error traps.
@@ -11,6 +36,7 @@ import io
 import json
 import struct
 import mmap
+from pkg_resources import resource_string
 from math import ceil
 
 # Intrapackage dependencies
@@ -63,10 +89,10 @@ class _memory_map():
     str                 'description of register'
     '''
     def __init__(self):
-        # Simply load the corresponding json file and create a map dict
-        with open(__path__[0] + '/cortexA8_memmap.json', 'r', newline='') \
-                as json_mem_map:
-            self._map_dict = json.load(json_mem_map)
+        # Load the corresponding json file and create a map dict
+        self._map_dict = json.loads(
+            resource_string('hwiopy', 'maps/cortexA8_memmap.json').\
+            decode('utf-8'))
         self._registers = tuple(self._map_dict.keys())
         
     def __call__(self, register):
@@ -140,10 +166,10 @@ class _register_map():
     _channelwise = '_intchannel'
 
     def __init__(self):
-        # Simply load the corresponding json file and create a map dict
-        with open(__path__[0] + '/cortexA8_registers.json', 'r', newline='') \
-                as json_reg_map:
-            self._register_dict = json.load(json_reg_map)
+        # Load the corresponding json file and create a map dict
+        self._register_dict = json.loads(
+            resource_string('hwiopy', 'maps/cortexA8_registers.json').\
+            decode('utf-8'))
         self._register_types = tuple(self._register_dict.keys())
         self._register_functions = {}
         for reg, reg_dict in self._register_dict.items():
@@ -275,9 +301,10 @@ class _mode_map():
     def __init__(self, modes_file):
         # First grab the termmodes file, which describes which terminals
         # are capable of which modes, what mem map to look up, etc
-        with open(modes_file, 'r', 
-                newline='') as json_termmodes:
-            self._mode_dict = json.load(json_termmodes)
+        # This needs to be reworked to support user-specified maps. Should
+        # probably just do it as "pass me the dict!" and let upstream load it.
+        self._mode_dict = json.loads(
+            resource_string('hwiopy', modes_file).decode('utf-8'))
 
         # Now construct a reference dict with all of the terminals: modes
         self._terminals = {}
@@ -361,7 +388,7 @@ class Sitara335(core.System):
     '''
     def __init__(self, mem_filename):
         # Call the super(), creating and passing the callable resolve_mode
-        super().__init__(_mode_map(__path__[0] + '/sitara_termmodes.json'))
+        super().__init__(_mode_map('maps/sitara_termmodes.json'))
 
         # Grab the filename for the memory mapping
         self._mem_filename = mem_filename

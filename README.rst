@@ -6,21 +6,30 @@ Hardware IO for SOCs in python, starting with Beaglebone Black.
 Introduction
 ----------
 
-First, sorry (seriously sorry) but for the time being, the documentation here is going to be narsty. Not *lacking*, but more of a "brain dump" than an explanation. So it may only be helpful to me. But, uh, better than nothing? Probably? I wish I had time (or the resources to hire someone to document my shit) but at this point I'm just stretched too thinly. Butter over too much bread and all that. Speaking of which, this is being developed on python 3.4 with no intention of supporting python 2.
+First, sorry (seriously sorry) but for the time being, the documentation here is going to be narsty. Not *lacking*, but more of a "brain dump" than an explanation. So it may only be helpful to me. But, uh, better than nothing? Probably? I wish I had time (or the resources to hire someone to document my shit) but at this point I'm just stretched too thinly. Butter over too much bread and all that. Speaking of which, this is being developed on python 3.4, and I don't have time to support python 2.
 
-All that said: the purpose of this library is to develop a standard platform-independent API for platform-dependent hardware access, in the spirit of Kivy and Plyer. At the moment I'm developing for beaglebone black, with Raspi in the back of my head as another possible target. Ideally I'd like to make the library as simple to use as "write [value] to [pin]". All in due time.
+**Everything is currently under development. This is serious danger zone code here, absolutely unstable. But I'm actively using hwiopy, so I wouldn't expect game-breaking changes to happen on a regular basis or anything.**
+
+All that said: the purpose of this library is to develop a universal API for low-level hardware access in python. In other words, I would like to see, if possible, 100% code reuse between, for example, a beaglebone black and a raspberry pi. At the moment I'm developing for beaglebone black, with Raspi in the back of my head as another possible target. At the time being, use looks like this:
+
+    import hwiopy
+    bbb = hwiopy.platforms.BBB()
+    test_led = bbb.create_pin('8_7', 'gpio', 'test_led')
+    test_led.config('out')
+
+    with bbb as beagle:
+        for ii in range(1000):
+            test_led.methods['output_high_nocheck']()
+            test_led.methods['output_low_nocheck']()
 
 Special thanks to [Tabula](http://tabula.technology/) for help with datasheet table processing.
 
 Installation
 ===========
 
-    git clone https://github.com/Badg/hwiopy.git
+    pip install hwiopy
 
-For now, there is no stable release, so you must:
-
-    git branch -b develop origin/develop
-    git checkout develop
+I'm working on adding automatic device tree overlay compilation during the install process. For now, this is just an sdist.
 
 Gotchas and other things that are likely to screw you up or otherwise don't work yet
 ============
@@ -98,7 +107,7 @@ Note that I've actually run this test. First, it's worth noting that the minimum
 
 Tests as of 15 Dec 2014, on commit ddd34a0, running "stock" ubuntu 14.04:
 
-**Process time, setting 1-byte lines:**
+**Process time, setting 1-byte words:**
 
     Total iterations:         | 300000000
     Batch size:               | 100
@@ -108,7 +117,7 @@ Tests as of 15 Dec 2014, on commit ddd34a0, running "stock" ubuntu 14.04:
     Worst batch frequency:    | 215.053 kHz
     50th percentile batch:    | 429.0548687006123 kHz
 
-**Process time, setting 4-byte lines:**
+**Process time, setting 4-byte words:**
 
     Total iterations:         | 300000000
     Batch size:               | 100
@@ -118,7 +127,7 @@ Tests as of 15 Dec 2014, on commit ddd34a0, running "stock" ubuntu 14.04:
     Worst batch frequency:    | 245.198 kHz
     50th percentile batch:    | 426.0616522026246 kHz
 
-**Performance time, setting 1-byte lines:**
+**Performance time, setting 1-byte words:**
 
     Total iterations:         | 300000000
     Batch size:               | 100
@@ -128,7 +137,7 @@ Tests as of 15 Dec 2014, on commit ddd34a0, running "stock" ubuntu 14.04:
     Worst batch frequency:    | 12.063 kHz
     50th percentile batch:    | 431.5824456327986 kHz
 
-**Performance time, setting 4-byte lines:**
+**Performance time, setting 4-byte words:**
 
     Total iterations:         | 300000000
     Batch size:               | 100
@@ -138,7 +147,7 @@ Tests as of 15 Dec 2014, on commit ddd34a0, running "stock" ubuntu 14.04:
     Worst batch frequency:    | 102.722 kHz
     50th percentile batch:    | 429.12251310922545 kHz
 
-**Monotonic time, setting 1-byte lines:**
+**Monotonic time, setting 1-byte words:**
 
     Total iterations:         | 300000000
     Batch size:               | 100
@@ -148,7 +157,7 @@ Tests as of 15 Dec 2014, on commit ddd34a0, running "stock" ubuntu 14.04:
     Worst batch frequency:    | 7.158 kHz
     50th percentile batch:    | 431.423574404455 kHz
 
-**Monotonic time, setting 4-byte lines:**
+**Monotonic time, setting 4-byte words:**
 
     Total iterations:         | 300000000
     Batch size:               | 100
@@ -159,6 +168,81 @@ Tests as of 15 Dec 2014, on commit ddd34a0, running "stock" ubuntu 14.04:
     50th percentile batch:    | 429.0035250076771 kHz
 
 It's very clear from these results that there are some serious limitations associated with the non-RT nature of the system, with some batches having almost millisecond-order latencies. These indicate that a preempt-RT patch might be worth considering, and that bit banging protocols may have some serious difficulties running directly (without assistance from PRUs).
+
+Also, as a note, I'm seeing roughly 4x slower than other reported speeds. Part of me wonders if it's possible for this to have something to do with data structure alignment in the register?
+
+Pinmuxing and pin setup process
+==================
+
+From the pyBBIO developer, [here](http://graycat.io/tutorials/beaglebone-io-using-python-mmap/):
+
+> All this pinmuxing is handled by the AM335x control module. Of course there’s a catch, which is hiding in section 9.1:
+
+>> Note: For writing to the control module registers, the Cortex A8 MPU will need to be in privileged mode of operation and writes will not work from user mode.
+
+> Luckily, thanks to the friendly BeableBone developers, there is a user-level workaround. There is a file for each external pin found in /sys/kernel/debug/omap_mux/. Writing to these files tells a driver to configure the pin multiplexers as desired. To find the proper file names is a bit of a pain, and requires one more document; the AM3359 datasheet, found here.
+
+Unfortunately this solution has been eliminated in the 3.8 kernel, neceessitating the use of device tree overlays. It's also worth mentioning that PRUSS access requires modification of the device tree itself, not just an overlay.
+
+--------------------
+
+Overlay generation:
+
+Need to set up pip install, then generate overlays for every function and stuff. Oh joy!
+
+Autoconfiguring library with metaclass? "lshw # gets quite a bit of information on everything about your CPU"
+
+Should definitely reconfigure library with metaclasses. DeviceMeta would be particularly useful:
+
++ Register any user-defined devices in a dict
++ Provide singular API to hwiopy.Device instead of platform-specific device calls like hwiopy.platforms.BBB
++ Facilitate automagic detection of platform, thereby enabling singular API ^
++ Basically, distill the various platforms into a single Device class, so that code can be ported unmodified to different platforms.
++ Reduce platform-specific boilerplate
+
+though (some caveat that I forgot was going to be here)
+
+---------------------
+
+From a [helpful stackoverflow page](http://stackoverflow.com/questions/13124271/driving-beaglebone-gpio-through-dev-mem), whose author [also has a small library with some good reference](https://github.com/facine/easyBlack/blob/master/src/memGPIO.cpp), see some C code:
+
+    enableClockModules () {
+        // Enable disabled GPIO module clocks.
+        if (mapAddress[(CM_WKUP_GPIO0_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK) {
+          mapAddress[(CM_WKUP_GPIO0_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] |= MODULEMODE_ENABLE;
+          // Wait for the enable complete.
+          while (mapAddress[(CM_WKUP_GPIO0_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK);
+        }
+        if (mapAddress[(CM_PER_GPIO1_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK) {
+          mapAddress[(CM_PER_GPIO1_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] |= MODULEMODE_ENABLE;
+          // Wait for the enable complete.
+          while (mapAddress[(CM_PER_GPIO1_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK);
+        }
+        if (mapAddress[(CM_PER_GPIO2_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK) {
+          mapAddress[(CM_PER_GPIO2_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] |= MODULEMODE_ENABLE;
+          // Wait for the enable complete.
+          while (mapAddress[(CM_PER_GPIO2_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK);
+        }
+        if (mapAddress[(CM_PER_GPIO3_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK) {
+          mapAddress[(CM_PER_GPIO3_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] |= MODULEMODE_ENABLE;
+          // Wait for the enable complete.
+          while (mapAddress[(CM_PER_GPIO3_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK);
+        }
+    }
+
+where
+
+    MMAP_OFFSET = 0x44C00000
+    MMAP_SIZE = 0x481AEFFF - MMAP_OFFSET
+    GPIO_REGISTER_SIZE = 4
+    MODULEMODE_ENABLE = 0x02
+    IDLEST_MASK = (0x03 << 16)
+    CM_WKUP = 0x44E00400
+    CM_PER = 0x44E00000
+    CM_WKUP_GPIO0_CLKCTRL = (CM_WKUP + 0x8)
+    CM_PER_GPIO1_CLKCTRL = (CM_PER + 0xAC)
+    CM_PER_GPIO2_CLKCTRL = (CM_PER + 0xB0)
+    CM_PER_GPIO3_CLKCTRL = (CM_PER + 0xB4)
 
 Scratchbook
 ===========
@@ -184,18 +268,22 @@ The ARM cortex A8 TRM, BBB SRM, and a datasheet or two are in /doc. I realize th
 
 By far the most tedious part about this has been bringing in the bitwise/bytewise description of the /dev/mem mapping. All of the information I've gathered has been put into json files: check them out if you're looking to do any other kind of access to the memory register, as it will save an enormous amount of time compared to the reference material. For any register that contains the string "_intchannel", the corresponding part of the register uses 1 bit per GPIO. So for example, on the gpio1 register, when you set output, bit 1 is gpio1-1, bit 2 is gpio1-2, bit 3 is gpio1-3, etc.
 
-Planning committee
+Planning committee / TODO
 -------
 
 + **Need to compare the speed of the library with the speed of explicitly calling out the bits to change**
 
-+ capability to declare a pin for a purpose
-+ resolve pin on header to memory mapping
-    + serialize arm cortex a8 memory mappings
-    + serialize bbb pinout mappings
++ Restructure mapping systems:
+    + Need to move maps into maps folder
+    + Need to create a maps.py in maps folder
+    + Need to restructure maps using ABCs so that arbitrary, non-included maps can be generated by users wishing to implement custom hardware
++ Automatic configuration and overlay creation during install
+    + Is there a way to autodetect the hardware platform?
+    + It would be nice to be able to say "with platform" instead of "with <platform>"
 + specify "plug" and have pins automatically declared 
     + ex: create SPI0 plug
     + include any possible onboard conflicts, like USB or HDMI
+    + Should probably be implemented as a pinout generator class, that would also be useful as a way to generate layouts. If you're doing this with runtime code (instead of as a write-time code aid) it absolutely must be deterministic, or the configuration would be non-static and users would have to change their pinouts. Should there be a way to freeze the pinout?
 + subclass plugs (ex add more chip selects to SPI0)
 + check for overlap on "plugs" (ex: accidentally using SPI1 and HDMI)
 + print pinout method
@@ -213,6 +301,7 @@ Some links
 * [Muxing reference on stackoverflow](http://stackoverflow.com/questions/16872763/configuring-pins-mode-beaglebone)
 * [Interrupts thru gpio](http://www.linux.com/learn/tutorials/765810-beaglebone-black-how-to-get-interrupts-through-linux-gpio)
 * [Interesting C++ library](http://mkaczanowski.com/beaglebone-black-cpp-gpio-library-for-beginners/)
+* [Derek Molloy youtube channel](https://www.youtube.com/user/DerekMolloyDCU/videos)
 
 SPI links
 ------
@@ -228,3 +317,12 @@ PRU links
 --------
 
 * [beagleboard.org on PRUs](http://beagleboard.org/pru)
+* [TI wiki of PRU projects](http://processors.wiki.ti.com/index.php/PRU_Projects)
+* [Element14 blog on PRU use](http://www.element14.com/community/community/designcenter/single-board-computers/next-gen_beaglebone/blog/2013/05/22/bbb--working-with-the-pru-icssprussv2)
+* [PyPRUSS](http://hipstercircuits.com/pypruss-one-library-to-rule-them-all/)
+* [Generic HAL PRU stuff](https://github.com/cdsteinkuehler/linuxcnc/blob/MachineKit-ubc/src/hal/drivers/hal_pru_generic/pru_generic.p#L135)
+
+Changelog
+=======
+
+Don't even consider looking here until the .dev suffix is removed from the version number.

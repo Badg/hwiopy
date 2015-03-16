@@ -1,6 +1,31 @@
 ''' Core / toplevel members of the hwiopy library. Everything here *should* be 
 platform-independent.
 
+LICENSING
+-------------------------------------------------
+
+hwiopy: A common API for hardware input/output access.
+    Copyright (C) 2014-2015 Nicholas Badger
+    badg@nickbadger.com
+    nickbadger.com
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
+    USA
+
+------------------------------------------------------
+
 A note on nomenclature: for clarity, I'm referring to anything on an SoC as 
 a terminal, and everything on a device as a pin. I'm going to try to keep this
 division as strict as possible, because I'm confused as balls over here 

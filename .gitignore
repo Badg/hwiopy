@@ -53,3 +53,4 @@ docs/_build/
 # PyBuilder
 target/
 doc/archived csv/
+setuptools-11.3.1.zip
