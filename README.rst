@@ -6,7 +6,7 @@ Hardware IO for SOCs in python, starting with Beaglebone Black.
 Introduction
 ----------
 
-First, sorry (seriously sorry) but for the time being, the documentation here is going to be narsty. Not *lacking*, but more of a "brain dump" than an explanation. So it may only be helpful to me. But, uh, better than nothing? Probably? I wish I had time (or the resources to hire someone to document my shit) but at this point I'm just stretched too thinly. Butter over too much bread and all that. Speaking of which, this is being developed on python 3.4, and I don't have time to support python 2.
+First, sorry (seriously sorry) but for the time being, the documentation here is going to be narsty. Not *lacking*, but more of a "brain dump" than an explanation. So it may only be helpful to me. But, uh, better than nothing? Probably? I wish I had time (or the resources to hire someone to document my shit) but at this point I'm just stretched too thinly. Butter over too much bread and all that. Speaking of which, this is being developed on python 3.4, and I don't have time to support python 2. One last apology: my link formatting was largely lost in the .md -> .rst transition. I haven't yet taken the time to update old links, but new ones should be added correctly.
 
 **Everything is currently under development. This is serious danger zone code here, absolutely unstable. But I'm actively using hwiopy, so I wouldn't expect game-breaking changes to happen on a regular basis or anything.**
 
@@ -109,63 +109,63 @@ Tests as of 15 Dec 2014, on commit ddd34a0, running "stock" ubuntu 14.04:
 
 **Process time, setting 1-byte words:**
 
-    Total iterations:         | 300000000
-    Batch size:               | 100
-    Total average frequency:  | 425.49753103800003 kHz
-    Median batch frequency:   | 428.954 kHz
-    Best batch frequency:     | 431.188 kHz
-    Worst batch frequency:    | 215.053 kHz
-    50th percentile batch:    | 429.0548687006123 kHz
++ Total iterations:         | 300000000
++ Batch size:               | 100
++ Total average frequency:  | 425.49753103800003 kHz
++ Median batch frequency:   | 428.954 kHz
++ Best batch frequency:     | 431.188 kHz
++ Worst batch frequency:    | 215.053 kHz
++ 50th percentile batch:    | 429.0548687006123 kHz
 
 **Process time, setting 4-byte words:**
 
-    Total iterations:         | 300000000
-    Batch size:               | 100
-    Total average frequency:  | 422.53790626833336 kHz
-    Median batch frequency:   | 426.288 kHz
-    Best batch frequency:     | 427.503 kHz
-    Worst batch frequency:    | 245.198 kHz
-    50th percentile batch:    | 426.0616522026246 kHz
++ Total iterations:         | 300000000
++ Batch size:               | 100
++ Total average frequency:  | 422.53790626833336 kHz
++ Median batch frequency:   | 426.288 kHz
++ Best batch frequency:     | 427.503 kHz
++ Worst batch frequency:    | 245.198 kHz
++ 50th percentile batch:    | 426.0616522026246 kHz
 
 **Performance time, setting 1-byte words:**
 
-    Total iterations:         | 300000000
-    Batch size:               | 100
-    Total average frequency:  | 427.95563750233333 kHz
-    Median batch frequency:   | 431.732 kHz
-    Best batch frequency:     | 433.918 kHz
-    Worst batch frequency:    | 12.063 kHz
-    50th percentile batch:    | 431.5824456327986 kHz
++ Total iterations:         | 300000000
++ Batch size:               | 100
++ Total average frequency:  | 427.95563750233333 kHz
++ Median batch frequency:   | 431.732 kHz
++ Best batch frequency:     | 433.918 kHz
++ Worst batch frequency:    | 12.063 kHz
++ 50th percentile batch:    | 431.5824456327986 kHz
 
 **Performance time, setting 4-byte words:**
 
-    Total iterations:         | 300000000
-    Batch size:               | 100
-    Total average frequency:  | 425.1705433643333 kHz
-    Median batch frequency:   | 429.184 kHz
-    Best batch frequency:     | 430.263 kHz
-    Worst batch frequency:    | 102.722 kHz
-    50th percentile batch:    | 429.12251310922545 kHz
++ Total iterations:         | 300000000
++ Batch size:               | 100
++ Total average frequency:  | 425.1705433643333 kHz
++ Median batch frequency:   | 429.184 kHz
++ Best batch frequency:     | 430.263 kHz
++ Worst batch frequency:    | 102.722 kHz
++ 50th percentile batch:    | 429.12251310922545 kHz
 
 **Monotonic time, setting 1-byte words:**
 
-    Total iterations:         | 300000000
-    Batch size:               | 100
-    Total average frequency:  | 427.99319446199996 kHz
-    Median batch frequency:   | 431.733 kHz
-    Best batch frequency:     | 433.839 kHz
-    Worst batch frequency:    | 7.158 kHz
-    50th percentile batch:    | 431.423574404455 kHz
++ Total iterations:         | 300000000
++ Batch size:               | 100
++ Total average frequency:  | 427.99319446199996 kHz
++ Median batch frequency:   | 431.733 kHz
++ Best batch frequency:     | 433.839 kHz
++ Worst batch frequency:    | 7.158 kHz
++ 50th percentile batch:    | 431.423574404455 kHz
 
 **Monotonic time, setting 4-byte words:**
 
-    Total iterations:         | 300000000
-    Batch size:               | 100
-    Total average frequency:  | 424.9962927153333 kHz
-    Median batch frequency:   | 428.954 kHz
-    Best batch frequency:     | 430.185 kHz
-    Worst batch frequency:    | 23.066 kHz
-    50th percentile batch:    | 429.0035250076771 kHz
++ Total iterations:         | 300000000
++ Batch size:               | 100
++ Total average frequency:  | 424.9962927153333 kHz
++ Median batch frequency:   | 428.954 kHz
++ Best batch frequency:     | 430.185 kHz
++ Worst batch frequency:    | 23.066 kHz
++ 50th percentile batch:    | 429.0035250076771 kHz
 
 It's very clear from these results that there are some serious limitations associated with the non-RT nature of the system, with some batches having almost millisecond-order latencies. These indicate that a preempt-RT patch might be worth considering, and that bit banging protocols may have some serious difficulties running directly (without assistance from PRUs).
 
@@ -188,7 +188,7 @@ Unfortunately this solution has been eliminated in the 3.8 kernel, neceessitatin
 
 Overlay generation:
 
-Need to set up pip install, then generate overlays for every function and stuff. Oh joy!
+Need to set up pip install, then generate overlays for every function and stuff.
 
 Autoconfiguring library with metaclass? "lshw # gets quite a bit of information on everything about your CPU"
 
@@ -325,4 +325,4 @@ PRU links
 Changelog
 =======
 
-Don't even consider looking here until the .dev suffix is removed from the version number.
+Don't even consider looking here until this hits at least alpha. There are too many changes much too quickly at this point; when I change the status to alpha that will signifiy that I'm moving the project to a point where it's not quite so dangerous to use.
