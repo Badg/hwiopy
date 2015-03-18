@@ -1,0 +1,2 @@
+include ez_setup.py
+include platform_setup.py
