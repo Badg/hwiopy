@@ -39,6 +39,9 @@ WILL NEED TO BE MADE THREADSAFE AT SOME POINT. THIS IS EXTREMELY DANGEROUS TO
 RUN THREADED AT THE MOMENT.
 '''
 
+# Global imports
+from warnings import warn
+
 class Pin():
     ''' A generic single channel for communication on a device. Pins connect
     to the 'outside world'.

@@ -10,6 +10,7 @@ Raspberry Pi.
 
 # Global dependencies
 import subprocess
+from warnings import warn
 
 # Bootstrap setuptools
 import ez_setup
@@ -116,8 +117,8 @@ def setup_device():
 def setup_generic():
     ''' Handles setting up of a generic device.
     '''
-    raise RuntimeWarning('Could not autodetect platform. Continuing with '
-        'standard installation.')
+    warn(RuntimeWarning('Could not autodetect platform. Continuing with '
+        'standard installation.'))
     return True
 
 if __name__ == '__main__':

@@ -32,6 +32,7 @@ import io
 import struct
 import mmap
 import json
+from warnings import warn
 from pkg_resources import resource_string
 # from os import listdir
 # from os.path import isfile, join, split
@@ -121,16 +122,16 @@ class _header_map():
             if pin_941:
                 which_connection = pin_941
             else:
-                raise RuntimeWarning('Lookup on pin 9_41 without specifying '
+                warn(RuntimeWarning('Lookup on pin 9_41 without specifying '
                     'which mode to connect to. Defaulting to Sitara pin D14. '
-                    'Consult the BBB system reference manual for details.')
+                    'Consult the BBB system reference manual for details.'))
         if pin_num == '9_42':
             if pin_942:
                 which_connection = pin_942
             else:
-                raise RuntimeWarning('Lookup on pin 9_42 without specifying '
+                warn(RuntimeWarning('Lookup on pin 9_42 without specifying '
                     'which mode to connect to. Defaulting to Sitara pin C18. '
-                    'Consult the BBB system reference manual for details.')
+                    'Consult the BBB system reference manual for details.'))
         
         # Now use whatever information we have to output the connection
         return self._all_headers[pin_num][which_connection]
