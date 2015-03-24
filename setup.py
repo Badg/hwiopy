@@ -15,10 +15,10 @@ from warnings import warn
 # Bootstrap setuptools
 import ez_setup
 # Dunno why I need this but I think I do?
-try:
-    del pkg_resources, setuptools
-except NameError:
-    pass
+# try:
+#     del pkg_resources, setuptools
+# except NameError:
+#     pass
 # Carry on then
 ez_setup.use_setuptools()
 
@@ -27,7 +27,7 @@ from setuptools import setup, find_packages
 
 metadata = dict(
     name = 'hwiopy',
-    version = '0.0.0',
+    version = '0.0.6',
     description = 'A common API for hardware input/output access.',
     long_description = 'hwiopy, "hardware input/output, python", '
     'is a general purpose IO library intended to provide a common, simple '
@@ -57,7 +57,7 @@ metadata = dict(
     install_requires = [],
     package_data = {
         # Include any .json files in the maps directory
-        'hwiopy': ['maps/*.json'],
+        'hwiopy': ['maps/*.json', 'overlays/*', 'setup_utils/*'],
     })
 
 def get_platform():
@@ -103,7 +103,7 @@ def setup_device():
         if platform_info['name'] == 'bbb':
             # Grab the platform-specific setup library
             import platform_setup
-            platform_setup.bbb_setup()
+            platform_setup.bbb_setup.do()
             # Return True for successful config
             return True
         else:
