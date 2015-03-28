@@ -184,9 +184,8 @@ From the pyBBIO developer, [here](http://graycat.io/tutorials/beaglebone-io-usin
 
 Unfortunately this solution has been eliminated in the 3.8 kernel, neceessitating the use of device tree overlays. It's also worth mentioning that PRUSS access requires modification of the device tree itself, not just an overlay.
 
---------------------
-
 Overlay generation:
+----------------
 
 Need to set up pip install, then generate overlays for every function and stuff.
 
@@ -200,8 +199,9 @@ Should definitely reconfigure library with metaclasses. DeviceMeta would be part
 + Basically, distill the various platforms into a single Device class, so that code can be ported unmodified to different platforms.
 + Reduce platform-specific boilerplate
 
-though (some caveat that I forgot was going to be here)
+Table 9-57 has control module information for pinmuxing. Section 9.1 explains what the fuck is going on.
 
+GPIO clock modules
 ---------------------
 
 From a [helpful stackoverflow page](http://stackoverflow.com/questions/13124271/driving-beaglebone-gpio-through-dev-mem), whose author [also has a small library with some good reference](https://github.com/facine/easyBlack/blob/master/src/memGPIO.cpp), see some C code:
@@ -321,6 +321,7 @@ PRU links
 * [Element14 blog on PRU use](http://www.element14.com/community/community/designcenter/single-board-computers/next-gen_beaglebone/blog/2013/05/22/bbb--working-with-the-pru-icssprussv2)
 * [PyPRUSS](http://hipstercircuits.com/pypruss-one-library-to-rule-them-all/)
 * [Generic HAL PRU stuff](https://github.com/cdsteinkuehler/linuxcnc/blob/MachineKit-ubc/src/hal/drivers/hal_pru_generic/pru_generic.p#L135)
+* [libpruio](http://beagleboard.org/project/libpruio/)
 
 Changelog
 =======

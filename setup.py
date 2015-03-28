@@ -27,7 +27,7 @@ from setuptools import setup, find_packages
 
 metadata = dict(
     name = 'hwiopy',
-    version = '0.0.6',
+    version = '0.0.16',
     description = 'A common API for hardware input/output access.',
     long_description = 'hwiopy, "hardware input/output, python", '
     'is a general purpose IO library intended to provide a common, simple '
@@ -93,26 +93,17 @@ def get_platform():
     except OSError:
         return False
 
-def setup_device():
+def setup_device(platform_info):
     ''' Handle creation of any necessary device tree overlays, etc.
     '''
     # First figure out what platform we're on
-    platform_info = get_platform()
 
-    try:
-        if platform_info['name'] == 'bbb':
-            # Grab the platform-specific setup library
-            import platform_setup
-            platform_setup.bbb_setup.do()
-            # Return True for successful config
-            return True
-        else:
-            # This currently cannot happen. But if it could, well...
-            return False
-
-    # If a keyerror or typeerror are thrown, then it's an unknown plaform.
-    except (KeyError, TypeError):
-        return False
+    # Currently this only does specialized code on the BBB
+    if platform_info['name'] == 'bbb':
+        # Grab the platform-specific setup library
+        import platform_setup
+        platform_setup.bbb_setup.do()
+        # Return True for successful config
 
 def setup_generic():
     ''' Handles setting up of a generic device.
@@ -122,12 +113,19 @@ def setup_generic():
     return True
 
 if __name__ == '__main__':
-    # Since this is going to require escalation, let's go ahead and do the
-    # device tree stuff first.
-    # Run the setup_device. If it returns false, there was no device detected
-    # and we should do a generic setup.
-    if not setup_device():
-        setup_generic()
+    import sys
 
-    # Now go ahead and install the package
+    # First make sure we're installing.
+    if sys.argv[1] == 'install':
+        # Get the platform.   
+        platform_info = get_platform()
+
+        # If unknown, returns False.
+        if not platform_info:
+            setup_generic()
+        # Otherwise, we have information to go off of.
+        else:
+            setup_device(platform_info)
+
+    # Now call setup.
     setup(**metadata)

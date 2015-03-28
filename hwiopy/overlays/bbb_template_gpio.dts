@@ -1,0 +1,63 @@
+/*
+ * __NAME__: __DESCRIPTION__
+ * 
+ * hwiopy: A common API for hardware input/output access.
+ * Copyright (C) 2014-2015 Nicholas Badger
+ * badg@nickbadger.com
+ * nickbadger.com
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+ * Boston, MA 02110-1301 USA
+ */
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "ti,am335x-bone", "ti,am33xx", "ti,omap3";
+
+    /* What is this overlay? */
+    part-number = "__NAME__";
+    version = "__VERSION__";
+
+    /* What pins and hardware to consume? */
+    /* Note that, because we're defining this in terms of the SoC terminals,
+     * not the BBB headers, we're not going to declare exclusive use. User 
+     * beware, but I think the risk is justified.
+     * exclusive-use = 
+     *  "P8.9";
+     */
+
+    fragment@0 {
+        target = <&am33xx_pinmux>;
+        __overlay__ {
+            __SAFENAME___pins: pinmux___SAFENAME___pins {
+                pinctrl-single,pins = <__OFFSET__ __PINCONTROL__>;
+            };
+        };
+    };
+
+    fragment@1 {
+        target = <&ocp>;
+        __overlay__{
+            __SAFENAME___pinmux {
+                compatible = "bone-pinmux-helper";
+                status = "okay";
+                pinctrl-names = "default";
+                pinctrl-0 = <&__SAFENAME___pins>;
+            };
+        };
+    };
+
+};

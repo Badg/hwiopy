@@ -2,7 +2,7 @@
 /plugin/;
 
 / {
-    compatible = "ti,beaglebone", "ti,beaglebone-black";
+    compatible = "ti,am335x-bone", "ti,am33xx", "ti,omap3";
 
     /* identification */
     part-number = "ADAFRUIT-SPI0";

@@ -1,0 +1,1010 @@
+{
+    "nnmi": {
+        "pinnum": "pin 112",
+        "mux": "00000030",
+        "address": "44e109c0",
+        "offset": "9C0",
+        "reg name": "conf_nnmi",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data15": {
+        "pinnum": "pin 55",
+        "mux": "00000008",
+        "address": "44e108dc",
+        "offset": "8DC",
+        "reg name": "conf_lcd_data15",
+        "driver": "pinctrl-single"
+    },
+    "emu0": {
+        "pinnum": "pin 121",
+        "mux": "00000030",
+        "address": "44e109e4",
+        "offset": "9E4",
+        "reg name": "conf_emu0",
+        "driver": "pinctrl-single"
+    },
+    "uart1_ctsn": {
+        "pinnum": "pin 94",
+        "mux": "00000073",
+        "address": "44e10978",
+        "offset": "978",
+        "reg name": "conf_uart1_ctsn",
+        "driver": "pinctrl-single"
+    },
+    "mmc0_dat3": {
+        "pinnum": "pin 60",
+        "mux": "00000030",
+        "address": "44e108f0",
+        "offset": "8F0",
+        "reg name": "conf_mmc0_dat3",
+        "driver": "pinctrl-single"
+    },
+    "uart0_ctsn": {
+        "pinnum": "pin 90",
+        "mux": "00000037",
+        "address": "44e10968",
+        "offset": "968",
+        "reg name": "conf_uart0_ctsn",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data14": {
+        "pinnum": "pin 54",
+        "mux": "00000008",
+        "address": "44e108d8",
+        "offset": "8D8",
+        "reg name": "conf_lcd_data14",
+        "driver": "pinctrl-single"
+    },
+    "pmic_power_en": {
+        "pinnum": "pin 127",
+        "mux": "00000028",
+        "address": "44e109fc",
+        "offset": "9FC",
+        "reg name": "conf_pmic_power_en",
+        "driver": "pinctrl-single"
+    },
+    "null": {
+        "pinnum": "pin 140",
+        "mux": "00000028",
+        "address": "44e10a30",
+        "offset": "",
+        "reg name": "",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad2": {
+        "pinnum": "pin 2",
+        "mux": "00000031",
+        "address": "44e10808",
+        "offset": "808",
+        "reg name": "conf_gpmc_ad2",
+        "driver": "pinctrl-single"
+    },
+    "trstn": {
+        "pinnum": "pin 120",
+        "mux": "00000020",
+        "address": "44e109e0",
+        "offset": "9E0",
+        "reg name": "conf_trstn",
+        "driver": "pinctrl-single"
+    },
+    "xdma_event_intr1": {
+        "pinnum": "pin 109",
+        "mux": "00000027",
+        "address": "44e109b4",
+        "offset": "9B4",
+        "reg name": "conf_xdma_event_intr1",
+        "driver": "pinctrl-single"
+    },
+    "xdma_event_intr0": {
+        "pinnum": "pin 108",
+        "mux": "00000003",
+        "address": "44e109b0",
+        "offset": "9B0",
+        "reg name": "conf_xdma_event_intr0",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_a10": {
+        "pinnum": "pin 26",
+        "mux": "00000027",
+        "address": "44e10868",
+        "offset": "868",
+        "reg name": "conf_gpmc_a10",
+        "driver": "pinctrl-single"
+    },
+    "mcasp0_ahclkx": {
+        "pinnum": "pin 107",
+        "mux": "00000030",
+        "address": "44e109ac",
+        "offset": "9AC",
+        "reg name": "conf_mcasp0_ahclkx",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data9": {
+        "pinnum": "pin 49",
+        "mux": "00000008",
+        "address": "44e108c4",
+        "offset": "8C4",
+        "reg name": "conf_lcd_data9",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_wait0": {
+        "pinnum": "pin 28",
+        "mux": "00000037",
+        "address": "44e10870",
+        "offset": "870",
+        "reg name": "conf_gpmc_wait0",
+        "driver": "pinctrl-single"
+    },
+    "lcd_ac_bias_en": {
+        "pinnum": "pin 59",
+        "mux": "00000000",
+        "address": "44e108ec",
+        "offset": "8EC",
+        "reg name": "conf_lcd_ac_bias_en",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad7": {
+        "pinnum": "pin 7",
+        "mux": "00000031",
+        "address": "44e1081c",
+        "offset": "81C",
+        "reg name": "conf_gpmc_ad7",
+        "driver": "pinctrl-single"
+    },
+    "uart1_rxd": {
+        "pinnum": "pin 96",
+        "mux": "00000037",
+        "address": "44e10980",
+        "offset": "980",
+        "reg name": "conf_uart1_rxd",
+        "driver": "pinctrl-single"
+    },
+    "mcasp0_ahclkr": {
+        "pinnum": "pin 103",
+        "mux": "00000002",
+        "address": "44e1099c",
+        "offset": "99C",
+        "reg name": "conf_mcasp0_ahclkr",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad10": {
+        "pinnum": "pin 10",
+        "mux": "00000027",
+        "address": "44e10828",
+        "offset": "828",
+        "reg name": "conf_gpmc_ad10",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_a8": {
+        "pinnum": "pin 24",
+        "mux": "00000017",
+        "address": "44e10860",
+        "offset": "860",
+        "reg name": "conf_gpmc_a8",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data4": {
+        "pinnum": "pin 44",
+        "mux": "00000008",
+        "address": "44e108b0",
+        "offset": "8B0",
+        "reg name": "conf_lcd_data4",
+        "driver": "pinctrl-single"
+    },
+    "mii1_txd3": {
+        "pinnum": "pin 71",
+        "mux": "00000000",
+        "address": "44e1091c",
+        "offset": "91C",
+        "reg name": "conf_mii1_txd3",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_a9": {
+        "pinnum": "pin 25",
+        "mux": "00000027",
+        "address": "44e10864",
+        "offset": "864",
+        "reg name": "conf_gpmc_a9",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad6": {
+        "pinnum": "pin 6",
+        "mux": "00000031",
+        "address": "44e10818",
+        "offset": "818",
+        "reg name": "conf_gpmc_ad6",
+        "driver": "pinctrl-single"
+    },
+    "mii1_rx_dv": {
+        "pinnum": "pin 70",
+        "mux": "00000020",
+        "address": "44e10918",
+        "offset": "918",
+        "reg name": "conf_mii1_rx_dv",
+        "driver": "pinctrl-single"
+    },
+    "mii1_txd0": {
+        "pinnum": "pin 74",
+        "mux": "00000000",
+        "address": "44e10928",
+        "offset": "928",
+        "reg name": "conf_mii1_txd0",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_a0": {
+        "pinnum": "pin 16",
+        "mux": "00000027",
+        "address": "44e10840",
+        "offset": "840",
+        "reg name": "conf_gpmc_a0",
+        "driver": "pinctrl-single"
+    },
+    "rtc_pwronrstn": {
+        "pinnum": "pin 126",
+        "mux": "00000030",
+        "address": "44e109f8",
+        "offset": "9F8",
+        "reg name": "conf_rtc_pwronrstn",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_a5": {
+        "pinnum": "pin 21",
+        "mux": "00000007",
+        "address": "44e10854",
+        "offset": "854",
+        "reg name": "conf_gpmc_a5",
+        "driver": "pinctrl-single"
+    },
+    "lcd_vsync": {
+        "pinnum": "pin 56",
+        "mux": "00000000",
+        "address": "44e108e0",
+        "offset": "8E0",
+        "reg name": "conf_lcd_vsync",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_a1": {
+        "pinnum": "pin 17",
+        "mux": "00000027",
+        "address": "44e10844",
+        "offset": "844",
+        "reg name": "conf_gpmc_a1",
+        "driver": "pinctrl-single"
+    },
+    "spi0_d1": {
+        "pinnum": "pin 86",
+        "mux": "00000062",
+        "address": "44e10958",
+        "offset": "958",
+        "reg name": "conf_spi0_d1",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad13": {
+        "pinnum": "pin 13",
+        "mux": "00000027",
+        "address": "44e10834",
+        "offset": "834",
+        "reg name": "conf_gpmc_ad13",
+        "driver": "pinctrl-single"
+    },
+    "ecap0_in_pwm0_out": {
+        "pinnum": "pin 89",
+        "mux": "00000027",
+        "address": "44e10964",
+        "offset": "964",
+        "reg name": "conf_ecap0_in_pwm0_out",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_a11": {
+        "pinnum": "pin 27",
+        "mux": "00000027",
+        "address": "44e1086c",
+        "offset": "86C",
+        "reg name": "conf_gpmc_a11",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data0": {
+        "pinnum": "pin 40",
+        "mux": "00000008",
+        "address": "44e108a0",
+        "offset": "8A0",
+        "reg name": "conf_lcd_data0",
+        "driver": "pinctrl-single"
+    },
+    "mii1_tx_en": {
+        "pinnum": "pin 69",
+        "mux": "00000000",
+        "address": "44e10914",
+        "offset": "914",
+        "reg name": "conf_mii1_tx_en",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ben1": {
+        "pinnum": "pin 30",
+        "mux": "00000037",
+        "address": "44e10878",
+        "offset": "878",
+        "reg name": "conf_gpmc_ben1",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data13": {
+        "pinnum": "pin 53",
+        "mux": "00000008",
+        "address": "44e108d4",
+        "offset": "8D4",
+        "reg name": "conf_lcd_data13",
+        "driver": "pinctrl-single"
+    },
+    "mcasp0_fsr": {
+        "pinnum": "pin 105",
+        "mux": "00000027",
+        "address": "44e109a4",
+        "offset": "9A4",
+        "reg name": "conf_mcasp0_fsr",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_advn_ale": {
+        "pinnum": "pin 36",
+        "mux": "00000037",
+        "address": "44e10890",
+        "offset": "890",
+        "reg name": "conf_gpmc_advn_ale",
+        "driver": "pinctrl-single"
+    },
+    "uart1_txd": {
+        "pinnum": "pin 97",
+        "mux": "00000037",
+        "address": "44e10984",
+        "offset": "984",
+        "reg name": "conf_uart1_txd",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad12": {
+        "pinnum": "pin 12",
+        "mux": "00000027",
+        "address": "44e10830",
+        "offset": "830",
+        "reg name": "conf_gpmc_ad12",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data3": {
+        "pinnum": "pin 43",
+        "mux": "00000008",
+        "address": "44e108ac",
+        "offset": "8AC",
+        "reg name": "conf_lcd_data3",
+        "driver": "pinctrl-single"
+    },
+    "spi0_sclk": {
+        "pinnum": "pin 84",
+        "mux": "00000037",
+        "address": "44e10950",
+        "offset": "950",
+        "reg name": "conf_spi0_sclk",
+        "driver": "pinctrl-single"
+    },
+    "i2c0_sda": {
+        "pinnum": "pin 98",
+        "mux": "00000070",
+        "address": "44e10988",
+        "offset": "988",
+        "reg name": "conf_i2c0_sda",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_a6": {
+        "pinnum": "pin 22",
+        "mux": "00000017",
+        "address": "44e10858",
+        "offset": "858",
+        "reg name": "conf_gpmc_a6",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_a3": {
+        "pinnum": "pin 19",
+        "mux": "00000027",
+        "address": "44e1084c",
+        "offset": "84C",
+        "reg name": "conf_gpmc_a3",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_wpn": {
+        "pinnum": "pin 29",
+        "mux": "00000037",
+        "address": "44e10874",
+        "offset": "874",
+        "reg name": "conf_gpmc_wpn",
+        "driver": "pinctrl-single"
+    },
+    "mdio": {
+        "pinnum": "pin 82",
+        "mux": "00000030",
+        "address": "44e10948",
+        "offset": "948",
+        "reg name": "conf_mdio",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad15": {
+        "pinnum": "pin 15",
+        "mux": "00000027",
+        "address": "44e1083c",
+        "offset": "83C",
+        "reg name": "conf_gpmc_ad15",
+        "driver": "pinctrl-single"
+    },
+    "rtc_kaldo_enn": {
+        "pinnum": "pin 129",
+        "mux": "00000020",
+        "address": "44e10a04",
+        "offset": "A04",
+        "reg name": "conf_rtc_kaldo_enn",
+        "driver": "pinctrl-single"
+    },
+    "mii1_rxd0": {
+        "pinnum": "pin 80",
+        "mux": "00000020",
+        "address": "44e10940",
+        "offset": "940",
+        "reg name": "conf_mii1_rxd0",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad5": {
+        "pinnum": "pin 5",
+        "mux": "00000031",
+        "address": "44e10814",
+        "offset": "814",
+        "reg name": "conf_gpmc_ad5",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_csn0": {
+        "pinnum": "pin 31",
+        "mux": "00000037",
+        "address": "44e1087c",
+        "offset": "87C",
+        "reg name": "conf_gpmc_csn0",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data6": {
+        "pinnum": "pin 46",
+        "mux": "00000008",
+        "address": "44e108b8",
+        "offset": "8B8",
+        "reg name": "conf_lcd_data6",
+        "driver": "pinctrl-single"
+    },
+    "usb1_drvvbus": {
+        "pinnum": "pin 141",
+        "mux": "00000020",
+        "address": "44e10a34",
+        "offset": "A34",
+        "reg name": "conf_usb1_drvvbus",
+        "driver": "pinctrl-single"
+    },
+    "mmc0_dat0": {
+        "pinnum": "pin 63",
+        "mux": "00000030",
+        "address": "44e108fc",
+        "offset": "8FC",
+        "reg name": "conf_mmc0_dat0",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_a2": {
+        "pinnum": "pin 18",
+        "mux": "00000027",
+        "address": "44e10848",
+        "offset": "848",
+        "reg name": "conf_gpmc_a2",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad11": {
+        "pinnum": "pin 11",
+        "mux": "00000027",
+        "address": "44e1082c",
+        "offset": "82C",
+        "reg name": "conf_gpmc_ad11",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data7": {
+        "pinnum": "pin 47",
+        "mux": "00000008",
+        "address": "44e108bc",
+        "offset": "8BC",
+        "reg name": "conf_lcd_data7",
+        "driver": "pinctrl-single"
+    },
+    "mcasp0_aclkr": {
+        "pinnum": "pin 104",
+        "mux": "00000024",
+        "address": "44e109a0",
+        "offset": "9A0",
+        "reg name": "conf_mcasp0_aclkr",
+        "driver": "pinctrl-single"
+    },
+    "mmc0_cmd": {
+        "pinnum": "pin 65",
+        "mux": "00000030",
+        "address": "44e10904",
+        "offset": "904",
+        "reg name": "conf_mmc0_cmd",
+        "driver": "pinctrl-single"
+    },
+    "mii1_rxd1": {
+        "pinnum": "pin 79",
+        "mux": "00000020",
+        "address": "44e1093c",
+        "offset": "93C",
+        "reg name": "conf_mii1_rxd1",
+        "driver": "pinctrl-single"
+    },
+    "mii1_txd2": {
+        "pinnum": "pin 72",
+        "mux": "00000000",
+        "address": "44e10920",
+        "offset": "920",
+        "reg name": "conf_mii1_txd2",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data2": {
+        "pinnum": "pin 42",
+        "mux": "00000008",
+        "address": "44e108a8",
+        "offset": "8A8",
+        "reg name": "conf_lcd_data2",
+        "driver": "pinctrl-single"
+    },
+    "i2c0_scl": {
+        "pinnum": "pin 99",
+        "mux": "00000070",
+        "address": "44e1098c",
+        "offset": "98C",
+        "reg name": "conf_i2c0_scl",
+        "driver": "pinctrl-single"
+    },
+    "mii1_rxd2": {
+        "pinnum": "pin 78",
+        "mux": "00000020",
+        "address": "44e10938",
+        "offset": "938",
+        "reg name": "conf_mii1_rxd2",
+        "driver": "pinctrl-single"
+    },
+    "tms": {
+        "pinnum": "pin 116",
+        "mux": "00000030",
+        "address": "44e109d0",
+        "offset": "9D0",
+        "reg name": "conf_tms",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad0": {
+        "pinnum": "pin 0",
+        "mux": "00000031",
+        "address": "44e10800",
+        "offset": "800",
+        "reg name": "conf_gpmc_ad0",
+        "driver": "pinctrl-single"
+    },
+    "lcd_hsync": {
+        "pinnum": "pin 57",
+        "mux": "00000000",
+        "address": "44e108e4",
+        "offset": "8E4",
+        "reg name": "conf_lcd_hsync",
+        "driver": "pinctrl-single"
+    },
+    "uart1_rtsn": {
+        "pinnum": "pin 95",
+        "mux": "00000073",
+        "address": "44e1097c",
+        "offset": "97C",
+        "reg name": "conf_uart1_rtsn",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data5": {
+        "pinnum": "pin 45",
+        "mux": "00000008",
+        "address": "44e108b4",
+        "offset": "8B4",
+        "reg name": "conf_lcd_data5",
+        "driver": "pinctrl-single"
+    },
+    "tdi": {
+        "pinnum": "pin 117",
+        "mux": "00000030",
+        "address": "44e109d4",
+        "offset": "9D4",
+        "reg name": "conf_tdi",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_csn2": {
+        "pinnum": "pin 33",
+        "mux": "00000032",
+        "address": "44e10884",
+        "offset": "884",
+        "reg name": "conf_gpmc_csn2",
+        "driver": "pinctrl-single"
+    },
+    "mmc0_dat1": {
+        "pinnum": "pin 62",
+        "mux": "00000030",
+        "address": "44e108f8",
+        "offset": "8F8",
+        "reg name": "conf_mmc0_dat1",
+        "driver": "pinctrl-single"
+    },
+    "mcasp0_fsx": {
+        "pinnum": "pin 101",
+        "mux": "00000010",
+        "address": "44e10994",
+        "offset": "994",
+        "reg name": "conf_mcasp0_fsx",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad8": {
+        "pinnum": "pin 8",
+        "mux": "00000027",
+        "address": "44e10820",
+        "offset": "820",
+        "reg name": "conf_gpmc_ad8",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data10": {
+        "pinnum": "pin 50",
+        "mux": "00000008",
+        "address": "44e108c8",
+        "offset": "8C8",
+        "reg name": "conf_lcd_data10",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_oen_ren": {
+        "pinnum": "pin 37",
+        "mux": "00000037",
+        "address": "44e10894",
+        "offset": "894",
+        "reg name": "conf_gpmc_oen_ren",
+        "driver": "pinctrl-single"
+    },
+    "lcd_pclk": {
+        "pinnum": "pin 58",
+        "mux": "00000000",
+        "address": "44e108e8",
+        "offset": "8E8",
+        "reg name": "conf_lcd_pclk",
+        "driver": "pinctrl-single"
+    },
+    "mcasp0_axr1": {
+        "pinnum": "pin 106",
+        "mux": "0000001f",
+        "address": "44e109a8",
+        "offset": "9A8",
+        "reg name": "conf_mcasp0_axr1",
+        "driver": "pinctrl-single"
+    },
+    "spi0_cs0": {
+        "pinnum": "pin 87",
+        "mux": "00000062",
+        "address": "44e1095c",
+        "offset": "95C",
+        "reg name": "conf_spi0_cs0",
+        "driver": "pinctrl-single"
+    },
+    "uart0_rxd": {
+        "pinnum": "pin 92",
+        "mux": "00000030",
+        "address": "44e10970",
+        "offset": "970",
+        "reg name": "conf_uart0_rxd",
+        "driver": "pinctrl-single"
+    },
+    "mmc0_dat2": {
+        "pinnum": "pin 61",
+        "mux": "00000030",
+        "address": "44e108f4",
+        "offset": "8F4",
+        "reg name": "conf_mmc0_dat2",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_a4": {
+        "pinnum": "pin 20",
+        "mux": "00000017",
+        "address": "44e10850",
+        "offset": "850",
+        "reg name": "conf_gpmc_a4",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data1": {
+        "pinnum": "pin 41",
+        "mux": "00000008",
+        "address": "44e108a4",
+        "offset": "8A4",
+        "reg name": "conf_lcd_data1",
+        "driver": "pinctrl-single"
+    },
+    "mii1_txd1": {
+        "pinnum": "pin 73",
+        "mux": "00000000",
+        "address": "44e10924",
+        "offset": "924",
+        "reg name": "conf_mii1_txd1",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_clk": {
+        "pinnum": "pin 35",
+        "mux": "00000027",
+        "address": "44e1088c",
+        "offset": "88C",
+        "reg name": "conf_gpmc_clk",
+        "driver": "pinctrl-single"
+    },
+    "uart0_rtsn": {
+        "pinnum": "pin 91",
+        "mux": "00000037",
+        "address": "44e1096c",
+        "offset": "96C",
+        "reg name": "conf_uart0_rtsn",
+        "driver": "pinctrl-single"
+    },
+    "usb0_drvvbus": {
+        "pinnum": "pin 135",
+        "mux": "00000020",
+        "address": "44e10a1c",
+        "offset": "A1C",
+        "reg name": "conf_usb0_drvvbus",
+        "driver": "pinctrl-single"
+    },
+    "emu1": {
+        "pinnum": "pin 122",
+        "mux": "00000030",
+        "address": "44e109e8",
+        "offset": "9E8",
+        "reg name": "conf_emu1",
+        "driver": "pinctrl-single"
+    },
+    "ext_wakeup": {
+        "pinnum": "pin 128",
+        "mux": "00000028",
+        "address": "44e10a00",
+        "offset": "A00",
+        "reg name": "conf_ext_wakeup",
+        "driver": "pinctrl-single"
+    },
+    "spi0_d0": {
+        "pinnum": "pin 85",
+        "mux": "00000037",
+        "address": "44e10954",
+        "offset": "954",
+        "reg name": "conf_spi0_d0",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad3": {
+        "pinnum": "pin 3",
+        "mux": "00000031",
+        "address": "44e1080c",
+        "offset": "80C",
+        "reg name": "conf_gpmc_ad3",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad4": {
+        "pinnum": "pin 4",
+        "mux": "00000031",
+        "address": "44e10810",
+        "offset": "810",
+        "reg name": "conf_gpmc_ad4",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data8": {
+        "pinnum": "pin 48",
+        "mux": "00000008",
+        "address": "44e108c0",
+        "offset": "8C0",
+        "reg name": "conf_lcd_data8",
+        "driver": "pinctrl-single"
+    },
+    "mcasp0_axr0": {
+        "pinnum": "pin 102",
+        "mux": "00000027",
+        "address": "44e10998",
+        "offset": "998",
+        "reg name": "conf_mcasp0_axr0",
+        "driver": "pinctrl-single"
+    },
+    "mii1_rx_clk": {
+        "pinnum": "pin 76",
+        "mux": "00000020",
+        "address": "44e10930",
+        "offset": "930",
+        "reg name": "conf_mii1_rx_clk",
+        "driver": "pinctrl-single"
+    },
+    "tdo": {
+        "pinnum": "pin 118",
+        "mux": "00000030",
+        "address": "44e109d8",
+        "offset": "9D8",
+        "reg name": "conf_tdo",
+        "driver": "pinctrl-single"
+    },
+    "tck": {
+        "pinnum": "pin 119",
+        "mux": "00000030",
+        "address": "44e109dc",
+        "offset": "9DC",
+        "reg name": "conf_tck",
+        "driver": "pinctrl-single"
+    },
+    "uart0_txd": {
+        "pinnum": "pin 93",
+        "mux": "00000000",
+        "address": "44e10974",
+        "offset": "974",
+        "reg name": "conf_uart0_txd",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad1": {
+        "pinnum": "pin 1",
+        "mux": "00000031",
+        "address": "44e10804",
+        "offset": "804",
+        "reg name": "conf_gpmc_ad1",
+        "driver": "pinctrl-single"
+    },
+    "warmrstn": {
+        "pinnum": "pin 110",
+        "mux": "00000030",
+        "address": "44e109b8",
+        "offset": "9B8",
+        "reg name": "conf_warmrstn",
+        "driver": "pinctrl-single"
+    },
+    "mii1_crs": {
+        "pinnum": "pin 67",
+        "mux": "00000027",
+        "address": "44e1090c",
+        "offset": "90C",
+        "reg name": "conf_mii1_crs",
+        "driver": "pinctrl-single"
+    },
+    "mcasp0_aclkx": {
+        "pinnum": "pin 100",
+        "mux": "00000000",
+        "address": "44e10990",
+        "offset": "990",
+        "reg name": "conf_mcasp0_aclkx",
+        "driver": "pinctrl-single"
+    },
+    "mii1_tx_clk": {
+        "pinnum": "pin 75",
+        "mux": "00000020",
+        "address": "44e1092c",
+        "offset": "92C",
+        "reg name": "conf_mii1_tx_clk",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad9": {
+        "pinnum": "pin 9",
+        "mux": "00000027",
+        "address": "44e10824",
+        "offset": "824",
+        "reg name": "conf_gpmc_ad9",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_a7": {
+        "pinnum": "pin 23",
+        "mux": "00000007",
+        "address": "44e1085c",
+        "offset": "85C",
+        "reg name": "conf_gpmc_a7",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ben0_cle": {
+        "pinnum": "pin 39",
+        "mux": "00000037",
+        "address": "44e1089c",
+        "offset": "89C",
+        "reg name": "conf_gpmc_ben0_cle",
+        "driver": "pinctrl-single"
+    },
+    "spi0_cs1": {
+        "pinnum": "pin 88",
+        "mux": "0000002f",
+        "address": "44e10960",
+        "offset": "960",
+        "reg name": "conf_spi0_cs1",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data11": {
+        "pinnum": "pin 51",
+        "mux": "00000008",
+        "address": "44e108cc",
+        "offset": "8CC",
+        "reg name": "conf_lcd_data11",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_ad14": {
+        "pinnum": "pin 14",
+        "mux": "00000027",
+        "address": "44e10838",
+        "offset": "838",
+        "reg name": "conf_gpmc_ad14",
+        "driver": "pinctrl-single"
+    },
+    "mii1_col": {
+        "pinnum": "pin 66",
+        "mux": "00000027",
+        "address": "44e10908",
+        "offset": "908",
+        "reg name": "conf_mii1_col",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_csn1": {
+        "pinnum": "pin 32",
+        "mux": "00000032",
+        "address": "44e10880",
+        "offset": "880",
+        "reg name": "conf_gpmc_csn1",
+        "driver": "pinctrl-single"
+    },
+    "lcd_data12": {
+        "pinnum": "pin 52",
+        "mux": "00000008",
+        "address": "44e108d0",
+        "offset": "8D0",
+        "reg name": "conf_lcd_data12",
+        "driver": "pinctrl-single"
+    },
+    "mii1_rxd3": {
+        "pinnum": "pin 77",
+        "mux": "00000020",
+        "address": "44e10934",
+        "offset": "934",
+        "reg name": "conf_mii1_rxd3",
+        "driver": "pinctrl-single"
+    },
+    "mdc": {
+        "pinnum": "pin 83",
+        "mux": "00000010",
+        "address": "44e1094c",
+        "offset": "94C",
+        "reg name": "conf_mdc",
+        "driver": "pinctrl-single"
+    },
+    "mii1_rx_er": {
+        "pinnum": "pin 68",
+        "mux": "00000020",
+        "address": "44e10910",
+        "offset": "910",
+        "reg name": "conf_mii1_rx_er",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_wen": {
+        "pinnum": "pin 38",
+        "mux": "00000037",
+        "address": "44e10898",
+        "offset": "898",
+        "reg name": "conf_gpmc_wen",
+        "driver": "pinctrl-single"
+    },
+    "gpmc_csn3": {
+        "pinnum": "pin 34",
+        "mux": "00000037",
+        "address": "44e10888",
+        "offset": "888",
+        "reg name": "conf_gpmc_csn3",
+        "driver": "pinctrl-single"
+    },
+    "mmc0_clk": {
+        "pinnum": "pin 64",
+        "mux": "00000030",
+        "address": "44e10900",
+        "offset": "900",
+        "reg name": "conf_mmc0_clk",
+        "driver": "pinctrl-single"
+    },
+    "rmii1_ref_clk": {
+        "pinnum": "pin 81",
+        "mux": "00000027",
+        "address": "44e10944",
+        "offset": "944",
+        "reg name": "conf_rmii1_ref_clk",
+        "driver": "pinctrl-single"
+    }
+}
