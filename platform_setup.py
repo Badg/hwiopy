@@ -79,6 +79,7 @@ class bbb_setup():
 
                 # Build a dts for it
                 self._build_dts(desc, name, offset, control)
+                self._compile_dts(name)
 
     @classmethod
     def do(cls):

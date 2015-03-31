@@ -25,7 +25,7 @@
 /plugin/;
 
 / {
-    compatible = "ti,am335x-bone", "ti,am33xx", "ti,omap3";
+    compatible = "ti,beaglebone-black", "ti,beaglebone";
 
     /* What is this overlay? */
     part-number = "__NAME__";
