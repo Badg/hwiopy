@@ -103,6 +103,14 @@ class _memory_map():
         # Return the tuple
         return (start, end)
 
+    def get_clockcontrol(self, register):
+        # Get the corresponding control register
+        try: 
+            return self._map_dict[register]['clock_control_register']
+        # Catch registers that don't have one yet. Might be preferable to raise
+        except KeyError:
+            return None
+
     # Very simply return the available registers
     def list(self):
         return self._registers
@@ -193,7 +201,7 @@ class _register_map():
             function_dict = \
                 self._register_dict[register_type][reg_fn]
             # Return a tuple of (offset, bitsize)
-            resolved = [int(function_dict['address'], base=16), 
+            resolved = [int(function_dict['offset'], base=16), 
                 function_dict['bitsize']]
 
             # If we're trying to call a specific bit command, resolve which 
@@ -466,7 +474,7 @@ class Sitara335(core.System):
         # Error trap: is the memfile open?
         if not self._memfile:
             raise RuntimeError('System must be started and the memory file '
-                'opened for access to pin functions.')
+                               'opened for access to pin functions.')
 
         # If it hasn't already been opened, open it and add it to the dict
         if register not in self._register_mmaps:
@@ -495,10 +503,14 @@ class _gpio():
 
         self.direction = None
         self._mmap = None
+        self._clockcontrol_mmap = None
 
         # Use the description dictionary to figure out which gpio register
         self.register_name = \
             system._resolve_mode.get_register(terminal, 'gpio')
+        self.clockcontrol_name = \
+            system._resolve_map.get_clockcontrol(self.register_name)
+
         # Now resolve the memory address (start, end tuple)
         self.channel_number = int(self.desc['register_detail'])
         # And generate a bit-shifted description of which channel this is
@@ -561,8 +573,11 @@ class _gpio():
             raise RuntimeError('GPIO direction (in/out) has not been '
                 'configured.')
 
-        # Update my _mmap and direction
+        # Update my _mmap, start the clock, and set direction
         self._mmap = self.system._get_register_mmap(self.register_name)
+        self._clockcontrol_mmap = \
+            self.system._get_register_mmap(self.clockcontrol_name)
+        self._start_bus_clock()
         self._set_direction()
 
     # No __exit__ as this is not intended for external use / context managment
@@ -583,6 +598,55 @@ class _gpio():
             raise RuntimeError('Invalid direction specified.')
         # At any rate, now take care of all of that nonsense.
         self._mmap[self.output_enable] = struct.pack('<L', out_ena)
+
+    def _start_bus_clock(self):
+        ''' Makes sure the bus clock for the gpio bank is running. Together
+        with _set_direction, these make up the two functions of the sysfs
+        "export" mapping.
+        '''
+        # First grab the mmap.
+        # Well, we already have the mmap. We got it in on_start.
+
+        # Now let's hunt down the clock register offset
+        # God this is such a fucking mess
+        clockmap = self.system._resolve_register_bits.\
+            _register_dict[self.clockcontrol_name]
+        # I feel gross writing this.
+        offset = int(clockmap[self.register_name]['offset'], base=16)
+        # ewwwwww
+
+        # Get the relevant register description dictionaries
+        idle_status = self.system._resolve_register_bits.\
+            _register_dict['gpio']['clock_control']['functions']['idle_status']
+        mode = self.system._resolve_register_bits.\
+            _register_dict['gpio']['clock_control']['functions']['mode']
+
+        # Start checkin' shit
+        # Unpack the whole bus. Remember that 32 bits is the minimum size we 
+        # can deal with.
+        reg_slice = slice(offset, offset + 4)
+        clock_register = \
+            struct.unpack('<L', self._clockcontrol_mmap[reg_slice])[0]
+        # Check if the mode is disabled
+        # First isolate the mode field
+        mode_mask = 0
+        for bit in mode['__bits__']:
+            mode_mask |= 1 << bit
+        check_mode = mode_mask & clock_register
+        # Okay, we have just the mode field. Is it enabled or disabled?
+        enabled = int(mode['enable'], base=16) << mode['__bits__'][0]
+        if check_mode & enabled:
+            # Okay, the clock is enabled. Might need to check the idle status.
+            pass
+        # Not enabled!
+        else: 
+            # Repack as enabled
+            # Clear only the mode field
+            clock_register &= (~mode_mask)
+            # Set the mode field
+            clock_register |= enabled
+            packed = struct.pack('<L', clock_register)
+            self._clockcontrol_mmap[reg_slice] = packed
 
     def config(self, direction):
         # Error trap the direction (only in/out)

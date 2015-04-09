@@ -6,6 +6,8 @@ Hardware IO for SOCs in python, starting with Beaglebone Black.
 Introduction
 ----------
 
+Preface to the introduction: oh god don't look at the source code it's dirty and needs to be put out of its misery (like seriously, complete rewrite).
+
 First, sorry (seriously sorry) but for the time being, the documentation here is going to be narsty. Not *lacking*, but more of a "brain dump" than an explanation. So it may only be helpful to me. But, uh, better than nothing? Probably? I wish I had time (or the resources to hire someone to document my shit) but at this point I'm just stretched too thinly. Butter over too much bread and all that. Speaking of which, this is being developed on python 3.4, and I don't have time to support python 2. One last apology: my link formatting was largely lost in the .md -> .rst transition. I haven't yet taken the time to update old links, but new ones should be added correctly.
 
 **Everything is currently under development. This is serious danger zone code here, absolutely unstable. But I'm actively using hwiopy, so I wouldn't expect game-breaking changes to happen on a regular basis or anything.**
@@ -31,29 +33,35 @@ Installation
 
 I'm working on adding automatic device tree overlay compilation during the install process. For now, this is just an sdist.
 
+**Pinmuxing is only currently planned for kernel version 3.8. I would like to support muxing in other kernel versions, but unfortunately I don't have the resources at the moment.** Insert some grumbling here (I've spent a lot of time on this problem and made exceptionally little progress).
+
+**If you want to disable the HDMI functions to free up the HDMI pins,** you need to manually:
+
+    sudo nano /boot/uEnv.txt
+
+then append the line:
+
+    optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONELT-HDMIN
+
+Ctrl+X to exit, Y to save, Enter to overwrite, then reboot and verify:
+
+    sudo reboot
+    (wait and reconnect)
+    cat /sys/devices/bone_capemgr.?/slots
+
+You should see "ff:P-O--" in front of anything mentioning HDMI. The lack of an l (for loading) or L (for Loaded) indicates that these capes have not been loaded. Attempting to disable them after boot (at least for me) results in kernel panic and hang.
+
 Gotchas and other things that are likely to screw you up or otherwise don't work yet
 ============
 
 Hwiopy currently only supports gpio output.
 
-Before being used, the pin must be manually exported for use. I've been doing this by using sysFS to export pins. To enable gpio, first figure out what terminal of the Sitara SoC the BBB is connected to:
+**There is no need to manually export pins in the sysfs mappings.** Hwiopy has your back.
 
-    bbb = hwiopy.platforms.BBB()
-    test_pin = bbb.create_pin('8_7', 'gpio', 'test_pin')
-    sitara_terminal = test_pin.terminal
+Changelog
+=======
 
-then figure out what GPIO number we have:
-
-    gpio_desc = bbb.system._resolve_mode.describe(test_pin.terminal, 'gpio')
-    gpio_num = gpio_dec['mode_name']
-
-it should look like "gpio2_2", "gpio1_22", etc. Now take the first number (this is the register number; there's gpio0, gpio1, gpio2, etc, each with 32 bits/channels total). Multiply that by 32, and add the second number. So gpio2_2 becomes (2*32) + 2, gpio1_22 becomes (1*32) + 22, etc. That's the number you use when you use the sysFS mappings to configure the pin, for example:
-
-    echo 66 > /sys/class/gpio/export 
-
-will set up the gpio2_2 channel, which corresponds to pin 8_7 on the BBB header.
-
-As of this writing, you do not need to set the output/input configuration in sysFS; hwiopy will do that for you.
+This will see updates when I have time to make them / when changes become noteworthy. That probably means, starting at 0.1.1.
 
 
 Preliminary work
@@ -201,59 +209,10 @@ Should definitely reconfigure library with metaclasses. DeviceMeta would be part
 
 Table 9-57 has control module information for pinmuxing. Section 9.1 explains what the fuck is going on.
 
-GPIO clock modules
----------------------
-
-From a [helpful stackoverflow page](http://stackoverflow.com/questions/13124271/driving-beaglebone-gpio-through-dev-mem), whose author [also has a small library with some good reference](https://github.com/facine/easyBlack/blob/master/src/memGPIO.cpp), see some C code:
-
-    enableClockModules () {
-        // Enable disabled GPIO module clocks.
-        if (mapAddress[(CM_WKUP_GPIO0_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK) {
-          mapAddress[(CM_WKUP_GPIO0_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] |= MODULEMODE_ENABLE;
-          // Wait for the enable complete.
-          while (mapAddress[(CM_WKUP_GPIO0_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK);
-        }
-        if (mapAddress[(CM_PER_GPIO1_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK) {
-          mapAddress[(CM_PER_GPIO1_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] |= MODULEMODE_ENABLE;
-          // Wait for the enable complete.
-          while (mapAddress[(CM_PER_GPIO1_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK);
-        }
-        if (mapAddress[(CM_PER_GPIO2_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK) {
-          mapAddress[(CM_PER_GPIO2_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] |= MODULEMODE_ENABLE;
-          // Wait for the enable complete.
-          while (mapAddress[(CM_PER_GPIO2_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK);
-        }
-        if (mapAddress[(CM_PER_GPIO3_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK) {
-          mapAddress[(CM_PER_GPIO3_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] |= MODULEMODE_ENABLE;
-          // Wait for the enable complete.
-          while (mapAddress[(CM_PER_GPIO3_CLKCTRL - MMAP_OFFSET) / GPIO_REGISTER_SIZE] & IDLEST_MASK);
-        }
-    }
-
-where
-
-    MMAP_OFFSET = 0x44C00000
-    MMAP_SIZE = 0x481AEFFF - MMAP_OFFSET
-    GPIO_REGISTER_SIZE = 4
-    MODULEMODE_ENABLE = 0x02
-    IDLEST_MASK = (0x03 << 16)
-    CM_WKUP = 0x44E00400
-    CM_PER = 0x44E00000
-    CM_WKUP_GPIO0_CLKCTRL = (CM_WKUP + 0x8)
-    CM_PER_GPIO1_CLKCTRL = (CM_PER + 0xAC)
-    CM_PER_GPIO2_CLKCTRL = (CM_PER + 0xB0)
-    CM_PER_GPIO3_CLKCTRL = (CM_PER + 0xB4)
-
 Scratchbook
 ===========
 
-All (period?) "prior art" packages do io through writing to sysfs. Adafruit library, for example, uses this through a... rather convoluted c++ wrapper. This package, on the other hand, 
-
-Can also map pins to /dev/mem using mmap? This would be a possible route for improvement. Not 100% sure how to deal with pinmuxing -- perhaps mux with the /sys/ mappings -- but theoretically possible within /dev/mem as well. [Check this out.](http://chiragnagpal.com/examples.html)
-
-I compared IO for the simple /sys/ mappings was between numpy and the stock io libraries. Stock io was significantly faster, roughly 3x.
-
-**You will take a significant performance hit if you try to access functions via the pin dictionary. Give them a new name first, then call that:**
+**You will take a significant performance hit if you try to access functions via the pin dictionary. Memoize them, then call that:**
 
     fastup = test_led.methods['output_high_nocheck']
     fastdown = test_led.methods['output_low_nocheck']
@@ -271,8 +230,9 @@ By far the most tedious part about this has been bringing in the bitwise/bytewis
 Planning committee / TODO
 -------
 
-+ **Need to compare the speed of the library with the speed of explicitly calling out the bits to change**
+Danger: this list is very out of date.
 
++ Whole damn package needs a rewrite at some point.
 + Restructure mapping systems:
     + Need to move maps into maps folder
     + Need to create a maps.py in maps folder
@@ -322,8 +282,3 @@ PRU links
 * [PyPRUSS](http://hipstercircuits.com/pypruss-one-library-to-rule-them-all/)
 * [Generic HAL PRU stuff](https://github.com/cdsteinkuehler/linuxcnc/blob/MachineKit-ubc/src/hal/drivers/hal_pru_generic/pru_generic.p#L135)
 * [libpruio](http://beagleboard.org/project/libpruio/)
-
-Changelog
-=======
-
-Don't even consider looking here until this hits at least alpha. There are too many changes much too quickly at this point; when I change the status to alpha that will signifiy that I'm moving the project to a point where it's not quite so dangerous to use.
