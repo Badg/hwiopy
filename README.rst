@@ -33,7 +33,14 @@ Installation
 
 I'm working on adding automatic device tree overlay compilation during the install process. For now, this is just an sdist.
 
-**Pinmuxing is only currently planned for kernel version 3.8. I would like to support muxing in other kernel versions, but unfortunately I don't have the resources at the moment.** Insert some grumbling here (I've spent a lot of time on this problem and made exceptionally little progress).
+You should *not* install as sudo, but the installer *may* prompt you to escalate privileges. This has been done as a compromise between ameliorating potential downstream access risks and automating processes like device tree overlay compiling.
+
+Notes on pinmuxing
+---------------
+
+The pip install process currently generates (but does not correctly locate, nor activate) device tree overlays for muxing. Unfortunately this will only apply to kernel 3.8, as it appears that future kernel versions do **not** support runtime modification of the device tree (so pin configuration may require reboot). As such, **pinmuxing is only currently planned for kernel version 3.8. I would like to support muxing in other kernel versions, but unfortunately I don't have the resources at the moment.** Insert some grumbling here (I've spent a lot of time on this problem and made exceptionally little progress).
+
+Table 9-57 has control module information for pinmuxing. Section 9.1 explains what the fuck is going on.
 
 **If you want to disable the HDMI functions to free up the HDMI pins,** you need to manually:
 
@@ -51,20 +58,52 @@ Ctrl+X to exit, Y to save, Enter to overwrite, then reboot and verify:
 
 You should see "ff:P-O--" in front of anything mentioning HDMI. The lack of an l (for loading) or L (for Loaded) indicates that these capes have not been loaded. Attempting to disable them after boot (at least for me) results in kernel panic and hang.
 
-Gotchas and other things that are likely to screw you up or otherwise don't work yet
-============
+Features and changelog
+========
 
-Hwiopy currently only supports gpio output.
+| function | support level |
+| ----- |   ----- |
+| gpio | Input supported. Output supported. Interrupts unsupported. |
 
-**There is no need to manually export pins in the sysfs mappings.** Hwiopy has your back.
+* 0.1.1 -- Pip installable. No need for user to deal with SysFS. Supports only GPxO (no input yet).
+* 0.1.2 -- Added input support. GPIO interrupt generation still unsupported.
 
-Changelog
-=======
+Scratchbook
+===========
 
-This will see updates when I have time to make them / when changes become noteworthy. That probably means, starting at 0.1.1.
+**You will take a significant performance hit if you try to access functions via the pin dictionary. Memoize them, then call that:**
 
+    fastup = test_led.methods['output_high_nocheck']
+    fastdown = test_led.methods['output_low_nocheck']
 
-Preliminary work
+Could probably speed things up a bit more by using lambdas with default arguments and stuff.
+
+Gotchas
+-----
+
+If you're used to, for example, the adafruit library: you have no need to run the sysfs export command. Hwiopy does this for you, in a more performant manner.
+
+Memory mapping
+------------
+
+The ARM cortex A8 TRM, BBB SRM, and a datasheet or two are in /doc. I realize that it's not necessarily the best practice to include those in the git repo, but the links to them online seem to have been a little less static than would otherwise be desirable, making them difficult to link to. I'd rather unambiguously and conveniently include them here. That said, the json files in the source code are likely to be more helpful.
+
+Planning committee / TODO
+-------
+
++ Whole damn package needs a rewrite. It's very, very messy. I'm waiting until after I have SPI working to do this.
++ Package restructure.
+    + The api to a map should be either a single dictionary, or a single wrapper therefore.
+    + Should have a single json file for the cortex, single file for the sitara, single file for the beaglebone, etc.
+    + Creation of custom devices should be as easy as creating a dictionary to describe them.
++ Use platform autodetection to set a configuration file, which in turn makes the device creation portable between platforms (ex: with platform as myplatform instead of with BBB as myplatform)
++ Similarly, ability to say "I need a gpio", "I need a SPI", etc, and the device responds by creating one and telling you the appropriate pinout.
+    + Internal integer description of each pin, to allow code ported from another device to auto-generate a pinout for the new device.
+    + Needs to be deterministic, or to have a way to freeze the pinout, so that for any set of requirements on any given device, the same pinout will **always** be generated.
+    + A method to save the device description somewhere.
++ Software-defined interfaces (ex software-defined PWM via GPIO).
+
+Preliminary work and performance research
 =============
 
 SysFS access for reference speeds:
@@ -179,78 +218,12 @@ It's very clear from these results that there are some serious limitations assoc
 
 Also, as a note, I'm seeing roughly 4x slower than other reported speeds. Part of me wonders if it's possible for this to have something to do with data structure alignment in the register?
 
-Pinmuxing and pin setup process
-==================
 
-From the pyBBIO developer, [here](http://graycat.io/tutorials/beaglebone-io-using-python-mmap/):
+Links
+=======
 
-> All this pinmuxing is handled by the AM335x control module. Of course there’s a catch, which is hiding in section 9.1:
-
->> Note: For writing to the control module registers, the Cortex A8 MPU will need to be in privileged mode of operation and writes will not work from user mode.
-
-> Luckily, thanks to the friendly BeableBone developers, there is a user-level workaround. There is a file for each external pin found in /sys/kernel/debug/omap_mux/. Writing to these files tells a driver to configure the pin multiplexers as desired. To find the proper file names is a bit of a pain, and requires one more document; the AM3359 datasheet, found here.
-
-Unfortunately this solution has been eliminated in the 3.8 kernel, neceessitating the use of device tree overlays. It's also worth mentioning that PRUSS access requires modification of the device tree itself, not just an overlay.
-
-Overlay generation:
-----------------
-
-Need to set up pip install, then generate overlays for every function and stuff.
-
-Autoconfiguring library with metaclass? "lshw # gets quite a bit of information on everything about your CPU"
-
-Should definitely reconfigure library with metaclasses. DeviceMeta would be particularly useful:
-
-+ Register any user-defined devices in a dict
-+ Provide singular API to hwiopy.Device instead of platform-specific device calls like hwiopy.platforms.BBB
-+ Facilitate automagic detection of platform, thereby enabling singular API ^
-+ Basically, distill the various platforms into a single Device class, so that code can be ported unmodified to different platforms.
-+ Reduce platform-specific boilerplate
-
-Table 9-57 has control module information for pinmuxing. Section 9.1 explains what the fuck is going on.
-
-Scratchbook
-===========
-
-**You will take a significant performance hit if you try to access functions via the pin dictionary. Memoize them, then call that:**
-
-    fastup = test_led.methods['output_high_nocheck']
-    fastdown = test_led.methods['output_low_nocheck']
-
-Could probably speed things up a bit more by using lambdas with default arguments and stuff.
-
-
-Memory mapping
-------------
-
-The ARM cortex A8 TRM, BBB SRM, and a datasheet or two are in /doc. I realize that it's not necessarily the best practice to include those in the git repo, but the links to them online seem to have been a little less static than would otherwise be desirable, making them difficult to link to. I'd rather unambiguously and conveniently include them here. That said, the json files in the source code are likely to be more helpful.
-
-By far the most tedious part about this has been bringing in the bitwise/bytewise description of the /dev/mem mapping. All of the information I've gathered has been put into json files: check them out if you're looking to do any other kind of access to the memory register, as it will save an enormous amount of time compared to the reference material. For any register that contains the string "_intchannel", the corresponding part of the register uses 1 bit per GPIO. So for example, on the gpio1 register, when you set output, bit 1 is gpio1-1, bit 2 is gpio1-2, bit 3 is gpio1-3, etc.
-
-Planning committee / TODO
--------
-
-Danger: this list is very out of date.
-
-+ Whole damn package needs a rewrite at some point.
-+ Restructure mapping systems:
-    + Need to move maps into maps folder
-    + Need to create a maps.py in maps folder
-    + Need to restructure maps using ABCs so that arbitrary, non-included maps can be generated by users wishing to implement custom hardware
-+ Automatic configuration and overlay creation during install
-    + Is there a way to autodetect the hardware platform?
-    + It would be nice to be able to say "with platform" instead of "with <platform>"
-+ specify "plug" and have pins automatically declared 
-    + ex: create SPI0 plug
-    + include any possible onboard conflicts, like USB or HDMI
-    + Should probably be implemented as a pinout generator class, that would also be useful as a way to generate layouts. If you're doing this with runtime code (instead of as a write-time code aid) it absolutely must be deterministic, or the configuration would be non-static and users would have to change their pinouts. Should there be a way to freeze the pinout?
-+ subclass plugs (ex add more chip selects to SPI0)
-+ check for overlap on "plugs" (ex: accidentally using SPI1 and HDMI)
-+ print pinout method
-
-
-Some links
--------
+General
+---------
 
 * [Python mmap for control on 3.2](http://www.alexanderhiam.com/tutorials/beaglebone-io-using-python-mmap/)
 * [C mmap for control on 3.8](http://chiragnagpal.com/examples.html)

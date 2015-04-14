@@ -27,7 +27,7 @@ from setuptools import setup, find_packages
 
 metadata = dict(
     name = 'hwiopy',
-    version = '0.1.1',
+    version = '0.1.2',
     description = 'A common API for hardware input/output access.',
     long_description = 'hwiopy, "hardware input/output, python", '
     'is a general purpose IO library intended to provide a common, simple '

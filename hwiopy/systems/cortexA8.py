@@ -502,6 +502,7 @@ class _gpio():
         self.terminal = terminal
 
         self.direction = None
+        self.value = None
         self._mmap = None
         self._clockcontrol_mmap = None
 
@@ -513,25 +514,31 @@ class _gpio():
 
         # Now resolve the memory address (start, end tuple)
         self.channel_number = int(self.desc['register_detail'])
+        self.channel_mask = 1 << self.channel_number
         # And generate a bit-shifted description of which channel this is
-        self.channel_flag = struct.pack('<L', 1 << self.channel_number)
+        self.channel_flag = struct.pack('<L', self.channel_mask)
         # Grab the description of all gpio registers:
         self.register_map = self.system._resolve_register_bits('gpio')
 
         # For fast access store the setdataout and cleardataout bits as slices
         # This yields an (address, bit length) tuple
         set_out = self.register_map['setdataout']
-        set_out_bytes = ceil(set_out[1]/8)
+        set_out_bytes = ceil(set_out[1] / 8)
         # We want (byte start: byte end) slice
         self.set_out = slice(set_out[0], set_out[0] + set_out_bytes)
         # (address, bit length) tuple
         clear_out = self.register_map['cleardataout']
-        clear_out_bytes = ceil(clear_out[1]/8)
+        clear_out_bytes = ceil(clear_out[1] / 8)
         # To (byte start: byte end) slice
         self.clear_out = slice(clear_out[0], clear_out[0] + clear_out_bytes)
         oe = self.register_map['oe']
         oe_bytes = ceil(oe[1]/8)
         self.output_enable = slice(oe[0], oe[0] + oe_bytes)
+
+        # Input register messiness
+        read_input = self.register_map['datain']
+        read_input_size = ceil(read_input[1] / 8)
+        self.read_in = slice(read_input[0], read_input[0] + read_input_size)
 
         # I looooooooooooove late-binding closures right now, this shit is 
         # fucking magical. I can't believe this worked first try.
@@ -543,6 +550,7 @@ class _gpio():
         self.methods['on_stop'] = self.on_stop
         self.methods['output_high_nocheck'] = self.output_high_nocheck
         self.methods['output_low_nocheck'] = self.output_low_nocheck
+        self.methods['input_nocheck'] = self.input_nocheck
         self.methods['config'] = self.config
 
     def __call__(self):
@@ -555,11 +563,25 @@ class _gpio():
 
     def output_high_nocheck(self):
         # Update HIGH/True without checking if input/output.
+        # This could be memoized
         self._mmap[self.set_out] = self.channel_flag
+        self.value = 1
 
     def output_low_nocheck(self):
         # Update LOW/False without checking if input/output.
+        # This could be memoized
         self._mmap[self.clear_out] = self.channel_flag
+        self.value = 0
+
+    def input_nocheck(self):
+        # Read the input levels without checking if input/output.
+        # This is another good target for optimization
+        # Convert the register into something we can do bitwise operations on
+        status = struct.unpack('<L', self._mmap[self.read_in])[0]
+        # Bitwise anding with the channel flag -> zero or nonzero.
+        # Truth anding that with 1 -> 0 or 1
+        self.value = (status & self.channel_mask) and 1
+        return self.value
 
     def status(self):
         print(self.direction)
@@ -650,13 +672,15 @@ class _gpio():
 
     def config(self, direction):
         # Error trap the direction (only in/out)
-        if direction != 'in' and direction != 'out':
+        if direction not in ('in', 'out'):
             raise ValueError('GPIO direction must be "in" or "out".')
         
         # Cool, let's set up
         self.direction = direction
 
-
+        # If we're running, we also need to reconfigure things
+        if self.system.running:
+            self._set_direction()
 
 _mode_generators['gpio'] = _gpio
 
