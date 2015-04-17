@@ -40,7 +40,6 @@ from pkg_resources import resource_string
 from math import ceil
 
 # Intrapackage dependencies
-from . import __path__
 from .. import core
 # from .. import platforms
 

@@ -1,5 +1,5 @@
-''' Core / toplevel members of the hwiopy library. Everything here *should* be 
-platform-independent.
+''' Core / toplevel members of the hwiopy library. Everything here 
+*should* be platform-independent.
 
 LICENSING
 -------------------------------------------------
@@ -20,9 +20,11 @@ hwiopy: A common API for hardware input/output access.
     Lesser General Public License for more details.
 
     You should have received a copy of the GNU Lesser General Public
-    License along with this library; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
-    USA
+    License along with this library; if not, write to the 
+    Free Software Foundation, Inc.,
+    51 Franklin Street, 
+    Fifth Floor, 
+    Boston, MA  02110-1301 USA
 
 ------------------------------------------------------
 
@@ -41,7 +43,12 @@ RUN THREADED AT THE MOMENT.
 
 # Global imports
 from warnings import warn
+from abc import ABCMeta, abstractmethod
 
+# Package dependencies
+from platforms import BBB
+
+# class Pin(metaclass=ABCMeta):
 class Pin():
     ''' A generic single channel for communication on a device. Pins connect
     to the 'outside world'.
@@ -106,7 +113,7 @@ class Plug():
     def __init__(self):
         self.pins = {}
 
-class System():
+class System(metaclass=ABCMeta):
     ''' A base object for any computer system, be it SoC, desktop, whatever.
 
     Might want to subclass to mmapped system, then to cortex?
@@ -140,20 +147,24 @@ class System():
         self.terminals_available = \
             self._resolve_mode.list(only_assignable=True)
 
+    @abstractmethod
     def __enter__(self):
         self.on_start()
         return self
 
-    def on_start(self, *args, **kwargs):
-        ''' Must be called to start the device.
-        '''
-        self.running = True
-
+    @abstractmethod
     def __exit__(self, type, value, traceback):
         ''' Cleans up and handles errors.
         '''
         self.on_stop()
 
+    @abstractmethod
+    def on_start(self, *args, **kwargs):
+        ''' Must be called to start the device.
+        '''
+        self.running = True
+
+    @abstractmethod
     def on_stop(self, *args, **kwargs):
         ''' Cleans up the started device.
         '''
@@ -213,6 +224,50 @@ class System():
         '''
         raise NotImplementedError('mutate_terminal must be defined for each '
             'individual SoC.')
+
+class SystemBase(metaclass=ABCMeta):
+    ''' A base object for a system. This isn't the whole computer -- for 
+    example, in an SBC this would be just the SoC. I'm not sure what this would
+    correspond to on a desktop or an emulator.
+    
+    In general, this is where the meat for things is at. All memory operations
+    should be performed here. HardwareBase is really just configuring the 
+    entire computer in a way that reflects the current hardware state of the 
+    system.
+    '''
+    def __init__(self):
+        self.setup()
+        
+    @abstractmethod
+    def setup(self):
+        ''' Performs any setup needed during __init__. Should be called only 
+        once, and not used again. Cannot be used for manipulation of the system
+        while it is running.
+        
+        Note that this should NOT be used for implementation details. It should
+        be for hardware configuration only.
+        '''
+        pass
+
+    @abstractmethod
+    def on_start(self, *args, **kwargs):
+        ''' Must be called to start the device.
+        '''
+        self._running = True
+
+    @abstractmethod
+    def on_stop(self, *args, **kwargs):
+        ''' Cleans up the started device.
+        '''
+        self._running = False
+        
+    @property
+    @abstractmethod
+    def running(self):
+        ''' Read-only property that describes the device state (can be running
+        or not running: True/False)
+        '''
+        return self._running
 
 class Device():
     ''' A base object for a generic hardware-inspecific device. Will probably,
@@ -340,3 +395,311 @@ class Device():
 
         # Finally, call the system's function to release the terminal
         self.system.release_terminal(terminal)
+    
+class HardwareBase():
+    ''' Abstract base class for the whole computer (or other hardware 
+    configuration). Generally speaking, maps the system definitions (for 
+    example, SoC ZCZ balls) to your physical hardware configuration (for 
+    example, the Beaglebone Black headers).
+
+    Should this use on_start and on_stop as a way for the device to be used 
+    outside of a with: block?
+    '''
+    def __init__(self, system):
+        ''' Handles initialization. Here, will at least store the system in 
+        self.
+        '''
+        # Make sure it is, in fact, a system.
+        # "Errors should never pass silently" I think, in this case, trumps
+        # "ask forgiveness, not permission"
+        if not isinstance(system, SystemBase):
+            raise TypeError('System must be a hwiopy system.')
+        
+        self._system = system
+        
+    def __enter__(self):
+        ''' Code that is run in the beginning of a with statement -- whenever
+        the hardware starts.
+        '''
+        self.start()
+        return self
+        
+    def __exit__(self):
+        ''' Cleanup code that is run when exiting a with statement, so whenever
+        the hardware stops, errors, etc.
+        '''
+        self.stop()
+        
+    @abstractmethod
+    def start():
+        ''' Code to run for starting the hardware. Also executed at the 
+        beginning of a with: block.
+        '''
+        pass
+        
+    @abstractmethod
+    def stop():
+        ''' Code to run for cleaning up the hardware. Also executed at the 
+        completion of a with: block, or if the with: block raises.
+        '''
+        pass
+        
+    @abstractmethod
+    def declare_pin(self, pin, mode):
+        ''' Initializes the specified pin to the specified mode.
+        
+        should pin be a pin object, or a name?
+        '''
+        pass
+        
+    @abstractmethod
+    def request_pin(self, mode):
+        ''' Gets the "best" available pin for that mode, declares it, and 
+        returns it.
+        '''
+        
+    @abstractmethod
+    def release_pin(self, pin):
+        ''' Removes any declaration at the specified pin.
+        '''
+        pass
+        
+    @property
+    @abstractmethod
+    def pins(self):
+        ''' Read-only property that describes the current pin declarations.
+        '''
+        pass
+        
+    @property
+    def system(self):
+        ''' Read-only property describing the hardware's system, which is 
+        assigned during init.
+        '''
+        return self._system
+
+class _UndetectedHardware():
+    ''' Exists for the sole purpose of preventing the use of DetectedHardware
+    when the hardware was not autodetected.
+    '''
+    def __init__(self):
+        raise RuntimeError('Hardware was not autodetected during install. If '
+                           'you\'re running a system that should have been '
+                           'detected, try reinstalling the package.')
+
+# This bit is used for DetectedHardware to know where it inherits from.
+_detected_hardware = _UndetectedHardware
+if False:
+    _detected_hardware = BBB
+
+# DetectedHardware directly and only wraps the class for whatever hardware 
+# platform was detected.
+class DetectedHardware(_detected_hardware):
+    ''' Use the hardware that was autodetected during pip install. If the 
+    hardware could not be detected, immediately raises RuntimeError, thanks to
+    _UndetectedHardware.
+    '''
+    pass
+
+class PairedKeyDict():
+    ''' Parallel dictionary supporting bi-directional lookup between a device's
+    pin naming scheme and an arbitrary hwiopy-internal integer description of 
+    its pins.
+
+    pinmapper['name'] -> internal pin number
+    pinmapper[internal pin number] - > 'name'
+    pinmapper(<either>) -> SoC terminal mapping
+
+    The idea is to very easily generate device new device descriptions for a
+    given SoC, as well as provide a super simple way to get the SoC terminal.
+
+    Might add a "user_name" field that supports arbitrary anything, so that
+    someone might, for example, call "P8_7" on the beaglebone "test_pin".
+    '''
+    def __init__(self, pin_names=None, pin_connections=None, mapping=None):
+        '''
+        pin_names is an ordered list of names.
+        pin_connections is also an ordered list.
+        mapping is a dict.
+
+        Why the weird construct? Because I can't totally guarantee the 
+        consistency of a dictionary's order.
+
+        Integer-based addressing is awkward. I should probably resort to hash
+        addressing.
+        '''
+        # First call super
+        super().__init__()
+
+        # Store mapping on the off chance it's useful later
+        self._mapping = mapping
+
+        # Now, the internal address.
+        # Why the extra list instead of just using the index? Well, because we
+        # might decide that this isn't just being ordered by int. Also, because
+        # pin addresses should always, always be static, and therefore deleting
+        # one shouldn't change the address.
+        self._addresses = []
+        self._names = []
+        self._connections = []
+
+        # Maintain cumulative address number.
+        self._address_state = 0
+
+        # Flow control: is this predefined, or are we building a description?
+        if (pin_names and pin_connections) and not mapping:
+            # Some error traps
+            if len(pin_names) != len(pin_connections):
+                raise ValueError('Every pin name must have a connection.')
+            if len(pin_names) != len(set(pin_names)):
+                raise ValueError('Cannot overload pin names.')
+            for name in pin_names:
+                if not isinstance(name, str):
+                    raise TypeError('Pin names must be (or subclass) strings.')
+            for conn in pin_connections:
+                if not isinstance(conn, str):
+                    raise TypeError('Pin connections must be (or subclass) '
+                                    'strings.')
+            # Generate a list of addresses numbered one to whatever.
+            self._addresses = list(range(len(pin_names)))
+            self._names = pin_names
+            self._connections = pin_connections
+            self._address_state += len(pin_names) - 1
+
+        # Improper construction
+        elif (pin_names or pin_connections) and not mapping:
+            raise ValueError('Cannot declare pin mappings without BOTH names '
+                             'and connections.')
+        
+        # pin_names for ordering, mapping for description
+        elif pin_names and mapping:
+            if not set(pin_names).issubset(set(mapping)):
+                raise ValueError('When using names to specify order and '
+                                 'mapping to declare connections, names must '
+                                 'be a subset of mapping.')
+            # And now, create addresses, names, and connections for the mapping
+            for ii in range(len(pin_names)):
+                self._addresses.append(ii)
+                self._names.append(pin_names[ii])
+                self._connections.append(pin_connections[pin_names[ii]])
+                self._address_state += 1
+
+        # Just a mapping, thanks
+        elif mapping:
+            # This... well, it's a bit awkward.
+            ii = 0
+            for key, value in mapping.items():
+                if not isinstance(key, str):
+                    raise TypeError('Pin names must be (or subclass) strings.')
+                if not isinstance(value, str):
+                    raise TypeError('Pin connections must be (or subclass) '
+                                    'strings.')
+                self._connections.append(value)
+                self._names.append(key)
+                self._addresses.append(ii)
+                self._address_state += 1
+                ii += 1
+            del ii
+
+        # Improper construction, since only pin_connections
+        elif pin_connections:
+            raise ValueError('Cannot specify only pin connections.')
+
+        # Empty.
+        else:
+            # Already handled above.
+            pass
+
+    def __call__(self, key):
+        index = self._getindex(key)
+        return self._connections[index]
+
+    def __getitem__(self, key):
+        # Get the index and handle errors.
+        index = self._getindex(key)
+
+        # This is a bit weird but whatever (trying to use boilerplate getindex)
+        if self._names[index] == key:
+            return self._addresses[index]
+        else:
+            return self._names[index]
+
+    def __setitem__(self, name, connection):
+        ''' Creates a new mapping. Sets the name <-> connection, assigns an 
+        address.
+        '''
+        # Gets the new address, then sets it in the lists.
+        new_address = self._address_state + 1
+        # Onwards
+        self._names.append(name)
+        self._connections.append(connection)
+        self._addresses.append(new_address)
+        self._address_state += 1
+
+    def __delitem__(self, key):
+        index = self._getindex(key)
+        del self._names[index]
+        del self._connections[index]
+        del self._addresses[index]
+
+    def _getindex(self, key):
+        ''' Gets the index of the internal lists for the corresponding name or
+        address.
+        '''
+        if key in self._names:
+            return self._names.index(key)
+        elif key in self._addresses:
+            return self._addresses.index(key)
+        else:
+            raise KeyError('The key was found in neither names nor addresses.')
+
+class PinBase(metaclass=ABCMeta):
+    ''' An abstract base class for all pin objects, regardless of function. 
+    
+    Should always call self.setup.
+    '''
+    def __init__(self):
+        self.setup()
+        
+    @abstractmethod
+    def on_start(self):
+        ''' Any actions to perform on the pin when the device starts.
+        '''
+        pass
+                
+    @abstractmethod
+    def on_stop(self):
+        ''' Any actions to perform on the pin when the device stops.
+        '''
+        pass
+        
+    @abstractmethod
+    def setup(self):
+        ''' Any actions needed to perform to set up the pin. This method should
+        be called once, at initialization. It should **not** be used to 
+        configure the pin after a device has started.
+        '''
+        pass
+
+    @abstractmethod
+    def release(self):
+        ''' Performs any cleanup needed to un-setup the pin and return the pin
+        to its previous state.
+        '''
+        pass
+
+    @abstractmethod
+    def config(self):
+        ''' Performs configuration steps for the pin. May be called while 
+        device is running.
+        '''
+        pass
+        
+    @abstractmethod
+    def __call__(self):
+        ''' The default pin behavior. For example, PWM might __call__(50%) for
+        a 50% duty cycle. GPIO might __call__(1) to output high, or __call__()
+        to read. This is a post-configuration "route of least resistance" way
+        to interact with the pin.
+        '''
+        pass

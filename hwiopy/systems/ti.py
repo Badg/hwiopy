@@ -1,4 +1,5 @@
-'''
+''' TI-built systems, especially SoCs.
+
 LICENSING
 -------------------------------------------------
 
@@ -23,7 +24,40 @@ hwiopy: A common API for hardware input/output access.
     USA
 
 ------------------------------------------------------
-'''
 
-from .core import *
-from .pins import *
+Something something sooooomething goes here.
+
+Missing a great many error traps.
+
+This should all be made threadsafe. It is currently HIGHLY un-threadsafe.
+'''
+# Global dependencies
+import io
+import json
+import struct
+import mmap
+from pkg_resources import resource_string
+from math import ceil
+
+# Intrapackage dependencies
+from .. import core
+# from .. import platforms
+
+class Sitara335x(core.System):
+    ''' The sitara 335x SoC.
+    '''
+    def __init__(self, mem_filename):
+        super().__init__()
+        
+    def setup(self):
+        super().setup()
+
+    def on_start(self, *args, **kwargs):
+        ''' Must be called to start the device.
+        '''
+        super().on_start()
+
+    def on_stop(self, *args, **kwargs):
+        ''' Cleans up the started device.
+        '''
+        super().on_stop()

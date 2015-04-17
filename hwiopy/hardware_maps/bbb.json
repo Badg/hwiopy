@@ -1,0 +1,554 @@
+[
+    {
+        "name": "8_1",
+        "hwiopy_uid": 0,
+        "analog_connections": ["gnd"],
+        "system_connections": []
+    },
+    {
+        "name": "8_2",
+        "hwiopy_uid": 1,
+        "analog_connections": ["gnd"],
+        "system_connections": []
+    },
+    {
+        "name": "8_3",
+        "hwiopy_uid": 2,
+        "analog_connections": [],
+        "system_connections": ["r9"]
+    },
+    {
+        "name": "8_4",
+        "hwiopy_uid": 3,
+        "analog_connections": [],
+        "system_connections": ["t9"]
+    },
+    {
+        "name": "8_5",
+        "hwiopy_uid": 4,
+        "analog_connections": [],
+        "system_connections": ["r8"]
+    },
+    {
+        "name": "8_6",
+        "hwiopy_uid": 5,
+        "analog_connections": [],
+        "system_connections": ["t8"]
+    },
+    {
+        "name": "8_7",
+        "hwiopy_uid": 6,
+        "analog_connections": [],
+        "system_connections": ["r7"]
+    },
+    {
+        "name": "8_8",
+        "hwiopy_uid": 7,
+        "analog_connections": [],
+        "system_connections": ["t7"]
+    },
+    {
+        "name": "8_9",
+        "hwiopy_uid": 8,
+        "analog_connections": [],
+        "system_connections": ["t6"]
+    },
+    {
+        "name": "8_10",
+        "hwiopy_uid": 9,
+        "analog_connections": [],
+        "system_connections": ["u6"]
+    },
+    {
+        "name": "8_11",
+        "hwiopy_uid": 10,
+        "analog_connections": [],
+        "system_connections": ["r12"]
+    },
+    {
+        "name": "8_12",
+        "hwiopy_uid": 11,
+        "analog_connections": [],
+        "system_connections": ["t12"]
+    },
+    {
+        "name": "8_13",
+        "hwiopy_uid": 12,
+        "analog_connections": [],
+        "system_connections": ["t10"]
+    },
+    {
+        "name": "8_14",
+        "hwiopy_uid": 13,
+        "analog_connections": [],
+        "system_connections": ["t11"]
+    },
+    {
+        "name": "8_15",
+        "hwiopy_uid": 14,
+        "analog_connections": [],
+        "system_connections": ["u13"]
+    },
+    {
+        "name": "8_16",
+        "hwiopy_uid": 15,
+        "analog_connections": [],
+        "system_connections": ["v13"]
+    },
+    {
+        "name": "8_17",
+        "hwiopy_uid": 16,
+        "analog_connections": [],
+        "system_connections": ["u12"]
+    },
+    {
+        "name": "8_18",
+        "hwiopy_uid": 17,
+        "analog_connections": [],
+        "system_connections": ["v12"]
+    },
+    {
+        "name": "8_19",
+        "hwiopy_uid": 18,
+        "analog_connections": [],
+        "system_connections": ["u10"]
+    },
+    {
+        "name": "8_20",
+        "hwiopy_uid": 19,
+        "analog_connections": [],
+        "system_connections": ["v9"]
+    },
+    {
+        "name": "8_21",
+        "hwiopy_uid": 20,
+        "analog_connections": [],
+        "system_connections": ["u9"]
+    },
+    {
+        "name": "8_22",
+        "hwiopy_uid": 21,
+        "analog_connections": [],
+        "system_connections": ["v8"]
+    },
+    {
+        "name": "8_23",
+        "hwiopy_uid": 22,
+        "analog_connections": [],
+        "system_connections": ["u8"]
+    },
+    {
+        "name": "8_24",
+        "hwiopy_uid": 23,
+        "analog_connections": [],
+        "system_connections": ["v7"]
+    },
+    {
+        "name": "8_25",
+        "hwiopy_uid": 24,
+        "analog_connections": [],
+        "system_connections": ["u7"]
+    },
+    {
+        "name": "8_26",
+        "hwiopy_uid": 25,
+        "analog_connections": [],
+        "system_connections": ["v6"]
+    },
+    {
+        "name": "8_27",
+        "hwiopy_uid": 26,
+        "analog_connections": [],
+        "system_connections": ["u5"]
+    },
+    {
+        "name": "8_28",
+        "hwiopy_uid": 27,
+        "analog_connections": [],
+        "system_connections": ["v5"]
+    },
+    {
+        "name": "8_29",
+        "hwiopy_uid": 28,
+        "analog_connections": [],
+        "system_connections": ["r5"]
+    },
+    {
+        "name": "8_30",
+        "hwiopy_uid": 29,
+        "analog_connections": [],
+        "system_connections": ["r6"]
+    },
+    {
+        "name": "8_31",
+        "hwiopy_uid": 30,
+        "analog_connections": [],
+        "system_connections": ["v4"]
+    },
+    {
+        "name": "8_32",
+        "hwiopy_uid": 31,
+        "analog_connections": [],
+        "system_connections": ["t5"]
+    },
+    {
+        "name": "8_33",
+        "hwiopy_uid": 32,
+        "analog_connections": [],
+        "system_connections": ["v3"]
+    },
+    {
+        "name": "8_34",
+        "hwiopy_uid": 33,
+        "analog_connections": [],
+        "system_connections": ["u4"]
+    },
+    {
+        "name": "8_35",
+        "hwiopy_uid": 34,
+        "analog_connections": [],
+        "system_connections": ["v2"]
+    },
+    {
+        "name": "8_36",
+        "hwiopy_uid": 35,
+        "analog_connections": [],
+        "system_connections": ["u3"]
+    },
+    {
+        "name": "8_37",
+        "hwiopy_uid": 36,
+        "analog_connections": [],
+        "system_connections": ["u1"]
+    },
+    {
+        "name": "8_38",
+        "hwiopy_uid": 37,
+        "analog_connections": [],
+        "system_connections": ["u2"]
+    },
+    {
+        "name": "8_39",
+        "hwiopy_uid": 38,
+        "analog_connections": [],
+        "system_connections": ["t3"]
+    },
+    {
+        "name": "8_40",
+        "hwiopy_uid": 39,
+        "analog_connections": [],
+        "system_connections": ["t4"]
+    },
+    {
+        "name": "8_41",
+        "hwiopy_uid": 40,
+        "analog_connections": [],
+        "system_connections": ["t1"]
+    },
+    {
+        "name": "8_42",
+        "hwiopy_uid": 41,
+        "analog_connections": [],
+        "system_connections": ["t2"]
+    },
+    {
+        "name": "8_43",
+        "hwiopy_uid": 42,
+        "analog_connections": [],
+        "system_connections": ["r3"]
+    },
+    {
+        "name": "8_44",
+        "hwiopy_uid": 43,
+        "analog_connections": [],
+        "system_connections": ["r4"]
+    },
+    {
+        "name": "8_45",
+        "hwiopy_uid": 44,
+        "analog_connections": [],
+        "system_connections": ["r1"]
+    },
+    {
+        "name": "8_46",
+        "hwiopy_uid": 45,
+        "analog_connections": [],
+        "system_connections": ["r2"]
+    },
+    {
+        "name": "9_1",
+        "hwiopy_uid": 46,
+        "analog_connections": ["gnd"],
+        "system_connections": []
+    },
+    {
+        "name": "9_2",
+        "hwiopy_uid": 47,
+        "analog_connections": ["gnd"],
+        "system_connections": []
+    },
+    {
+        "name": "9_3",
+        "hwiopy_uid": 48,
+        "analog_connections": ["dc_3.3v"],
+        "system_connections": []
+    },
+    {
+        "name": "9_4",
+        "hwiopy_uid": 49,
+        "analog_connections": ["dc_3.3v"],
+        "system_connections": []
+    },
+    {
+        "name": "9_5",
+        "hwiopy_uid": 50,
+        "analog_connections": ["vdd_5v"],
+        "system_connections": []
+    },
+    {
+        "name": "9_6",
+        "hwiopy_uid": 51,
+        "analog_connections": ["vdd_5v"],
+        "system_connections": []
+    },
+    {
+        "name": "9_7",
+        "hwiopy_uid": 52,
+        "analog_connections": ["sys_5v"],
+        "system_connections": []
+    },
+    {
+        "name": "9_8",
+        "hwiopy_uid": 53,
+        "analog_connections": ["sys_5v"],
+        "system_connections": []
+    },
+    {
+        "name": "9_9",
+        "hwiopy_uid": 54,
+        "analog_connections": ["pwr_but"],
+        "system_connections": []
+    },
+    {
+        "name": "9_10",
+        "hwiopy_uid": 55,
+        "analog_connections": [],
+        "system_connections": ["a10"]
+    },
+    {
+        "name": "9_11",
+        "hwiopy_uid": 56,
+        "analog_connections": [],
+        "system_connections": ["t17"]
+    },
+    {
+        "name": "9_12",
+        "hwiopy_uid": 57,
+        "analog_connections": [],
+        "system_connections": ["u18"]
+    },
+    {
+        "name": "9_13",
+        "hwiopy_uid": 58,
+        "analog_connections": [],
+        "system_connections": ["u17"]
+    },
+    {
+        "name": "9_14",
+        "hwiopy_uid": 59,
+        "analog_connections": [],
+        "system_connections": ["u14"]
+    },
+    {
+        "name": "9_15",
+        "hwiopy_uid": 60,
+        "analog_connections": [],
+        "system_connections": ["r13"]
+    },
+    {
+        "name": "9_16",
+        "hwiopy_uid": 61,
+        "analog_connections": [],
+        "system_connections": ["t14"]
+    },
+    {
+        "name": "9_17",
+        "hwiopy_uid": 62,
+        "analog_connections": [],
+        "system_connections": ["a16"]
+    },
+    {
+        "name": "9_18",
+        "hwiopy_uid": 63,
+        "analog_connections": [],
+        "system_connections": ["b16"]
+    },
+    {
+        "name": "9_19",
+        "hwiopy_uid": 64,
+        "analog_connections": [],
+        "system_connections": ["d17"]
+    },
+    {
+        "name": "9_20",
+        "hwiopy_uid": 65,
+        "analog_connections": [],
+        "system_connections": ["d18"]
+    },
+    {
+        "name": "9_21",
+        "hwiopy_uid": 66,
+        "analog_connections": [],
+        "system_connections": ["b17"]
+    },
+    {
+        "name": "9_22",
+        "hwiopy_uid": 67,
+        "analog_connections": [],
+        "system_connections": ["a17"]
+    },
+    {
+        "name": "9_23",
+        "hwiopy_uid": 68,
+        "analog_connections": [],
+        "system_connections": ["v14"]
+    },
+    {
+        "name": "9_24",
+        "hwiopy_uid": 69,
+        "analog_connections": [],
+        "system_connections": ["d15"]
+    },
+    {
+        "name": "9_25",
+        "hwiopy_uid": 70,
+        "analog_connections": [],
+        "system_connections": ["a14"]
+    },
+    {
+        "name": "9_26",
+        "hwiopy_uid": 71,
+        "analog_connections": [],
+        "system_connections": ["d16"]
+    },
+    {
+        "name": "9_27",
+        "hwiopy_uid": 72,
+        "analog_connections": [],
+        "system_connections": ["c13"]
+    },
+    {
+        "name": "9_28",
+        "hwiopy_uid": 73,
+        "analog_connections": [],
+        "system_connections": ["c12"]
+    },
+    {
+        "name": "9_29",
+        "hwiopy_uid": 74,
+        "analog_connections": [],
+        "system_connections": ["b13"]
+    },
+    {
+        "name": "9_30",
+        "hwiopy_uid": 75,
+        "analog_connections": [],
+        "system_connections": ["d12"]
+    },
+    {
+        "name": "9_31",
+        "hwiopy_uid": 76,
+        "analog_connections": [],
+        "system_connections": ["a13"]
+    },
+    {
+        "name": "9_32",
+        "hwiopy_uid": 77,
+        "analog_connections": ["vadc"],
+        "system_connections": []
+    },
+    {
+        "name": "9_33",
+        "hwiopy_uid": 78,
+        "analog_connections": [],
+        "system_connections": ["c8"]
+    },
+    {
+        "name": "9_34",
+        "hwiopy_uid": 79,
+        "analog_connections": ["agnd"],
+        "system_connections": []
+    },
+    {
+        "name": "9_35",
+        "hwiopy_uid": 80,
+        "analog_connections": [],
+        "system_connections": ["a8"]
+    },
+    {
+        "name": "9_36",
+        "hwiopy_uid": 81,
+        "analog_connections": [],
+        "system_connections": ["b8"]
+    },
+    {
+        "name": "9_37",
+        "hwiopy_uid": 82,
+        "analog_connections": [],
+        "system_connections": ["b7"]
+    },
+    {
+        "name": "9_38",
+        "hwiopy_uid": 83,
+        "analog_connections": [],
+        "system_connections": ["a7"]
+    },
+    {
+        "name": "9_39",
+        "hwiopy_uid": 84,
+        "analog_connections": [],
+        "system_connections": ["b6"]
+    },
+    {
+        "name": "9_40",
+        "hwiopy_uid": 85,
+        "analog_connections": [],
+        "system_connections": ["c7"]
+    },
+    {
+        "name": "9_41",
+        "hwiopy_uid": 86,
+        "analog_connections": [],
+        "system_connections": ["d14", "d13"]
+    },
+    {
+        "name": "9_42",
+        "hwiopy_uid": 87,
+        "analog_connections": [],
+        "system_connections": ["c18", "b12"]
+    },
+    {
+        "name": "9_43",
+        "hwiopy_uid": 88,
+        "analog_connections": ["gnd"],
+        "system_connections": []
+    },
+    {
+        "name": "9_44",
+        "hwiopy_uid": 89,
+        "analog_connections": ["gnd"],
+        "system_connections": []
+    },
+    {
+        "name": "9_45",
+        "hwiopy_uid": 90,
+        "analog_connections": ["gnd"],
+        "system_connections": []
+    },
+    {
+        "name": "9_46",
+        "hwiopy_uid": 91,
+        "analog_connections": ["gnd"],
+        "system_connections": []
+    }
+]

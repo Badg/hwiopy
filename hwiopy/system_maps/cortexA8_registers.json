@@ -1,0 +1,670 @@
+{
+    "gpio": {
+        "clock_control": {
+            "bitsize": 32,
+            "offset": "0x0",
+            "functions": {
+                "mode": {
+                    "__bits__": [0, 1],
+                    "disable": "0x0",
+                    "enable": "0x2"
+                },
+                "idle_status": {
+                    "__bits__": [16, 17],
+                    "functional": "0x0",
+                    "transition": "0x1",
+                    "idle": "0x2",
+                    "disable": "0x3"
+                },
+                "optional_functional_clock": {
+                    "__bits__": [18],
+                    "disable": "0x0",
+                    "enable": "0x1"
+                }
+            }
+        },
+        "revision": {
+            "offset": "0x0",
+            "bitsize": 32,
+            "bits": {
+                "minor": [0, 5],
+                "custom": [6, 7],
+                "major": [8, 10],
+                "rtl": [11, 15],
+                "func": [16, 27],
+                "scheme": [30, 31]
+            }
+        },
+        "sysconfig": {
+            "offset": "0x10",
+            "bitsize": 32,
+            "bits": {
+                "autoidle": [0, 0],
+                "softreset": [1, 1],
+                "enawakeup": [2, 2],
+                "idlemode": [3, 4]
+            }
+        },
+        "debouncingtime": {
+            "offset": "0x154", 
+            "bitsize": 32,
+            "bits": {
+                "debouncetime": [0, 7]
+            }
+        },
+        "irqstatus_clr_0": {
+            "offset": "0x3C", 
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },  
+        "irqstatus_clr_1": {
+            "offset": "0x40", 
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },
+        "irqstatus_0": {
+            "offset": "0x2C",
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        }, 
+        "irqstatus_1": {
+            "offset": "0x30",
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },
+        "eoi": {
+            "offset": "0x20",
+            "bitsize": 32,
+            "bits": {
+                "dmaevent_ack": [0, 0]
+            }
+        },
+        "datain": {
+            "offset": "0x138", 
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },
+        "irqstatus_set_0": {
+            "offset": "0x34",
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        }, 
+        "irqstatus_set_1": {
+            "offset": "0x38",
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        }, 
+        "dataout": {
+            "offset": "0x13C", 
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },
+        "fallingdetect": {
+            "offset": "0x14C", 
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },
+        "setdataout": {
+            "offset": "0x194", 
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },
+        "irqwaken_0": {
+            "offset": "0x44", 
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },
+        "irqwaken_1": {
+            "offset": "0x48", 
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },
+        "ctrl": {
+            "offset": "0x130", 
+            "bitsize": 32,
+            "bits": {
+                "disablemodule": [0, 0],
+                "gatingratio": [1, 2]
+            }
+        },
+        "oe": {
+            "offset": "0x134", 
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },
+        "debouncenable": {
+            "offset": "0x150", 
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },
+        "cleardataout": {
+            "offset": "0x190", 
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },
+        "risingdetect": {
+            "offset": "0x148", 
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },
+        "sysstatus": {
+            "offset": "0x114", 
+            "bitsize": 32,
+            "bits": {
+                "resetdone": [0, 0]
+            }
+        },
+        "irqstatus_raw_0": {
+            "offset": "0x24",
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },
+        "irqstatus_raw_1": {
+            "offset": "0x28",
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        }, 
+        "leveldetect0": {
+            "offset": "0x140", 
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        },
+        "leveldetect1": {
+            "offset": "0x144", 
+            "bitsize": 32,
+            "bits": {
+                "_intchannel": [0, 31]
+            }
+        }
+    },
+    "cm_per": {
+        "l4ls_st": {
+            "offset": "0x0",
+            "bitsize": 0
+        },
+        "l3s_st": {
+            "offset": "0x4",
+            "bitsize": 0
+        },
+        "l3_st": {
+            "offset": "0xc",
+            "bitsize": 0
+        },
+        "cpgmac0": {
+            "offset": "0x14",
+            "bitsize": 0
+        },
+        "lcdc": {
+            "offset": "0x18",
+            "bitsize": 0
+        },
+        "usb0": {
+            "offset": "0x1c",
+            "bitsize": 0
+        },
+        "tptc0": {
+            "offset": "0x24",
+            "bitsize": 0
+        },
+        "emif": {
+            "offset": "0x28",
+            "bitsize": 0
+        },
+        "ocmcram": {
+            "offset": "0x2c",
+            "bitsize": 0
+        },
+        "gpmc": {
+            "offset": "0x30",
+            "bitsize": 0
+        },
+        "mcasp0": {
+            "offset": "0x34",
+            "bitsize": 0
+        },
+        "uart5": {
+            "offset": "0x38",
+            "bitsize": 0
+        },
+        "mmc0": {
+            "offset": "0x3c",
+            "bitsize": 0
+        },
+        "elm": {
+            "offset": "0x40",
+            "bitsize": 0
+        },
+        "i2c2": {
+            "offset": "0x44",
+            "bitsize": 0
+        },
+        "i2c1": {
+            "offset": "0x48",
+            "bitsize": 0
+        },
+        "spi0": {
+            "offset": "0x4c",
+            "bitsize": 0
+        },
+        "spi1": {
+            "offset": "0x50",
+            "bitsize": 0
+        },
+        "l4ls": {
+            "offset": "0x60",
+            "bitsize": 0
+        },
+        "mcasp1": {
+            "offset": "0x68",
+            "bitsize": 0
+        },
+        "uart1": {
+            "offset": "0x6c",
+            "bitsize": 0
+        },
+        "uart2": {
+            "offset": "0x70",
+            "bitsize": 0
+        },
+        "uart3": {
+            "offset": "0x74",
+            "bitsize": 0
+        },
+        "uart4": {
+            "offset": "0x78",
+            "bitsize": 0
+        },
+        "timer7": {
+            "offset": "0x7c",
+            "bitsize": 0
+        },
+        "timer2": {
+            "offset": "0x80",
+            "bitsize": 0
+        },
+        "timer3": {
+            "offset": "0x84",
+            "bitsize": 0
+        },
+        "timer4": {
+            "offset": "0x88",
+            "bitsize": 0
+        },
+        "gpio1": {
+            "offset": "0xac",
+            "bitsize": 0
+        },
+        "gpio2": {
+            "offset": "0xb0",
+            "bitsize": 0
+        },
+        "gpio3": {
+            "offset": "0xb4",
+            "bitsize": 0
+        },
+        "tpcc": {
+            "offset": "0xbc",
+            "bitsize": 0
+        },
+        "dcan0": {
+            "offset": "0xc0",
+            "bitsize": 0
+        },
+        "dcan1": {
+            "offset": "0xc4",
+            "bitsize": 0
+        },
+        "epwmss1": {
+            "offset": "0xcc",
+            "bitsize": 0
+        },
+        "epwmss0": {
+            "offset": "0xd4",
+            "bitsize": 0
+        },
+        "epwmss2": {
+            "offset": "0xd8",
+            "bitsize": 0
+        },
+        "l3_instr": {
+            "offset": "0xdc",
+            "bitsize": 0
+        },
+        "l3": {
+            "offset": "0xe0",
+            "bitsize": 0
+        },
+        "ieee5000": {
+            "offset": "0xe4",
+            "bitsize": 0
+        },
+        "pru_icss": {
+            "offset": "0xe8",
+            "bitsize": 0
+        },
+        "timer5": {
+            "offset": "0xec",
+            "bitsize": 0
+        },
+        "timer6": {
+            "offset": "0xf0",
+            "bitsize": 0
+        },
+        "mmc1": {
+            "offset": "0xf4",
+            "bitsize": 0
+        },
+        "mmc2": {
+            "offset": "0xf8",
+            "bitsize": 0
+        },
+        "tptc1": {
+            "offset": "0xfc",
+            "bitsize": 0
+        },
+        "tptc2": {
+            "offset": "0x100",
+            "bitsize": 0
+        },
+        "spinlock": {
+            "offset": "0x10c",
+            "bitsize": 0
+        },
+        "mailbox0": {
+            "offset": "0x110",
+            "bitsize": 0
+        },
+        "l4hs_st": {
+            "offset": "0x11c",
+            "bitsize": 0
+        },
+        "l4hs": {
+            "offset": "0x120",
+            "bitsize": 0
+        },
+        "ocpwp_l3_st": {
+            "offset": "0x12c",
+            "bitsize": 0
+        },
+        "ocpwp": {
+            "offset": "0x130",
+            "bitsize": 0
+        },
+        "pru_icss_st": {
+            "offset": "0x140",
+            "bitsize": 0
+        },
+        "cpsw_st": {
+            "offset": "0x144",
+            "bitsize": 0
+        },
+        "lcdc_st": {
+            "offset": "0x148",
+            "bitsize": 0
+        },
+        "clkdiv32k": {
+            "offset": "0x14c",
+            "bitsize": 0
+        },
+        "clk_24mhz_st": {
+            "offset": "0x150",
+            "bitsize": 0
+        }
+    },
+    "cm_wkup": {
+        "clkstctrl": {
+            "offset": "0x0",
+            "bitsize": 0
+        },
+        "control": {
+            "offset": "0x4",
+            "bitsize": 0
+        },
+        "gpio0": {
+            "offset": "0x8",
+            "bitsize": 0
+        },
+        "l4wkup": {
+            "offset": "0xc",
+            "bitsize": 0
+        },
+        "timer0": {
+            "offset": "0x10",
+            "bitsize": 0
+        },
+        "debugss": {
+            "offset": "0x14",
+            "bitsize": 0
+        },
+        "l3_aon_st": {
+            "offset": "0x18",
+            "bitsize": 0
+        },
+        "autoidle_dpll_mpu": {
+            "offset": "0x1c",
+            "bitsize": 0
+        },
+        "idlest_dpll_mpu": {
+            "offset": "0x20",
+            "bitsize": 0
+        },
+        "ssc_deltamstep_dpll_mpu": {
+            "offset": "0x24",
+            "bitsize": 0
+        },
+        "ssc_modfreqdiv_dpll_mpu": {
+            "offset": "0x28",
+            "bitsize": 0
+        },
+        "clksel_dpll_mpu": {
+            "offset": "0x2c",
+            "bitsize": 0
+        },
+        "autoidle_dpll_ddr": {
+            "offset": "0x30",
+            "bitsize": 0
+        },
+        "idlest_dpll_ddr": {
+            "offset": "0x34",
+            "bitsize": 0
+        },
+        "ssc_deltamstep_dpll_ddr": {
+            "offset": "0x38",
+            "bitsize": 0
+        },
+        "ssc_modfreqdiv_dpll_ddr": {
+            "offset": "0x3c",
+            "bitsize": 0
+        },
+        "clksel_dpll_ddr": {
+            "offset": "0x40",
+            "bitsize": 0
+        },
+        "autoidle_dpll_disp": {
+            "offset": "0x44",
+            "bitsize": 0
+        },
+        "idlest_dpll_disp": {
+            "offset": "0x48",
+            "bitsize": 0
+        },
+        "ssc_deltamstep_dpll_disp": {
+            "offset": "0x4c",
+            "bitsize": 0
+        },
+        "ssc_modfreqdiv_dpll_disp": {
+            "offset": "0x50",
+            "bitsize": 0
+        },
+        "clksel_dpll_disp": {
+            "offset": "0x54",
+            "bitsize": 0
+        },
+        "autoidle_dpll_core": {
+            "offset": "0x58",
+            "bitsize": 0
+        },
+        "idlest_dpll_core": {
+            "offset": "0x5c",
+            "bitsize": 0
+        },
+        "ssc_deltamstep_dpll_core": {
+            "offset": "0x60",
+            "bitsize": 0
+        },
+        "ssc_modfreqdiv_dpll_core": {
+            "offset": "0x64",
+            "bitsize": 0
+        },
+        "clksel_dpll_core": {
+            "offset": "0x68",
+            "bitsize": 0
+        },
+        "autoidle_dpll_per": {
+            "offset": "0x6c",
+            "bitsize": 0
+        },
+        "idlest_dpll_per": {
+            "offset": "0x70",
+            "bitsize": 0
+        },
+        "ssc_deltamstep_dpll_per": {
+            "offset": "0x74",
+            "bitsize": 0
+        },
+        "ssc_modfreqdiv_dpll_per": {
+            "offset": "0x78",
+            "bitsize": 0
+        },
+        "clkdcoldo_dpll_per": {
+            "offset": "0x7c",
+            "bitsize": 0
+        },
+        "div_m4_dpll_core": {
+            "offset": "0x80",
+            "bitsize": 0
+        },
+        "div_m5_dpll_core": {
+            "offset": "0x84",
+            "bitsize": 0
+        },
+        "clkmode_dpll_mpu": {
+            "offset": "0x88",
+            "bitsize": 0
+        },
+        "clkmode_dpll_per": {
+            "offset": "0x8c",
+            "bitsize": 0
+        },
+        "clkmode_dpll_core": {
+            "offset": "0x90",
+            "bitsize": 0
+        },
+        "clkmode_dpll_ddr": {
+            "offset": "0x94",
+            "bitsize": 0
+        },
+        "clkmode_dpll_disp": {
+            "offset": "0x98",
+            "bitsize": 0
+        },
+        "clksel_dpll_periph": {
+            "offset": "0x9c",
+            "bitsize": 0
+        },
+        "div_m2_dpll_ddr": {
+            "offset": "0xa0",
+            "bitsize": 0
+        },
+        "div_m2_dpll_disp": {
+            "offset": "0xa4",
+            "bitsize": 0
+        },
+        "div_m2_dpll_mpu": {
+            "offset": "0xa8",
+            "bitsize": 0
+        },
+        "div_m2_dpll_per": {
+            "offset": "0xac",
+            "bitsize": 0
+        },
+        "wkup_m3": {
+            "offset": "0xb0",
+            "bitsize": 0
+        },
+        "uart0": {
+            "offset": "0xb4",
+            "bitsize": 0
+        },
+        "i2c0": {
+            "offset": "0xb8",
+            "bitsize": 0
+        },
+        "adc_tsc": {
+            "offset": "0xbc",
+            "bitsize": 0
+        },
+        "smartreflex0": {
+            "offset": "0xc0",
+            "bitsize": 0
+        },
+        "timer1": {
+            "offset": "0xc4",
+            "bitsize": 0
+        },
+        "smartreflex1": {
+            "offset": "0xc8",
+            "bitsize": 0
+        },
+        "l4_wkup_aon_st": {
+            "offset": "0xcc",
+            "bitsize": 0
+        },
+        "wdt1": {
+            "offset": "0xd4",
+            "bitsize": 0
+        },
+        "div_m6_dpll_core": {
+            "offset": "0xd8",
+            "bitsize": 0
+        }
+    }
+}

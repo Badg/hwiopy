@@ -20,14 +20,16 @@ import ez_setup
 # except NameError:
 #     pass
 # Carry on then
-ez_setup.use_setuptools()
+# Something is screwy with ez_setup that doesn't like trying to upgrade
+# setuptools.
+ez_setup.use_setuptools(version='3')
 
 # Import global dependencies required for setup.py
 from setuptools import setup, find_packages
 
 metadata = dict(
     name = 'hwiopy',
-    version = '0.1.2',
+    version = '0.1.3',
     description = 'A common API for hardware input/output access.',
     long_description = 'hwiopy, "hardware input/output, python", '
     'is a general purpose IO library intended to provide a common, simple '
@@ -54,7 +56,7 @@ metadata = dict(
         ],
     keywords = 'hardware io input output embedded',
     packages = find_packages(exclude=['doc', 'test']),
-    install_requires = [],
+    install_requires = ['setuptools >= 2'],
     package_data = {
         # Include any .json files in the maps directory
         'hwiopy': ['maps/*.json', 'overlays/*', 'setup_utils/*'],
