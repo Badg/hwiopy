@@ -1,5 +1,4 @@
-''' Core / toplevel members of the hwiopy library. Everything here 
-*should* be platform-independent.
+''' Core2: atomic update file for core during package restructuring.
 
 LICENSING
 -------------------------------------------------
@@ -42,190 +41,18 @@ RUN THREADED AT THE MOMENT.
 '''
 
 # Global imports
+import collections
+import threading
+import struct
 from warnings import warn
 from abc import ABCMeta, abstractmethod
+from math import ceil, log2
 
 # Package dependencies
 from platforms import BBB
 
-# class Pin(metaclass=ABCMeta):
-class Pin():
-    ''' A generic single channel for communication on a device. Pins connect
-    to the 'outside world'.
 
-    '''
-    def __init__(self, terminal, mode, methods=None, name=None, pin_num=None):
-        # An optional, nice, human-readable name.
-        self.name = name
-        # What number does the datasheet assign the pin on the device header?
-        self.num = pin_num
-        # What mode the pin has been configured to. All Pin objects will have
-        # a mode, since that's how the Pin is created.
-        self.mode = mode
-        # This may need to be removed and replaced with a function
-        self.value = None
-        # Which System terminal?
-        self.terminal = terminal
-        # Which system register? Note that not all systems will use this
-        # Oh, and it's just a name, not the actual location.
-        self.register_name = None
-
-        # Dict for holding the pin's methods:
-        if methods:
-            # Need to always have on_start, on_stop, and config methods.
-            # Pop them from the methods dict, or if they don't exist, create
-            # them as empty lambdas.
-            if 'on_start' not in methods:
-                self.on_start = lambda: None
-            else:
-                self.on_start = methods.pop('on_start')
-            if 'on_stop' not in methods:
-                self.on_stop = lambda: None
-            else:
-                self.on_stop = methods.pop('on_stop')
-            if 'config' not in methods:
-                self.config = lambda: None
-            else:
-                self.config = methods.pop('config')
-        else:
-            methods = {}
-        self.methods = methods
-
-        # It might be nice to be able to use 
-        #   with pin as pin:
-        # You'd need to reference the system, because you'd have to start it
-        # or else you'd lack any access to the memory. That would be tough 
-        # for anything that modifies pin. Would just need to check against 
-        # system.running and if not, then set self.standalone = True and call
-        # system.on_start and then, in self.__exit__() call system.on_stop 
-        # if self.standalone == True
-
-
-        # For the purpose of fast updating, store the location?
-        # It might be worthwhile to verify that this is in fact faster than
-        # using locate(). Or I suppose both could be made available.
-        # Deprecate?
-        self.location = None
-
-class Plug():
-    ''' A base object for any multiple-pin interface, for example, SPI.
-    '''
-    def __init__(self):
-        self.pins = {}
-
-class System(metaclass=ABCMeta):
-    ''' A base object for any computer system, be it SoC, desktop, whatever.
-
-    Might want to subclass to mmapped system, then to cortex?
-    '''
-    def __init__(self, resolve_mode):
-        self._resolve_mode = resolve_mode
-        self.running = False
-
-        # Set the conventions for memory reference dicts, which might not be
-        # used for every SoC (but probably will?)
-        # mem_filename is the file system location of the memory map
-        self._mem_filename = None
-        # callable that turns a register name into a (start, end) tuple:
-        self._resolve_map = None
-        # callable that turns a register type into an (offset, bitsize) tuple:
-        self._resolve_register_bits = None
-
-        # Where are mapped registers? Not all systems will use this
-        self._register_mmaps = {}
-
-        # Every terminal must be defined in terminal_modes
-        # The keys in terminal_modes therefore provide the definition for
-        # the terminals
-        self.terminals = list(self._resolve_mode.list())
-
-        # No keys have been declared to start. This dict is used to actually
-        # set up the terminals with on_start and clean up with on_stop
-        self.terminals_declared = {}
-
-        # Add any declarable terminals to terminals_available
-        self.terminals_available = \
-            self._resolve_mode.list(only_assignable=True)
-
-    @abstractmethod
-    def __enter__(self):
-        self.on_start()
-        return self
-
-    @abstractmethod
-    def __exit__(self, type, value, traceback):
-        ''' Cleans up and handles errors.
-        '''
-        self.on_stop()
-
-    @abstractmethod
-    def on_start(self, *args, **kwargs):
-        ''' Must be called to start the device.
-        '''
-        self.running = True
-
-    @abstractmethod
-    def on_stop(self, *args, **kwargs):
-        ''' Cleans up the started device.
-        '''
-        self.running = False
-
-    def declare_linked_pin(self, terminal, mode):
-        ''' Sets up the terminal for on_start initialization and returns a 
-        pin object.
-        '''
-        # Error traps
-        # --------------
-
-        # Check to make sure that the terminal hasn't already been used
-        if terminal in self.terminals_declared:
-            raise AttributeError('Terminal has already been declared as a '
-                'pin. Cannot re-declare a terminal after its initialization.')
-
-        # Pin declaration
-        # ---------------
-
-        # Update declared terminals
-        self.terminals_declared[terminal] = mode
-
-        # Return the declared pin. If a system uses a mmap, it'll be handled 
-        # in the child declare_linked_pin method
-        return Pin(terminal, mode, 
-            methods=self._resolve_mode(self, terminal, mode)())
-
-    def release_terminal(self, terminal):
-        ''' Releases a terminal, allowing re-declaration. Note: the device 
-        must independently release its pin; if it calls the terminal once it's
-        been released, an error will result. This is NOT for repurposing a
-        terminal while the device is running.
-        '''
-        # Error traps
-        # --------
-
-        # Cannot release a pin connected to an SoC that is currently running
-        if self.running == True:
-            raise RuntimeError('Cannot release a terminal while running.')
-        # Can't release a terminal that hasn't been declared
-        if terminal not in self.terminals_declared:
-            raise KeyError('Cannot release an undeclared terminal.')
-
-        # Meat and bones
-        # ------------
-
-        del self.terminals_declared[terminal]
-        # I don't think the terminals_available bit was ever modified?
-        # self.terminals_available[terminal] = True
-
-    def mutate_terminal(self, *args, **kwargs):
-        ''' Changes a terminal's function while the device it's attached to is 
-        running. May or may not be overridden for each individual SoC. Only 
-        use if you know what you're doing. Shouldn't be necessary for normal 
-        operations.
-        '''
-        raise NotImplementedError('mutate_terminal must be defined for each '
-            'individual SoC.')
-
-class SystemBase(metaclass=ABCMeta):
+class SystemBase(Runnable):
     ''' A base object for a system. This isn't the whole computer -- for 
     example, in an SBC this would be just the SoC. I'm not sure what this would
     correspond to on a desktop or an emulator.
@@ -239,7 +66,7 @@ class SystemBase(metaclass=ABCMeta):
         self.setup()
         
     @abstractmethod
-    def setup(self):
+    def hardware_setup(self):
         ''' Performs any setup needed during __init__. Should be called only 
         once, and not used again. Cannot be used for manipulation of the system
         while it is running.
@@ -262,141 +89,14 @@ class SystemBase(metaclass=ABCMeta):
         self._running = False
         
     @property
-    @abstractmethod
     def running(self):
         ''' Read-only property that describes the device state (can be running
         or not running: True/False)
         '''
         return self._running
 
-class Device():
-    ''' A base object for a generic hardware-inspecific device. Will probably,
-    at some point, provide a graceful fallback to sysfs access.
 
-    __init()__
-    =========================================================================
-    
-    **kwargs
-    ----------------------------------------------------------------
-
-    resolve_header: callable    takes str pin_num and returns str term_num
-    system          object      core.system, subclass, etc
-
-    local namespace (self.XXXX; use for subclassing)
-    ----------------------------------------------------------------
-
-    pinout          dict        [pin name] = core.pin object, subclass, etc
-    system          object      core.system, subclass, etc
-    _resolve_header callable    resolves a pin into a header   
-    create_pin      callable    connects a header pin to a specific term mode
-
-    create_pin()
-    =========================================================================
-
-    Connects a header pin to the specified mode on the corresponding system 
-    terminal. Likely overridden in each platform definition. 
-
-    *args
-    ----------------------------------------------------------------
-
-    pin_num         str         'pin number'
-    mode            str         'mode of SoC terminal'
-
-    **kwargs
-    ----------------------------------------------------------------
-
-    name=None       str         'friendly name for the pin'
-    '''
-    def __init__(self, system, resolve_header):
-
-        self._resolve_header = resolve_header
-        self.system = system
-        self.pinout = {}
-        self.pins_available = self._resolve_header.list_system_headers()
-        self.running = False
-
-    def __enter__(self):
-        self.on_start()
-        return self
-
-    def on_start(self):
-        # This is separated out so that there is a start method that doesn't
-        # return, which is useful for subclassing
-
-        self.running = True
-
-        # MUST call system on_start before pin on_start
-        self.system.on_start()
-
-        # Now start every pin
-        for pin in self.pinout.values():
-            pin.on_start()
-
-    def __exit__(self, type, value, traceback):
-        self.on_stop()
-
-    def on_stop(self):
-        # This is separated out so that there is a stop method that doesn't
-        # return, which is useful for subclassing
-
-        # MUST call pin on_stop before system on_stop
-        for pin in self.pinout.values():
-            pin.on_stop()
-
-        self.system.on_stop()
-
-        self.running = False
-
-    def create_pin(self, pin_num, mode, name=None, **kwargs):
-        # Need lots of error traps first
-        # Check for existing pin at pin_num (note that this is a little 
-        # redundant, since declare_linked_pin already checks for repeated 
-        # terminal choice)
-        if pin_num in self.pinout:
-            raise ValueError('Pin ' + pin_num + ' has already been assigned.') 
-        # Ensure a unique pin_name
-        if name and name in self.pinout:
-            raise ValueError('Choose a unique pin name.')
-
-        terminal = self._resolve_header(pin_num)
-        pin = self.system.declare_linked_pin(terminal, mode, name=name)
-        pin.num = pin_num
-
-        # Check for a given 'pretty' name. If it has one, add both the pin
-        # number and the pin name as keys in the pinout dict. Note that as
-        # pin is a mutable object, as long as pin itself isn't re-declared,
-        # pinout[name] is pinout[number] will always -> True.
-        if name:
-            self.pinout[pin.name] = pin
-        self.pinout[pin_num] = pin
-
-    def release_pin(self, pin):
-        ''' Releases the called pin. Can be called by friendly name or pin
-        number.
-        '''
-
-        # Get relevant information from the pin before deleting it
-        pin = self.pinout[pin]
-        name = pin.name
-        num = pin.num
-        terminal = pin.terminal
-
-        # Remove all associated keys in the pinout
-        if name:
-            try:
-                del self.pinout[name]
-            except KeyError:
-                pass
-        if num:
-            try:
-                del self.pinout[num]
-            except KeyError:
-                pass
-
-        # Finally, call the system's function to release the terminal
-        self.system.release_terminal(terminal)
-    
-class HardwareBase():
+class HardwareBase(Runnable):
     ''' Abstract base class for the whole computer (or other hardware 
     configuration). Generally speaking, maps the system definitions (for 
     example, SoC ZCZ balls) to your physical hardware configuration (for 
@@ -416,33 +116,6 @@ class HardwareBase():
             raise TypeError('System must be a hwiopy system.')
         
         self._system = system
-        
-    def __enter__(self):
-        ''' Code that is run in the beginning of a with statement -- whenever
-        the hardware starts.
-        '''
-        self.start()
-        return self
-        
-    def __exit__(self):
-        ''' Cleanup code that is run when exiting a with statement, so whenever
-        the hardware stops, errors, etc.
-        '''
-        self.stop()
-        
-    @abstractmethod
-    def start():
-        ''' Code to run for starting the hardware. Also executed at the 
-        beginning of a with: block.
-        '''
-        pass
-        
-    @abstractmethod
-    def stop():
-        ''' Code to run for cleaning up the hardware. Also executed at the 
-        completion of a with: block, or if the with: block raises.
-        '''
-        pass
         
     @abstractmethod
     def declare_pin(self, pin, mode):
@@ -478,6 +151,350 @@ class HardwareBase():
         '''
         return self._system
 
+
+class PinBase(Runnable):
+    ''' An abstract base class for all pin objects, regardless of 
+    function. 
+    
+    Should always call self.setup.
+    
+    Note that the exclusive use lock currently only applies to external
+    accessors that voluntarily use the enter and exit functions, not to
+    everyone that accesses. It will probably be transitioned to an RLock
+    in order to provide that functionality, though that will incur some
+    performance overhead.
+    '''
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setup()
+        self.__exclusive_use = threading.Lock()
+        
+    @abstractmethod
+    def hardware_setup(self):
+        ''' Any actions needed to perform to set up the pin. This method
+        should be called once, at initialization. It should **not** be 
+        used to configure the pin after a device has started.
+        '''
+        pass
+
+    @abstractmethod
+    def hardware_release(self):
+        ''' Performs any cleanup needed to un-setup the pin and return 
+        the pin to its previous state.
+        '''
+        pass
+
+    @abstractmethod
+    def config(self):
+        ''' Performs configuration steps for the pin. May be called while 
+        device is running.
+        '''
+        pass
+        
+    @abstractmethod
+    def __call__(self):
+        ''' The default pin behavior. For example, PWM might __call__(50%) for
+        a 50% duty cycle. GPIO might __call__(1) to output high, or __call__()
+        to read. This is a post-configuration "route of least resistance" way
+        to interact with the pin.
+        '''
+        pass
+        
+    def __enter__(self):
+        ''' Overrides the default context manager behavior of runnable,
+        since you can't have a pin without a device, and instead creates
+        a thread-safe way of locking the pin.
+        '''
+        self.__exclusive_use.acquire()
+        return self
+        
+    def __exit__(self):
+        ''' Overrides the default context manager behavior of runnable,
+        since you can't have a pin without a device, and instead creates
+        a thread-safe way of locking the pin.
+        '''
+        self.__exclusive_use.release()
+        
+      
+class Register(ABCMeta):
+    ''' Base class for a memory register.
+    '''
+    def __init__(self, size, register_mmap):
+        ''' a;sdkjf;alkjsdf
+        '''
+        super().__init__()
+        
+    def write(self):
+        ''' Updates the register.
+        '''
+        pass
+        
+    def read(self):
+        ''' Reads the register status. 
+        '''
+        pass
+     
+     
+class Packetizer():
+    ''' Support operations for bitwise manipulations.
+    '''
+    def __init__(self, size, endianness):
+        ''' Creates a packet generator of bit length "size", with byte 
+        order "endianness".
+        
+        Length must be a multiple of 8.
+        
+        Acceptable values for endianness: 
+            'little'
+            'big'
+            
+        Calling the instance returns its current state as a bytes 
+        object.
+        
+        Packetizer.collapsed returns its current state as an integer.
+        '''
+        # Fix potential case issues
+        endianness = endianness.lower()
+        # Error trappage
+        if size % 8:
+            raise ValueError('Packet size must be a multiple of 8.')
+        if endianness not in {'little', 'big'}:
+            raise ValueError('Endianness must be "little" or "big".')
+        # Handle endianness
+        self._order = endianness
+        if endianness == 'little':
+            fmt = '<'
+            self._ordered = lambda: self._order_little(self._words)
+        else:
+            fmt = '>'
+            self._ordered = lambda: self._order_big(self._words)
+        byte_len = int(size / 8)
+        fmt += 'B' * byte_len
+        # Now create the struct.pack object
+        self._p = struct.Struct(fmt).pack
+        # Need somewhere to store the packet state
+        self._words = [0] * byte_len
+        # And some things to keep track of size.
+        self._size = size
+        
+    def pack(self, value, offset=0, pad_to_size=None):
+        ''' Sets whatever bits are necessary to generate "value" 
+        starting at "offset", optionally padded to "pad_to_size" bits.
+        
+        value must be of type int
+        offset must be of type int. It is a BIT offset.
+        pad_to_size must be of type int.
+        '''
+        # Calculate the number of bits required for that value
+        bits_required = ceil(log2(value + 1))
+        # Error trap for pad_to_size smaller than bits required
+        if pad_to_size and pad_to_size < bits_required:
+            raise ValueError('Padded size is smaller than the bits required '
+                             'for given value.')
+        # Figure out how many bits are actually required
+        bits_required = pad_to_size or bits_required
+        # Error trap for out-of-bounds value
+        if bits_required > self.size - offset:
+            raise ValueError('Value cannot fit into the packet at that '
+                             'offset (or padding exceeds size).')
+        # Construct a mask
+        mask = 0
+        for ii in range(bits_required):
+            mask |= 1 << ii
+        mask = mask << offset
+        # Un-set the bits required for the value (and no more)
+        new_state = self.collapsed & ~mask
+        # Set the new bits
+        new_state |= value << offset
+        # Update the packet state
+        self._words = self._split(new_state)
+        
+    def clear(self):
+        ''' Clears the current packet.
+        '''
+        self._words = [0] * len(self._words)
+        
+    def __call__(self):
+        ''' Returns the current packet.
+        '''
+        return self._p(*self._ordered())
+        
+    @property
+    def size(self):
+        ''' Read-only property that gives the packet size.
+        '''
+        return self._size
+        
+    @property
+    def order(self):
+        ''' Read-only property for endianness.
+        '''
+        return self._order
+    
+    @property
+    def collapsed(self):
+        ''' Collapses the internal representation into a single integer.
+        This does not respect endianness, and supports python bitwise 
+        operations.
+        '''
+        collapsed = 0
+        for ii in range(len(self._words)):
+            collapsed |= self._words[ii] << (8 * ii)
+        return collapsed
+        
+    def __repr__(self):
+        ''' Calculates a binary representation of the current packet
+        state.
+        '''
+        if self.order == 'little':
+            view = '0L'
+        else:
+            view = '0B'
+        ordered = self._ordered()
+        # Iterate over each word.
+        for word in ordered:
+            # Need to go backwards for the individual bits though.
+            for ii in range(7, -1, -1):
+                # Mask the specific bit, combine it with value, and then truth with
+                # 1 to get zero or one
+                view += str(word & (1 << ii) and 1)
+        return view + ', collapsed: ' + str(self.collapsed)
+        
+    def _split(self, value):
+        ''' Splits the value into each word.
+        '''
+        split = []
+        for ii in range(len(self._words)):
+            # Isolate words, one at a time, by shifting them over (truncates 
+            # anything out of bounds) and masking with 0b11111111
+            word = (value >> (8 * ii)) & 255
+            split.append(word)
+        return split
+        
+    @property
+    def _collapsed_ordered(self):
+        ''' Collapses the internal representation into a single integer.
+        THIS IS NOT THE SAME THING YOU WOULD PASS TO STRUCT.PACK! This
+        pays attention to bit ordering during the collapse.
+        '''
+        collapsed = 0
+        ordered = self._ordered()
+        for ii in range(len(ordered)):
+            collapsed |= ordered[ii] << (8 * ii)
+        return collapsed
+        
+    @staticmethod
+    def _order_big(itr):
+        ''' Returns a properly-ordered iterable for big-endianness.
+        '''
+        itr = itr.copy()
+        itr.reverse()
+        return itr
+        
+    @staticmethod
+    def _order_little(itr):
+        ''' Returns a properly-ordered iterable for little-endianness.
+        '''
+        return itr.copy()
+      
+        
+class MmapPinBase(PinBase, Register):
+    ''' Abstract base class for any memory-mapped pin.
+    
+    Subclass register or just have one?
+    '''
+    @abstractmethod
+    def __init__(self, system_name, hardware_name=None):
+        ''' 
+        hardware_name: what the hardware calls this pin, ex '8_7'
+        system_name: what the system calls this pin, ex 'r7'
+        
+        No need for the names to be different. If no hardware_name is 
+        provided, uses the system_name as the hardware_name.
+        '''
+        super().__init__()
+        # Explicitly check for None as hardware name to preserve things that
+        # evaluate to False:
+        if hardware_name == None:
+            hardware_name = system_name
+        # And set them into self.
+        self._hardware_name = hardware_name
+        self._system_name = system_name
+    
+    @property
+    def register_name(self):
+        ''' Returns the name of the memory register that controls the 
+        behavior of this pin.
+        '''
+        return self._register_name
+    
+        
+class Runnable(metaclass=ABCMeta):
+    ''' An abstract base class for anything that can be run in the
+    hwiopy package. Subclasses must implement on_start, on_stop, and are
+    guaranteed to have a read-only self.running property.
+    
+    As a convenience, the on_start and on_stop methods have been given
+    bindings to the context manager as well.
+    '''
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._running = False
+       
+    @abstractmethod 
+    def on_start(self):
+        ''' Any actions to perform on the pin when the device starts.
+        '''
+        self._running = True
+        
+    @abstractmethod
+    def on_stop(self):
+        ''' Any actions to perform on the pin when the device stops.
+        '''
+        self._running = False
+        
+    @property
+    def running(self):
+        ''' Read-only property describing whether or not the pin is
+        currently running.
+        '''
+        return self._running
+        
+    def __enter__(self):
+        ''' Call on_start in a with statement.
+        '''
+        self.on_start()
+        return self
+        
+    def __exit__(self):
+        ''' Call on_stop when leaving a with statement.
+        '''
+        self.on_stop()
+        
+    
+class _LockingPersistentMMap(mmap.mmap):
+    ''' Wraps mmap, replacing the default context manager behavior with
+    a locking mechanism. Intended to allow systems to handle their mmap
+    opening and closing within THEIR respective context manager methods,
+    whilst making the mmaps they use thread-safe.
+    
+    Inits with an open file object and a python slice of the zeroth, 
+    '''
+    def __init__(self, f, length, offset):
+        # Insert a lock into self and call super.
+        self.__lock = threading.Lock()
+        super().__init__(f.fileno(), length, offset=offset)
+        
+    def __enter__(self):
+        # Get the lock and then return self.
+        self.__lock.acquire()
+        return self
+        
+    def __exit__(self):
+        # Release the lock.
+        self.__lock.release()
+
+
 class _UndetectedHardware():
     ''' Exists for the sole purpose of preventing the use of DetectedHardware
     when the hardware was not autodetected.
@@ -486,53 +503,75 @@ class _UndetectedHardware():
         raise RuntimeError('Hardware was not autodetected during install. If '
                            'you\'re running a system that should have been '
                            'detected, try reinstalling the package.')
-
 # This bit is used for DetectedHardware to know where it inherits from.
-_detected_hardware = _UndetectedHardware
+_DetectedHardware = _UndetectedHardware
 if False:
-    _detected_hardware = BBB
-
+    _DetectedHardware = BBB
 # DetectedHardware directly and only wraps the class for whatever hardware 
 # platform was detected.
-class DetectedHardware(_detected_hardware):
+class DetectedHardware(_DetectedHardware):
     ''' Use the hardware that was autodetected during pip install. If the 
     hardware could not be detected, immediately raises RuntimeError, thanks to
     _UndetectedHardware.
     '''
     pass
 
-class PairedKeyDict():
+
+
+
+
+
+
+
+
+
+'''
+The idea is to very easily generate device new device descriptions for a
+given SoC, as well as provide a super simple way to get the SoC terminal.
+
+Might add a "user_name" field that supports arbitrary anything, so that
+someone might, for example, call "P8_7" on the beaglebone "test_pin".
+'''
+class ParallelKeyMap():
     ''' Parallel dictionary supporting bi-directional lookup between a device's
     pin naming scheme and an arbitrary hwiopy-internal integer description of 
     its pins.
 
-    pinmapper['name'] -> internal pin number
-    pinmapper[internal pin number] - > 'name'
-    pinmapper(<either>) -> SoC terminal mapping
-
-    The idea is to very easily generate device new device descriptions for a
-    given SoC, as well as provide a super simple way to get the SoC terminal.
-
-    Might add a "user_name" field that supports arbitrary anything, so that
-    someone might, for example, call "P8_7" on the beaglebone "test_pin".
+    Getting an item:
+    >>> ParallelKeyDict[<any valid key>]
+    value
+    
+    Setting a new value:
+    >>> ParallelKeyDict[Key1A, Key1B, Key1C...] = value
+    (sets the value to all of the keys for a new value)
+    
+    Setting an existing value:
+    >>> ParallelKeyDict[<any valid key>] = newvalue
+    
+    Linking keys:
+    >>> ParallelKeyDict.link(old key, [new keys])
+    
+    Seeing linked keys:
+    >>> ParallelKeyDict(<any valid key>)
+    [All associated parallel keys]
+    
+    Removing a parallel key:
+    >>> ParallelKeyDict.unlink(reference key, [keys to remove])
+    
+    Remove an entire item (also, all keys):
+    >>> del ParallelKeyDict[<any valid key>]
+    
+    Does not (yet) support initialization of keys in a single shot.
     '''
-    def __init__(self, pin_names=None, pin_connections=None, mapping=None):
-        '''
-        pin_names is an ordered list of names.
-        pin_connections is also an ordered list.
-        mapping is a dict.
-
-        Why the weird construct? Because I can't totally guarantee the 
-        consistency of a dictionary's order.
-
-        Integer-based addressing is awkward. I should probably resort to hash
-        addressing.
+    
+    def __init__(self):
+        ''' errrrrrr...
         '''
         # First call super
         super().__init__()
 
-        # Store mapping on the off chance it's useful later
-        self._mapping = mapping
+        # Give it a namespace. This is where we'll record every name.
+        self._namespace = set()
 
         # Now, the internal address.
         # Why the extra list instead of just using the index? Well, because we
@@ -652,54 +691,215 @@ class PairedKeyDict():
             return self._addresses.index(key)
         else:
             raise KeyError('The key was found in neither names nor addresses.')
+         
 
-class PinBase(metaclass=ABCMeta):
-    ''' An abstract base class for all pin objects, regardless of function. 
+class SplitHashMap(collections.MutableMapping):
+    ''' Creates a key: value store from a hash map using a specified 
+    hash algorithm. 
     
-    Should always call self.setup.
+    This seems a bit redundant, I suppose, given that python dicts *are*
+    hash maps. However, the point of this class is to support more 
+    complex use cases, for examples:
+    1. Chain maps with reused content but different key structures
+    2. Parallel key dictionaries
+    3. Hash maps using secure hash functions (useful for content-based
+       addressing)
+    (that is actually everything I can think of at this moment).
+    I'd be happy to hear of cleverer ways of doing this!
     '''
-    def __init__(self):
-        self.setup()
+    def __init__(self, d=None, hasher=hash):
+        ''' Creates a SecureHashMap, optionally from an existing dict d.
+        Uses hash algorithm "hasher", which must be a callable, and 
+        should take one positional argument (the object to hash) and 
+        return the finalized hash. The type compatibility of the hasher
+        will determine the type compatibility of the split hash map. 
+        Also worth noting: there is no built-in handling of hash 
+        collisions, so plan accordingly. If the splitting method 
+        encounters a collision, it will raise a ValueError.
         
-    @abstractmethod
-    def on_start(self):
-        ''' Any actions to perform on the pin when the device starts.
+        This DOES support nested containers, but they must be either
+        dict-like or list-like.
+        
+        The output of hasher *must* be usable as a dictionary key. In
+        general, int is most efficient?
         '''
-        pass
+        # First, some error traps.
+        # Ensure hasher is callable.
+        if not callable(hasher):
+            raise TypeError('hasher must be callable.')
+        # Turn d into a dictionary so we have items()
+        try:
+            d = dict(d or {})
+        except TypeError:
+            raise TypeError('d must be dict-like.')
+            
+        # Initialize the content dict
+        self._split_values = {}
+        # Split the input dictionary accordingly.
+        self._split_keys = self._recursive_split(d, self._split_values, hasher)
+        # Add in the hasher
+        self._hasher = hasher
+
+    def __getitem__(self, key):
+        ''' Returns the chained byte value, instead of simply the 
+        content's hash address.
+        '''
+        # Get the address (or the mapping) from the key.
+        address = self._split_keys[key]
+        # Recombine it (note we need to use recursive join because otherwise
+        # nested mappings are unsupported)
+        return self._recursive_join(address, self._split_values)
+
+    def __setitem__(self, key, value):
+        ''' Overrides default chainmap behavior, separating the key: value into
+        a key: hash, hash: value dictionary, to allow for more robust internal
+        manifest manipulation (and robust inheritance / anteheritance).
+        '''
+        # Do a recursive split of any content from the value, in case it's 
+        # a container.
+        stripped_mapping = self._recursive_split(value, self._split_values, 
+                                                 self._hasher)
+        
+        # That will automagically mutate the self._split_values to include the
+        # stripped value.
+        self._split_keys[key] = stripped_mapping
+
+    def __delitem__(self, key):
+        ''' Smarter delete mechanism that garbage collects the self.content
+        dictionary in addition to deleting the key from the mapping.
+
+        todo: consider adding a method to delete content based on the content,
+        thereby removing all the keys that point to it as well.
+        
+        todo: this is going to have a weird effect if you delete keys 
+        from nested mappings. That should probably be figured out, but
+        it can't be handled here. Well, I guess the only side effect 
+        would be persistence in the content dictionary. Other than that,
+        it should work just fine. But it would be orphaned content.
+        '''
+        # Actually, uh, this is pretty easy. Delete the key or mapping from the
+        # keys dict
+        del self._split_keys[key]
+        # And garbage collect. Note that deleting a toplevel key might delete
+        # lower-level mappings, so we can't just abandon if orphan.
+        self.garbage_collect()
+
+    def __len__(self):
+        ''' Returns the length of the keys.
+        '''
+        return len(self._split_keys)
+        
+    def __iter__(self):
+        ''' Returns the split keys iter.
+        '''
+        return self._split_keys.__iter__()
+
+    def garbage_collect(self):
+        ''' Checks every address in _split_values, removing it if not 
+        found.
+        '''
+        # Note that we need to create a separate set of keys for this to avoid
+        # "dictionary changed size during iteration"
+        for address in set(self._split_values):
+            self._abandon_if_orphan(address)
+
+    def clear(self):
+        ''' Ensures content is also cleared when the SHM is.
+        '''
+        self._split_values.clear()
+        self._split_keys.clear()
+
+    def _abandon_if_orphan(self, address):
+        ''' Recursively checks the mapping for the address, removing it
+        from values if not found.
+        '''
+        # Look at every mapping in _split_keys
+        if not self._recursive_check(self._split_keys, address):
+            del self._split_values[address]
+        
+    @classmethod
+    def _recursive_join(cls, mapping, content):
+        ''' Inspects every key: value pair in mapping, and then replaces
+        any hash with its content. If the value is a container, 
+        recurses.
+        '''
+        # Create a new instance of the mapping to copy things to.
+        if isinstance(mapping, collections.Mapping):
+            joined = mapping.__class__()
+            for key, value in mapping.items():
+                joined[key] = cls._recursive_join(value, content)
+        elif isinstance(mapping, collections.MutableSequence):
+            joined = mapping.__class__()
+            for value in mapping:
+                joined.append(cls._recursive_join(value, content))
+        # Not a container. Process the value.
+        else:
+            # In this case, mapping is actually an address.
+            joined = content[mapping]
+            
+        return joined
+
+    @classmethod
+    def _recursive_split(cls, mapping, content, hasher):
+        ''' Inspects every key: value pair in mapping, and then replaces
+        any content with its hash. If the value is a container, 
+        recurses.
+        
+        Returns the stripped mapping.
+        '''
+        # Create a new instance of the mapping to copy things to.
+        if isinstance(mapping, collections.Mapping):
+            stripped = mapping.__class__()
+            for key, value in mapping.items():
+                stripped[key] = cls._recursive_split(value, content, hasher)
+        elif isinstance(mapping, collections.MutableSequence):
+            stripped = mapping.__class__()
+            for value in mapping:
+                stripped.append(cls._recursive_split(value, content, hasher))
+        # Not a container. Process the value.
+        else:
+            # Let's split this shit. Get the has/address
+            stripped = hasher(mapping)
+            # Add it to external (outside of recursion) content if needed.
+            if stripped not in content:
+                content[stripped] = mapping
+            # Ensure non-collision, and if collision, error.
+            elif content[stripped] != mapping:
+                raise ValueError('Hash collision. Sorry, not currently '
+                                 'handled. Choose a different hash function, '
+                                 'a different value, or implement a custom '
+                                 'subclass with proper collision handling.')
                 
-    @abstractmethod
-    def on_stop(self):
-        ''' Any actions to perform on the pin when the device stops.
-        '''
-        pass
+        # And return whatever we did.
+        return stripped
         
-    @abstractmethod
-    def setup(self):
-        ''' Any actions needed to perform to set up the pin. This method should
-        be called once, at initialization. It should **not** be used to 
-        configure the pin after a device has started.
-        '''
-        pass
-
-    @abstractmethod
-    def release(self):
-        ''' Performs any cleanup needed to un-setup the pin and return the pin
-        to its previous state.
-        '''
-        pass
-
-    @abstractmethod
-    def config(self):
-        ''' Performs configuration steps for the pin. May be called while 
-        device is running.
-        '''
-        pass
+    @classmethod
+    def _recursive_check(cls, mapping, address):
+        ''' Inspects every key: value pair in mapping, and looks to see
+        if any of the mappings point to the address. If the mapping is
+        a container, recurses.
         
-    @abstractmethod
-    def __call__(self):
-        ''' The default pin behavior. For example, PWM might __call__(50%) for
-        a 50% duty cycle. GPIO might __call__(1) to output high, or __call__()
-        to read. This is a post-configuration "route of least resistance" way
-        to interact with the pin.
+        A note on design decisions:
+        Significant issues were encountered trying to implement this 
+        class in a properly duck-typed way. The problem is that non-
+        container iterable types like bytes and strings present huge
+        challenges. In order to accomodate as many container types
+        as possible, whilst simultaneously allowing for arbitrary
+        content, I decided to limit the container types to those that
+        are detected as either collections.Mapping or
+        collections.MutableSequence. That means tuples will be ignored.
+        
+        Also, readability counts.
         '''
-        pass
+        found = False
+        # In for a penny, in for a pound.
+        if isinstance(mapping, collections.Mapping):
+            for value in mapping.values():
+                found |= cls._recursive_check(value, address)
+        elif isinstance(mapping, collections.MutableSequence):
+            for value in mapping:
+                found |= cls._recursive_check(value, address)
+        else:
+            found |= (mapping == address)
+        # Return.
+        return found
